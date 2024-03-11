@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float maxDevideRate;
     [SerializeField] private int maxDepth;
     [SerializeField] Tilemap tileMap;
+    [SerializeField] Tilemap tileMap_Room;
     [SerializeField] Tile RoomTile;
     [SerializeField] Tile WallTile;
     [SerializeField] Tile outTile;
@@ -36,7 +37,7 @@ public class MapGenerator : MonoBehaviour
         if (n == maxDepth) return;
 
         int maxLength = Mathf.Max(Tree.nodeRect.width, Tree.nodeRect.height);
-        int split = Mathf.RoundToInt(UnityEngine.Random.Range(maxLength*minDevideRate,maxLength*maxDevideRate));
+        int split = Mathf.RoundToInt(Random.Range(maxLength*minDevideRate,maxLength*maxDevideRate));
         if(Tree.nodeRect.width >= Tree.nodeRect.height){
             Tree.leftNode = new Node(new RectInt(Tree.nodeRect.x, Tree.nodeRect.y, split, Tree.nodeRect.height));
             Tree.rightNode = new Node(new RectInt(Tree.nodeRect.x+split, Tree.nodeRect.y, Tree.nodeRect.width-split, Tree.nodeRect.height));
@@ -63,7 +64,7 @@ public class MapGenerator : MonoBehaviour
             int y = rect.y + Random.Range(1, rect.height - height);
 
             rect = new RectInt(x, y, width, height);
-            FillRoom(rect);         
+            FillRoom(rect, n);         
         }
         else{
             Tree.leftNode.roomRect = GenerateRoom(Tree.leftNode, n+1);
@@ -104,10 +105,12 @@ public class MapGenerator : MonoBehaviour
                         }
     }
 
-    private void FillRoom(RectInt rect) { 
+    private void FillRoom(RectInt rect, int n) { 
     for(int i = rect.x; i< rect.x + rect.width; i++)
-            for(int j = rect.y; j < rect.y + rect.height; j++)
+            for(int j = rect.y; j < rect.y + rect.height; j++){
+                
                 tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), RoomTile);
+            }
     }
 }
 
