@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class MoveController : MonoBehaviour
 {
@@ -11,14 +13,22 @@ public class MoveController : MonoBehaviour
 
     private bool isMoving = false;
 
-    void Start()
-    { 
+    void Start() {
+        transform.localPosition = new Vector3Int(0,0,0); 
     }
 
     void Update()
     {
+        float dirX = Input.GetAxisRaw("Horizontal");
+        float dirY = Input.GetAxisRaw("Vertical");
+
+        Debug.DrawRay(transform.position, new Vector3(dirX,dirY,0), Color.black, 0.3f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(dirX,dirY,0), 1, LayerMask.GetMask("Tile"));
         
-        if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && !isMoving)
+        if(hit.collider != null)
+            Debug.Log(hit.collider.name);
+
+        if ((dirX != 0 || dirY != 0) && !isMoving && !hit)
         {
             StartCoroutine( PlayerMove());
         }
@@ -30,7 +40,7 @@ public class MoveController : MonoBehaviour
 
         float elapsedTime = 0;
 
-        OriPos = transform.position;
+        OriPos = new Vector3((int)transform.position.x, (int)transform.position.y,0);
         targetPos = OriPos + new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         while(elapsedTime < speed){
@@ -39,7 +49,7 @@ public class MoveController : MonoBehaviour
             yield return null;
         }
         
-        transform.position = targetPos;
+        this.gameObject.transform.position = targetPos;
         if(!Input.GetKey(KeyCode.Space)) yield return new WaitForSeconds(speed);
         isMoving = false;
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tile_Wall
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 1726808552, guid: 8b03011bd28bd764c8aa93dcbba5b494, type: 3}
-  m_Color: {r: 0.5204489, g: 0.5943396, b: 0.378471, a: 1}
+  m_Color: {r: 1, g: 0.7719127, b: 0, a: 1}
   m_Transform:
     e00: 1
     e01: 0
@@ -33,4 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 0
+  m_ColliderType: 1

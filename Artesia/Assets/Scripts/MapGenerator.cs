@@ -17,14 +17,17 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Tile RoomTile;
     [SerializeField] Tile WallTile;
     [SerializeField] Tile outTile;
-    void Start()
-    {
+    Node StartRoom;
+    Node StairRoom;
+    void Awake() {
         FillBackGround();
         Node root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
         Divide(root,0);
+
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall();
+        
     }
 
     private void FillBackGround(){

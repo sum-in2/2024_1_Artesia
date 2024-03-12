@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 1806468218}
   - component: {fileID: 1806468217}
   - component: {fileID: 1806468219}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap_Collider
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -650,7 +650,7 @@ TilemapCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -663,5 +663,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1685033538}
-  - {fileID: 1668835126}
   - {fileID: 245332513}
+  - {fileID: 1668835126}
