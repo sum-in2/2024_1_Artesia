@@ -10,11 +10,12 @@ public class MoveController : MonoBehaviour
     public float speed = 0.2f;
     Vector2 OriPos;
     Vector2 targetPos;
+    GameObject test;
 
     private bool isMoving = false;
 
     void Start() {
-        transform.localPosition = new Vector3Int(0,0,0); 
+        transform.localPosition = MapGenerator.instance.StartPos;
     }
 
     void Update()
@@ -24,9 +25,6 @@ public class MoveController : MonoBehaviour
 
         Debug.DrawRay(transform.position, new Vector3(dirX,dirY,0), Color.black, 0.3f);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(dirX,dirY,0), 1, LayerMask.GetMask("Tile"));
-        
-        if(hit.collider != null)
-            Debug.Log(hit.collider.name);
 
         if ((dirX != 0 || dirY != 0) && !isMoving && !hit)
         {

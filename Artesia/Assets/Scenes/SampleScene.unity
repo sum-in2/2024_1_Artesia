@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 1685033537}
   m_Layer: 0
   m_Name: MapGenerator
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -476,15 +476,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c2b54675247b943b8eceedcb393645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: {x: 64, y: 36}
-  minDevideRate: 0.4
-  maxDevideRate: 0.7
-  maxDepth: 3
+  mapSize: {x: 512, y: 288}
+  minDevideRate: 0.3
+  maxDevideRate: 0.8
+  maxDepth: 6
   tileMap: {fileID: 1806468218}
-  tileMap_Room: {fileID: 0}
   RoomTile: {fileID: 11400000, guid: 98a67771e7d125646af1f364106e9c78, type: 2}
   WallTile: {fileID: 11400000, guid: 1efa1a4813f8e7e41bdbf2da66b8de5b, type: 2}
   outTile: {fileID: 11400000, guid: 9e061eb8534f66545913df942aab43ab, type: 2}
+  startTile: {fileID: 11400000, guid: ee9f576a02546794b9955791eca14b35, type: 2}
 --- !u!4 &1685033538
 Transform:
   m_ObjectHideFlags: 0

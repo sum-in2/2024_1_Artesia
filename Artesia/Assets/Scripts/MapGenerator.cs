@@ -1,33 +1,79 @@
+using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Unity.Collections;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Vector2 = UnityEngine.Vector2;
+//using Vector2 = UnityEngine.Vector2;
+using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
+    public static MapGenerator instance; // 싱글톤
     [SerializeField] Vector2Int mapSize;
     [SerializeField] float minDevideRate;
     [SerializeField] float maxDevideRate;
-    [SerializeField] private int maxDepth;
+    [SerializeField] int maxDepth;
     [SerializeField] Tilemap tileMap;
-    [SerializeField] Tilemap tileMap_Room;
     [SerializeField] Tile RoomTile;
     [SerializeField] Tile WallTile;
     [SerializeField] Tile outTile;
     Node StartRoom;
+    private Vector3Int startpos;
+    public Vector3Int StartPos{
+        get{ return startpos; }
+    }
     Node StairRoom;
+
+    int StartDepth;
+    int StairDepth;
+
     void Awake() {
+        instance = this;
+
         FillBackGround();
         Node root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
         Divide(root,0);
-
+        InitRoom(root, 0);
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall();
+    }
+
+    void InitRoom(Node Tree, int n){
+
+        if(Random.Range(0,2) == 0){
+            StartRoom = Tree.leftNode;
+            StairRoom = Tree.rightNode;
+        } else {
+            StartRoom = Tree.rightNode;
+            StairRoom = Tree.leftNode;
+        }
         
+        InitStartRoom(StartRoom, n+1, Random.Range(0, (int)Mathf.Pow(2,maxDepth-1)));
+        //InitStairRoom(StairRoom, n+1, Random.Range(0,(int)math.pow(2,maxDepth-1)));
+    }
+
+    void InitStartRoom(Node Tree, int n, int maxStartDepth){
+        if(n == maxDepth) {
+            StartDepth++;
+
+            if(StartDepth == maxStartDepth){
+                StartRoom = Tree;
+            }
+
+            return;
+        }
+
+        InitStartRoom(Tree.leftNode, n + 1, maxStartDepth);
+        InitStartRoom(Tree.rightNode, n + 1, maxStartDepth);
+    }
+
+    void InitStairRoom(Node Tree, int n, int maxStairDepth){
+
     }
 
     private void FillBackGround(){
@@ -67,7 +113,8 @@ public class MapGenerator : MonoBehaviour
             int y = rect.y + Random.Range(1, rect.height - height);
 
             rect = new RectInt(x, y, width, height);
-            FillRoom(rect, n);         
+            FillRoom(rect, n);
+            if(Tree == StartRoom) FillRoom(Tree, rect);
         }
         else{
             Tree.leftNode.roomRect = GenerateRoom(Tree.leftNode, n+1);
@@ -95,25 +142,44 @@ public class MapGenerator : MonoBehaviour
     
     void FillWall(){
         for(int i = 0; i < mapSize.x; i++)
-            for(int j = 0; j < mapSize.y; j++)
-                if(tileMap.GetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0)) == outTile)
+            for(int j = 0; j < mapSize.y; j++) // i, j 맵 전체 순회
+                if(tileMap.GetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0)) == outTile) // 순회한 위치가 바깥 타일이면
                     for(int x = -1 ; x <= 1; x++)
-                        for(int y = -1; y <= 1; y++){
-                            if(x == 0 && y == 0) continue;
+                        for(int y = -1; y <= 1; y++){ // 현재 자리를 중심으로 3*3 순회
+                            if(x == 0 && y == 0) continue; // 현재 자리 검사는 안해도 됨
 
-                            if(tileMap.GetTile(new Vector3Int(i - mapSize.x /2 + x, j - mapSize.y / 2 + y, 0)) == RoomTile){
-                                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), WallTile);
+                            if(tileMap.GetTile(new Vector3Int(i - mapSize.x /2 + x, j - mapSize.y / 2 + y, 0)) == RoomTile){    // 순회한 위치가 룸타일이면 
+                                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), WallTile);             // 벽 생성
                                 break;
                             }
                         }
     }
 
     private void FillRoom(RectInt rect, int n) { 
-    for(int i = rect.x; i< rect.x + rect.width; i++)
-            for(int j = rect.y; j < rect.y + rect.height; j++){
-                
-                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), RoomTile);
+        for(int i = rect.x; i< rect.x + rect.width; i++)
+                for(int j = rect.y; j < rect.y + rect.height; j++){
+                    tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), RoomTile);
+                }
+    }
+
+    void FillRoom(Node Tree, RectInt rect){
+        if(Tree == StartRoom){
+            startpos = new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0);
+            /* 디버깅 용
+            for(int i = rect.x; i < rect.x + rect.width; i++){  
+                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, rect.y - mapSize.y/2, 0), startTile);
+                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, rect.y + rect.height - mapSize.y/2, 0), startTile);
             }
+
+            for(int i = rect.y; i < rect.y + rect.height; i++){
+                tileMap.SetTile(new Vector3Int(rect.x - mapSize.x / 2, i - mapSize.y/2, 0), startTile);
+                tileMap.SetTile(new Vector3Int(rect.x + rect.width - mapSize.x / 2, i - mapSize.y/2, 0), startTile);
+            }
+            */
+            
+            // tileMap.SetTile(new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0), startTile); //settile 할 필요 없이 플레이어블 오브젝트 포지션만 옮기면 될듯
+
+
+        }
     }
 }
-
