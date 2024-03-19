@@ -10,11 +10,14 @@ public class MoveController : MonoBehaviour
     public float speed = 0.2f;
     Vector2 OriPos;
     Vector2 targetPos;
-    GameObject test;
 
     private bool isMoving = false;
 
     void Start() {
+        MovePos();
+    }
+
+    public void MovePos(){
         transform.localPosition = MapGenerator.instance.StartPos;
     }
 

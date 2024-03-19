@@ -12,35 +12,57 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
-    public static MapGenerator instance; // 싱글톤
+    static MapGenerator m_instance; // 싱글톤
     [SerializeField] Vector2Int mapSize;
     [SerializeField] float minDevideRate;
     [SerializeField] float maxDevideRate;
     [SerializeField] int maxDepth;
     [SerializeField] Tilemap tileMap;
+    [SerializeField] Tilemap Test;
     [SerializeField] Tile RoomTile;
     [SerializeField] Tile WallTile;
     [SerializeField] Tile outTile;
+    [SerializeField] Tile stairTile;
     Node StartRoom;
-    private Vector3Int startpos;
+    Vector3Int startPos;
+    Vector3Int stairPos;
     public Vector3Int StartPos{
-        get{ return startpos; }
+        get{ return startPos; }
     }
+    public static MapGenerator instance {
+        get {
+            return m_instance;
+        }
+    }
+
     Node StairRoom;
 
     int StartDepth;
     int StairDepth;
 
-    void Awake() {
-        instance = this;
+    void Awake() {   
+        m_instance = this; 
+        InitMap();
+    }
 
+    public void InitMap(){
+        initMember();
         FillBackGround();
         Node root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
         Divide(root,0);
+
         InitRoom(root, 0);
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall();
+        Debug.Log(startPos);
+    }
+
+    void initMember(){
+        StairDepth = 0;
+        StartDepth = 0;
+        if(Test.GetTile(stairPos) == stairTile)
+            Test.SetTile(stairPos, null);
     }
 
     void InitRoom(Node Tree, int n){
@@ -54,26 +76,31 @@ public class MapGenerator : MonoBehaviour
         }
         
         InitStartRoom(StartRoom, n+1, Random.Range(0, (int)Mathf.Pow(2,maxDepth-1)));
-        //InitStairRoom(StairRoom, n+1, Random.Range(0,(int)math.pow(2,maxDepth-1)));
+        InitStairRoom(StairRoom, n+1, Random.Range(0, (int)Mathf.Pow(2,maxDepth-1)));
     }
 
     void InitStartRoom(Node Tree, int n, int maxStartDepth){
         if(n == maxDepth) {
-            StartDepth++;
-
             if(StartDepth == maxStartDepth){
                 StartRoom = Tree;
             }
-
+            StartDepth++;
             return;
         }
-
         InitStartRoom(Tree.leftNode, n + 1, maxStartDepth);
         InitStartRoom(Tree.rightNode, n + 1, maxStartDepth);
     }
 
-    void InitStairRoom(Node Tree, int n, int maxStairDepth){
-
+   void InitStairRoom(Node Tree, int n, int maxStairDepth){
+        if(n == maxDepth) {
+            if(StairDepth == maxStairDepth){
+                StairRoom = Tree;
+            }
+            StairDepth++;
+            return;
+        }
+        InitStairRoom(Tree.leftNode, n + 1, maxStairDepth);
+        InitStairRoom(Tree.rightNode, n + 1, maxStairDepth);
     }
 
     private void FillBackGround(){
@@ -114,7 +141,7 @@ public class MapGenerator : MonoBehaviour
 
             rect = new RectInt(x, y, width, height);
             FillRoom(rect, n);
-            if(Tree == StartRoom) FillRoom(Tree, rect);
+            if(Tree == StartRoom || Tree == StairRoom) FillRoom(Tree, rect);
         }
         else{
             Tree.leftNode.roomRect = GenerateRoom(Tree.leftNode, n+1);
@@ -140,19 +167,29 @@ public class MapGenerator : MonoBehaviour
         GenerateLoad(Tree.rightNode, n + 1);
     }
     
-    void FillWall(){
-        for(int i = 0; i < mapSize.x; i++)
-            for(int j = 0; j < mapSize.y; j++) // i, j 맵 전체 순회
-                if(tileMap.GetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0)) == outTile) // 순회한 위치가 바깥 타일이면
-                    for(int x = -1 ; x <= 1; x++)
-                        for(int y = -1; y <= 1; y++){ // 현재 자리를 중심으로 3*3 순회
-                            if(x == 0 && y == 0) continue; // 현재 자리 검사는 안해도 됨
+    void FillWall() {
+        for (int i = 0; i < mapSize.x; i++) {
+            for (int j = 0; j < mapSize.y; j++) { // i, j 맵 전체 순회
+                if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0)) == outTile) { // 순회한 위치가 바깥 타일이면
+                    if (ShouldPlaceWall(i, j)) { // 조건 확인 메서드 사용
+                        tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), WallTile); // 벽 생성
+                    }
+                }
+            }
+        }
+    }
 
-                            if(tileMap.GetTile(new Vector3Int(i - mapSize.x /2 + x, j - mapSize.y / 2 + y, 0)) == RoomTile){    // 순회한 위치가 룸타일이면 
-                                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), WallTile);             // 벽 생성
-                                break;
-                            }
-                        }
+    bool ShouldPlaceWall(int i, int j) {
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) { // 현재 자리를 중심으로 3*3 순회
+                if (x == 0 && y == 0) continue; // 현재 자리 검사는 안해도 됨
+
+                if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2 + x, j - mapSize.y / 2 + y, 0)) == RoomTile) { // 순회한 위치가 룸타일이면
+                    return true; // 벽을 생성해야 함
+                }
+            }
+        }
+        return false; // 벽을 생성하지 않음
     }
 
     private void FillRoom(RectInt rect, int n) { 
@@ -163,8 +200,14 @@ public class MapGenerator : MonoBehaviour
     }
 
     void FillRoom(Node Tree, RectInt rect){
+        Vector3Int Pos = new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0);
         if(Tree == StartRoom){
-            startpos = new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0);
+            startPos = Pos;
+        }
+        else if(Tree == StairRoom) {
+            stairPos = Pos;
+            Test.SetTile(Pos, stairTile);
+        }
             /* 디버깅 용
             for(int i = rect.x; i < rect.x + rect.width; i++){  
                 tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, rect.y - mapSize.y/2, 0), startTile);
@@ -178,8 +221,7 @@ public class MapGenerator : MonoBehaviour
             */
             
             // tileMap.SetTile(new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0), startTile); //settile 할 필요 없이 플레이어블 오브젝트 포지션만 옮기면 될듯
-
-
-        }
     }
+
+    
 }
