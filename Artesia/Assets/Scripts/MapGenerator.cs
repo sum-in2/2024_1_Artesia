@@ -29,8 +29,14 @@ public class MapGenerator : MonoBehaviour
     Vector3Int stairPos;
     List<Node> rooms;
 
+    public Vector2Int MapSize{
+        get{ return mapSize; }
+    }
     public Vector3Int StartPos{
         get{ return startPos; }
+    }
+    public Node startRoom{
+        get{ return StartRoom; }
     }
     public static MapGenerator instance {
         get {
@@ -62,10 +68,8 @@ public class MapGenerator : MonoBehaviour
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall();
-        GameManager.instance.setMapList(rooms);
-
-        /*for(int i = 0 ; i < rooms.Count; i++) // 리스트 디버깅
-            Debug.Log(rooms[i].roomRect);*/
+        GameManager.instance.MapList = rooms;
+        EnemySpawner.instance.SpawnEnemy();
     }
 
     void initMember(){

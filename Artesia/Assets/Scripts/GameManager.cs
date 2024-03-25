@@ -13,9 +13,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
 
-    List<Node> MapList;
-
-
+    public List<Node> MapList{get;set;}
 
     void Awake()
     {
@@ -23,13 +21,6 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
-    }
-
-    public void setMapList(List<Node> nodes){
-        MapList = nodes;
-        /*Debug.Log("GameManager MapList");
-        for(int i = 0 ; i < MapList.Count; i++) // 리스트 디버깅
-            Debug.Log(MapList[i].roomRect);*/
     }
 
     public void NextStage(){
