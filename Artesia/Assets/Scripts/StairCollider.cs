@@ -6,10 +6,19 @@ using UnityEngine;
 public class StairCollider : MonoBehaviour
 {
     [SerializeField] GameObject Player;
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Player"){
-            MapGenerator.instance.InitMap();
-            Player.gameObject.GetComponent<MoveController>().MovePos();
+    bool bTriggerEnter = false;
+    private void OnTriggerStay2D(Collider2D other) {
+        if(other.tag == "Player" && !bTriggerEnter){
+            if(gameObject.GetComponent<Collider2D>().bounds.center == other.bounds.center){
+                UIManager.instance.SetActiveNextStageUI(true);
+                bTriggerEnter = true;
+            }
         }
     }
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.tag == "Player" && bTriggerEnter){
+            bTriggerEnter = false;
+        }
+    }
+
 }

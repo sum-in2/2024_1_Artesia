@@ -18,11 +18,11 @@ public class PlayableController : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
-        c_HP = 20;
+        /*c_HP = 20;
         c_ATK = 5;
         c_DEF = 2;
         c_EXP = 0;
-        c_LV = 1;
+        c_LV = 1;*/
     }
 
     void AddEXP(int EXP){

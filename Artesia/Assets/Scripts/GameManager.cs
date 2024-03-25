@@ -10,7 +10,13 @@ public class GameManager : MonoBehaviour
             return Instance;
         }
     }
+
+    public GameObject Player;
+
     List<Node> MapList;
+
+
+
     void Awake()
     {
         if(Instance == null)
@@ -24,5 +30,12 @@ public class GameManager : MonoBehaviour
         /*Debug.Log("GameManager MapList");
         for(int i = 0 ; i < MapList.Count; i++) // 리스트 디버깅
             Debug.Log(MapList[i].roomRect);*/
+    }
+
+    public void NextStage(){
+        // Stage Index 추가 예정
+        
+        MapGenerator.instance.InitMap();
+        Player.GetComponent<MoveController>().MovePos();
     }
 }
