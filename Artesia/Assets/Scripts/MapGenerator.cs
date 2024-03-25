@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
@@ -26,6 +27,8 @@ public class MapGenerator : MonoBehaviour
     Node StartRoom;
     Vector3Int startPos;
     Vector3Int stairPos;
+    List<Node> rooms;
+
     public Vector3Int StartPos{
         get{ return startPos; }
     }
@@ -40,7 +43,7 @@ public class MapGenerator : MonoBehaviour
     int StartDepth;
     int StairDepth;
 
-    void Awake() {   
+    void Awake() {
         if(m_instance == null)
             m_instance = this; 
         else if(m_instance != this)
@@ -50,16 +53,19 @@ public class MapGenerator : MonoBehaviour
     }
 
     public void InitMap(){
+        rooms = new List<Node>();
         initMember();
         FillBackGround();
         Node root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
         Divide(root,0);
-
         InitRoom(root, 0);
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall();
-        Debug.Log(startPos);
+        GameManager.instance.setMapList(rooms);
+
+        /*for(int i = 0 ; i < rooms.Count; i++) // 리스트 디버깅
+            Debug.Log(rooms[i].roomRect);*/
     }
 
     void initMember(){
@@ -114,7 +120,10 @@ public class MapGenerator : MonoBehaviour
     }
 
     void Divide(Node Tree,int n){
-        if (n == maxDepth) return;
+        if (n == maxDepth) {
+            rooms.Add(Tree);
+            return;
+        }
 
         int maxLength = Mathf.Max(Tree.nodeRect.width, Tree.nodeRect.height);
         int split = Mathf.RoundToInt(Random.Range(maxLength*minDevideRate,maxLength*maxDevideRate));

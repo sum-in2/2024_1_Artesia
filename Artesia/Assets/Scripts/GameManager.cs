@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    static GameManager Instance;
+    public static GameManager instance{
+        get{
+            return Instance;
+        }
+    }
+    List<Node> MapList;
+    void Awake()
     {
-        
+        if(Instance == null)
+            Instance = this; 
+        else if(Instance != this)
+            Destroy(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void setMapList(List<Node> nodes){
+        MapList = nodes;
+        /*Debug.Log("GameManager MapList");
+        for(int i = 0 ; i < MapList.Count; i++) // 리스트 디버깅
+            Debug.Log(MapList[i].roomRect);*/
     }
 }
