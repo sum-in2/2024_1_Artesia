@@ -41,7 +41,11 @@ public class MapGenerator : MonoBehaviour
     int StairDepth;
 
     void Awake() {   
-        m_instance = this; 
+        if(m_instance == null)
+            m_instance = this; 
+        else if(m_instance != this)
+            Destroy(this.gameObject);
+        
         InitMap();
     }
 

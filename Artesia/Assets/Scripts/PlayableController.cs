@@ -14,7 +14,10 @@ public class PlayableController : MonoBehaviour
     int[] MAXEXP = {100,};
 
     void Awake(){
-        Instance = this;
+        if(Instance == null)
+            Instance = this; 
+        else if(Instance != this)
+            Destroy(this.gameObject);
         c_HP = 20;
         c_ATK = 5;
         c_DEF = 2;
