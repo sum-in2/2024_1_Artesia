@@ -10,26 +10,27 @@ public class MoveController : MonoBehaviour
     public float speed = 0.2f;
     Vector2 OriPos;
     Vector2 targetPos;
+    Vector2 Dir;
 
     private bool isMoving = false;
 
     void Start() {
-        MovePos();
+        MoveStartPos();
     }
 
-    public void MovePos(){
+    public void MoveStartPos(){
         transform.localPosition = MapGenerator.instance.StartPos;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        float dirX = Input.GetAxisRaw("Horizontal");
-        float dirY = Input.GetAxisRaw("Vertical");
+        Dir.x = Input.GetAxisRaw("Horizontal");
+        Dir.y = Input.GetAxisRaw("Vertical");
 
-        Debug.DrawRay(transform.position, new Vector3(dirX,dirY,0), Color.black, 0.3f);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(dirX,dirY,0), 1, LayerMask.GetMask("Tile"));
+        Debug.DrawRay(transform.position, new Vector3(Dir.x,Dir.y,0), Color.black, 0.3f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(Dir.x,Dir.y,0), 1, LayerMask.GetMask("Tile"));
 
-        if ((dirX != 0 || dirY != 0) && !isMoving && !hit)
+        if ((Dir.x != 0 || Dir.y != 0) && !isMoving && !hit)
         {
             StartCoroutine( PlayerMove());
         }
@@ -42,7 +43,7 @@ public class MoveController : MonoBehaviour
         float elapsedTime = 0;
 
         OriPos = new Vector3((int)transform.position.x, (int)transform.position.y,0);
-        targetPos = OriPos + new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        targetPos = OriPos + Dir;
 
         while(elapsedTime < speed){
             transform.position = Vector2.Lerp(OriPos, targetPos, elapsedTime / speed);
