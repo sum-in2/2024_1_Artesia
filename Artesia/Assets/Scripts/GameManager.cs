@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void NextStage(){
