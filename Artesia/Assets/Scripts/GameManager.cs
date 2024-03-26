@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public void NextStage(){
         // Stage Index 추가 예정
-        
+        EnemySpawner.instance.EnemyListClear();
         MapGenerator.instance.InitMap();
         Player.GetComponent<MoveController>().MoveStartPos();
     }

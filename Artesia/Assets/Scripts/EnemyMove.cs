@@ -6,8 +6,7 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     Vector2Int Dir = new Vector2Int();
-    bool isMoving = false;
-    
+    public bool isMoving{get; set;}
     private void FixedUpdate() {
         if(!isMoving) EnemyRandomMove();
     }
