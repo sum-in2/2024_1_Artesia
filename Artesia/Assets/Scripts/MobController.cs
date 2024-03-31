@@ -1,40 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class MobController : MonoBehaviour
 {
-    public float speed = 0.2f;
-    Vector2 OriPos;
-    Vector2 targetPos;
-    Vector3 dir;
-    public bool mobTurn;
-    void Update()
-    {
-        dir.x = Random.Range(-1,2);
-        dir.y = Random.Range(-1,2);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 1, LayerMask.GetMask("Tile"));
-
-        if (dir != Vector3.zero && !hit && !mobTurn)
-        {
-            mobTurn = true;
-            StartCoroutine(MobMove());
-        }
+    public enum MobState{
+        Idle,
+        Move,
+        Atk,
     }
-    
-    private IEnumerator MobMove()
-    {
-        float elapsedTime = 0;
 
-        OriPos = new Vector3((int)transform.position.x, (int)transform.position.y,0);
-        targetPos = OriPos + new Vector2(dir.x, dir.y);
+    private Dictionary<MobState, IState<MobController>> dicState = new Dictionary<MobState, IState<MobController>>();
+    private StateMachine<MobController> SM;
 
-        while(elapsedTime < speed){
-            transform.position = Vector2.Lerp(OriPos, targetPos, elapsedTime / speed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+    void Awake(){
+        IState<MobController> idle = new MobIdle();
+        IState<MobController> move = new MobMove();
+        IState<MobController> atk = new MobAtk();
+
+        dicState.Add(MobState.Idle, idle);
+        dicState.Add(MobState.Move, move);
+        dicState.Add(MobState.Atk, atk);
+
+        //SM = new StateMachine<MobController>(this, dicState[MobState.Idle]);
+        SM = new StateMachine<MobController>(this, dicState[MobState.Move]); // 테스트 - move로 스타트
+    }
+
+    private void Update() { // turn 매니저에서 턴을 관리 할거니까 setstate도 흠 .. ... ..
+        //SM.SetState(dicState[MobState.Idle]);
+
+        if(SM.CurState == dicState[MobState.Move]){
+            /*if(this.GetComponent<MobMove>().targetPos == (Vector2)transform.position){
+                SM.SetState(dicState[MobState.Idle]);
+            }*/
+            SM.SetState(dicState[MobState.Idle]);
+            Debug.Log("ㅇㅇ?");
         }
-        
-        this.gameObject.transform.position = targetPos;
+
+        SM.DoOperateUpdate();
     }
 }

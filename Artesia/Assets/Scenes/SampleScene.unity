@@ -1346,7 +1346,7 @@ MonoBehaviour:
   maxDepth: 3
   tileMap: {fileID: 1368377030433730897}
   Test: {fileID: 1864313876420232685}
-  RoomTile: {fileID: 11400000, guid: 3c5c97ccee4163549886497d430b1dee, type: 2}
+  RoomTile: {fileID: 11400000, guid: 293eb18a533f16e438a0d47e38fa603d, type: 2}
   WallTile: {fileID: 11400000, guid: 538fb22147f159a44978fed664191a29, type: 2}
   outTile: {fileID: 11400000, guid: 9e214da478c80554eb02a9a3c788694d, type: 2}
   stairTile: {fileID: 11400000, guid: ce14fe482f3ff574a9b602a71ebe3c7e, type: 2}

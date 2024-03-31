@@ -59,10 +59,9 @@ public class MapGenerator : MonoBehaviour
     }
 
     public void InitMap(){
-        rooms = new List<Node>();
-        initMember();
+        Node root = null;
+        root = initMember(root);
         FillBackGround();
-        Node root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
         Divide(root,0);
         InitRoom(root, 0);
         GenerateRoom(root, 0);
@@ -72,11 +71,15 @@ public class MapGenerator : MonoBehaviour
         EnemySpawner.instance.SpawnEnemy();
     }
 
-    void initMember(){
+    Node initMember(Node root){
+        root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
+        rooms = new List<Node>();
         StairDepth = 0;
         StartDepth = 0;
         if(Test.GetTile(stairPos) == stairTile)
             Test.SetTile(stairPos, null);
+
+        return root;
     }
 
     void InitRoom(Node Tree, int n){
