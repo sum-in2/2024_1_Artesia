@@ -23,7 +23,9 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy(){
         List<Node> rooms = GameManager.instance.MapList;
+        
         foreach(Node room in rooms){
+
             if(room != MapGenerator.instance.startRoom){
                 Vector2 temp1 = room.roomRect.center;
                 Vector2Int temp2 = MapGenerator.instance.MapSize;

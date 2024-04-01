@@ -28,10 +28,8 @@ public class StateMachine<T>
         CurState = state;
 
         //새 상태의 Enter를 호출한다.
-        if (CurState != null){
+        if (CurState != null)
             CurState.OperateEnter(m_sender);
-            Debug.Log("AF?");
-        }
     }
     
     //State용 Update 함수.
