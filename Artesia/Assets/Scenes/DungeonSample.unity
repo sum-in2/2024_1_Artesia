@@ -554,6 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7476744625408343296, guid: 73237f18ddc11154e892cb593a39ed83, type: 3}
+  poolSize: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,8 +1271,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1726808552, guid: 8b03011bd28bd764c8aa93dcbba5b494, type: 3}
-  m_Color: {r: 0, g: 0.2463131, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 610986023eedc6841a0646dfad180835, type: 3}
+  m_Color: {r: 1, g: 0, b: 0.9244571, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1377,9 +1378,6 @@ MonoBehaviour:
   tileMap: {fileID: 1368377030433730897}
   Test: {fileID: 1864313876420232685}
   RoomTile: {fileID: 11400000, guid: 293eb18a533f16e438a0d47e38fa603d, type: 2}
-  WallTile: {fileID: 11400000, guid: 538fb22147f159a44978fed664191a29, type: 2}
-  outTile: {fileID: 11400000, guid: 9e214da478c80554eb02a9a3c788694d, type: 2}
-  RoomTile: {fileID: 11400000, guid: b3254638fe27c59408130d947c2d98c2, type: 2}
   WallTile: {fileID: 11400000, guid: d53e1b276fd2482448c2895d7b96b338, type: 2}
   outTile: {fileID: 11400000, guid: c12ec41f0ac6e0a45bebc0e395b2e2de, type: 2}
   stairTile: {fileID: 11400000, guid: ce14fe482f3ff574a9b602a71ebe3c7e, type: 2}

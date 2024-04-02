@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NextStageButton : MonoBehaviour
 {
-    
-
     public void onClickYesButton(){ 
         UIManager.instance.SetActiveNextStageUI(false);
         GameManager.instance.NextStage();

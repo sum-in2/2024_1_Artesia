@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;    
 
 public class MobController : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class MobController : MonoBehaviour
     public float speed {
         get { return Speed;}
     }
+    public bool PlayedTurn {get; set;}
 
     private Dictionary<MobState, IState<MobController>> dicState = new Dictionary<MobState, IState<MobController>>();
     private StateMachine<MobController> SM;
@@ -37,8 +40,8 @@ public class MobController : MonoBehaviour
         // 
         //SM.SetState(dicState[MobState.Idle]);
         // if(캐릭터 감지 함수){Move();}
-        Move();
-
+        if(!PlayedTurn)
+            Move();
         if(TargetPos == (Vector2)transform.position){
             SM.SetState(dicState[MobState.Idle]);
         }
@@ -48,6 +51,8 @@ public class MobController : MonoBehaviour
 
     void Move(){
         if(SM.CurState == dicState[MobState.Idle]){
+            Debug.Log("22");
+            PlayedTurn = true;
             RaycastHit2D hit;
             do{
                 Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));

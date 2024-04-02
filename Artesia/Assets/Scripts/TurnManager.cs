@@ -6,6 +6,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] GameObject Player;
+    List<GameObject> MobList;
     
     static TurnManager Instance;
     public static TurnManager instance{
@@ -19,5 +20,33 @@ public class TurnManager : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
+    }
+    
+    private void Start() {
+        MobList = EnemySpawner.instance.enemies;
+    }
+
+    private void Update(){
+        if(CheckUnitTurn()){
+            Player.GetComponent<PlayerController>().PlayedTurn = false;
+            foreach(GameObject Obj in MobList){
+                Obj.GetComponent<MobController>().PlayedTurn = false;
+            }
+        }
+    }
+
+    bool CheckUnitTurn(){
+        // 모든 유닛의 턴이 실행 됐으면 true > 턴 switch 함수
+        // 유닛의 턴 상태는 완료 > ture, 대기 > false
+        if(!Player.GetComponent<PlayerController>().PlayedTurn)
+            return false;
+        foreach(GameObject Obj in MobList){
+            if(!Obj.activeSelf)
+                continue;
+            if(!Obj.GetComponent<MobController>().PlayedTurn)
+                return false;
+        }
+        Debug.Log("checkunitTest");
+        return true;
     }
 }

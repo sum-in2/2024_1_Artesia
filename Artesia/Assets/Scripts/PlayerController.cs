@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
         get { return Speed;}
     }
     public bool isMoving { get; private set;} = false;
+    public bool PlayedTurn { get; set; }
 
     void Awake(){
         IState<PlayerController> idle = new PlayerIdle();
@@ -50,13 +51,15 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnMove(InputValue value){
-        if(SM.CurState == dicState[PlayerState.Idle]){
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle]){
+            Debug.Log("111");
             Vector2 input = value.Get<Vector2>();
             RaycastHit2D hit = Physics2D.Raycast(transform.position, input, 1, LayerMask.GetMask("Tile"));
             if(input != Vector2.zero && !hit){
                 Dir = input;
                 TargetPos = transform.position + new Vector3((int)Dir.x, (int)Dir.y, 0);
                 SM.SetState(dicState[PlayerState.Move]);
+                PlayedTurn = true;
             }
         }
     }
