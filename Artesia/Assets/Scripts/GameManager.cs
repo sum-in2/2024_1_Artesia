@@ -27,6 +27,6 @@ public class GameManager : MonoBehaviour
         // Stage Index 추가 예정
         
         MapGenerator.instance.InitMap();
-        Player.GetComponent<MoveController>().MovePos();
+        Player.GetComponent<PlayerController>().MovePos();
     }
 }

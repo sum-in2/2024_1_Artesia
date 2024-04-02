@@ -7,7 +7,7 @@ using Debug = UnityEngine.Debug;
 
 public class MoveController : MonoBehaviour
 {
-    public float speed = 0.2f;
+    /*public float speed = 0.2f;
     Vector2 OriPos;
     Vector2 targetPos;
     public bool playerTurn_move = false;
@@ -54,5 +54,5 @@ public class MoveController : MonoBehaviour
         
         this.gameObject.transform.position = targetPos;
         isMoving = false;
-    }
+    }*/
 }
