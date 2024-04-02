@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAtk : MonoBehaviour, IState<PlayerController>
+public class PlayerAtk : IState<PlayerController>
 {
     private PlayerController m_playerController;
 

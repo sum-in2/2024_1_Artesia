@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobIdle : MonoBehaviour, IState<MobController>
+public class MobIdle :  IState<MobController>
 {
     private MobController m_mobController;
 
