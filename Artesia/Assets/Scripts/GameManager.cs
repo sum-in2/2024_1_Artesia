@@ -21,11 +21,13 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void NextStage(){
         // Stage Index 추가 예정
-        
+        EnemySpawner.instance.EnemyListClear();
         MapGenerator.instance.InitMap();
         Player.GetComponent<PlayerController>().MovePos();
     }

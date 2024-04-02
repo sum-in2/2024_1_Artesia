@@ -18,6 +18,8 @@ public class PlayableController : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
         /*c_HP = 20;
         c_ATK = 5;
         c_DEF = 2;

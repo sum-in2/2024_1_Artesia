@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void SetActiveNextStageUI(bool bActive){

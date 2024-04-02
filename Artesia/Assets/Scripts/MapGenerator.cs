@@ -56,6 +56,7 @@ public class MapGenerator : MonoBehaviour
             Destroy(this.gameObject);
         
         InitMap();
+        
     }
 
     public void InitMap(){
@@ -177,11 +178,13 @@ public class MapGenerator : MonoBehaviour
         Vector2Int leftNodeCenter = Tree.leftNode.center;
         Vector2Int rightNodeCenter = Tree.rightNode.center;
 
-        for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x); i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x); i++)
+        for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x); i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x); i++){
             tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, leftNodeCenter.y - mapSize.y /2, 0), RoomTile);
+        }
 
-        for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y); i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y); i++)
+        for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y); i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y); i++){
             tileMap.SetTile(new Vector3Int(rightNodeCenter.x - mapSize.x / 2, i - mapSize.y / 2, 0), RoomTile);
+        }
 
         GenerateLoad(Tree.leftNode, n + 1);
         GenerateLoad(Tree.rightNode, n + 1);
