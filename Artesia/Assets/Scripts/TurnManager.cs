@@ -28,26 +28,30 @@ public class TurnManager : MonoBehaviour
 
     private void Update(){
         if(CheckUnitTurn()){
-            setPlayerTurn(false);
+            setTurn(Player, false);
             foreach(GameObject Obj in MobList){
-                Obj.GetComponent<MobController>().PlayedTurn = false;
+                setTurn(Obj, false);
             }
         }
     }
 
-    public void setPlayerTurn(bool input){
-        Player.GetComponent<PlayerController>().PlayedTurn = input;
+    public void setTurn(GameObject obj, bool input){
+        ITurn TurnTemp = obj.GetComponent<ITurn>();
+        if(TurnTemp != null)
+            TurnTemp.PlayedTurn = input;
+        else
+            Debug.Log("ITurn 상속받지 않은 오브젝트 : " + obj.name);
     }
 
     bool CheckUnitTurn(){
         // 모든 유닛의 턴이 실행 됐으면 true > 턴 switch 함수
         // 유닛의 턴 상태는 완료 > ture, 대기 > false
-        if(!Player.GetComponent<PlayerController>().PlayedTurn)
+        if(!Player.GetComponent<ITurn>().PlayedTurn)
             return false;
         foreach(GameObject Obj in MobList){
             if(!Obj.activeSelf)
                 continue;
-            if(!Obj.GetComponent<MobController>().PlayedTurn)
+            if(!Obj.GetComponent<ITurn>().PlayedTurn)
                 return false;
         }
         return true;

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;    
 
-public class MobController : MonoBehaviour
+public class MobController : MonoBehaviour, ITurn
 {
     public enum MobState{
         Idle,
@@ -34,6 +34,10 @@ public class MobController : MonoBehaviour
         dicState.Add(MobState.Atk, atk);
 
         SM = new StateMachine<MobController>(this, dicState[MobState.Idle]); // 테스트 - move로 스타트
+    }
+
+    public void setStateToIdle(){
+        SM.SetState(dicState[MobState.Idle]);
     }
 
     private void Update() { // turn 매니저에서 턴을 관리 할거니까 setstate도 흠 .. ... ..

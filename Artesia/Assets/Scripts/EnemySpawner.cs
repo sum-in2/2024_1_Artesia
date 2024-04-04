@@ -22,8 +22,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public int poolSize = 10; // 오브젝트 풀 크기
-
     void Awake()
     {
         if (m_instance == null)
@@ -33,12 +31,14 @@ public class EnemySpawner : MonoBehaviour
 
         Enemies = new List<GameObject>();
         enemyPool = new List<GameObject>();
+        AddEnemyToPool(enemyPrefab, 20);
+    }
 
-        // 초기에 오브젝트 풀에 enemyPrefab을 생성하여 추가합니다.
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
+    void AddEnemyToPool(GameObject Prefab, int EnemyCnt){
+        for (int i = 0; i < EnemyCnt; i++){
+            GameObject enemy = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
             enemy.SetActive(false); // 비활성화 상태로 시작
+            enemy.name = ("Enmey" + i);
             enemyPool.Add(enemy);
         }
     }
@@ -47,14 +47,12 @@ public class EnemySpawner : MonoBehaviour
     {
         foreach (GameObject Enemy in Enemies)
         {
-            Enemy.GetComponent<EnemyMove>().isMoving = false;
+            Enemy.GetComponent<MobController>().setStateToIdle();
             Enemy.SetActive(false); // 활성화된 상태를 false로 변경하여 비활성화합니다.
         }
-
-        Enemies.Clear();
     }
 
-    public void SpawnEnemy()
+    public void ActiveFromPool()
     {
         List<Node> rooms = GameManager.instance.MapList;
         

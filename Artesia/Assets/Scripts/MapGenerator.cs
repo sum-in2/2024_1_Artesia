@@ -69,7 +69,7 @@ public class MapGenerator : MonoBehaviour
         GenerateLoad(root, 0);
         FillWall();
         GameManager.instance.MapList = rooms;
-        EnemySpawner.instance.SpawnEnemy();
+        EnemySpawner.instance.ActiveFromPool();
     }
 
     Node initMember(Node root){

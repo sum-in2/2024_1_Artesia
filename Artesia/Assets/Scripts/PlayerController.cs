@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ITurn
 {
     public enum PlayerState{
         Idle,
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     }
     
     public void MovePos(){
+        SM.SetState(dicState[PlayerState.Idle]);
         transform.localPosition = MapGenerator.instance.StartPos;
     }
 }

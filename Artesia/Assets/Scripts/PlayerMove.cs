@@ -25,7 +25,7 @@ public class PlayerMove : IState<PlayerController>
 
         if(elapsedTime >= speed){
             m_playerController.transform.position = m_targetPos;
-            TurnManager.instance.setPlayerTurn(true);
+            TurnManager.instance.setTurn(m_playerController.gameObject, true);
         }
     }
     public void OperateExit(PlayerController sender){
