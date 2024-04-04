@@ -28,11 +28,15 @@ public class TurnManager : MonoBehaviour
 
     private void Update(){
         if(CheckUnitTurn()){
-            Player.GetComponent<PlayerController>().PlayedTurn = false;
+            setPlayerTurn(false);
             foreach(GameObject Obj in MobList){
                 Obj.GetComponent<MobController>().PlayedTurn = false;
             }
         }
+    }
+
+    public void setPlayerTurn(bool input){
+        Player.GetComponent<PlayerController>().PlayedTurn = input;
     }
 
     bool CheckUnitTurn(){
@@ -46,7 +50,6 @@ public class TurnManager : MonoBehaviour
             if(!Obj.GetComponent<MobController>().PlayedTurn)
                 return false;
         }
-        Debug.Log("checkunitTest");
         return true;
     }
 }

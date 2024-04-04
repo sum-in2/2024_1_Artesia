@@ -51,7 +51,6 @@ public class MobController : MonoBehaviour
 
     void Move(){
         if(SM.CurState == dicState[MobState.Idle]){
-            Debug.Log("22");
             PlayedTurn = true;
             RaycastHit2D hit;
             do{

@@ -41,25 +41,22 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update() {
-
-
-        if(TargetPos == (Vector2)transform.position){
+        if(PlayedTurn && SM.CurState != dicState[PlayerState.Idle])
             SM.SetState(dicState[PlayerState.Idle]);
-        }
 
         SM.DoOperateUpdate();
     }
 
     void OnMove(InputValue value){
         if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle]){
-            Debug.Log("111");
+            Vector3 OriPos = new Vector3((int)transform.position.x, (int)transform.position.y, 0);
             Vector2 input = value.Get<Vector2>();
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, input, 1, LayerMask.GetMask("Tile"));
+            RaycastHit2D hit = Physics2D.Raycast(OriPos, input, 1, LayerMask.GetMask("Tile"));
+
             if(input != Vector2.zero && !hit){
                 Dir = input;
-                TargetPos = transform.position + new Vector3((int)Dir.x, (int)Dir.y, 0);
+                TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
                 SM.SetState(dicState[PlayerState.Move]);
-                PlayedTurn = true;
             }
         }
     }

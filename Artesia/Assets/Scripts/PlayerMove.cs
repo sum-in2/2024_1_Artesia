@@ -22,8 +22,10 @@ public class PlayerMove : IState<PlayerController>
         Vector2 nowPos = m_playerController.transform.position;
         m_playerController.transform.position = Vector2.Lerp(nowPos, m_targetPos, elapsedTime / speed);
         elapsedTime += Time.deltaTime;
+
         if(elapsedTime >= speed){
             m_playerController.transform.position = m_targetPos;
+            TurnManager.instance.setPlayerTurn(true);
         }
     }
     public void OperateExit(PlayerController sender){
