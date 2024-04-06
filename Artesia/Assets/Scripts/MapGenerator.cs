@@ -18,16 +18,11 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float minDevideRate;
     [SerializeField] float maxDevideRate;
     [SerializeField] int maxDepth;
-    [SerializeField] Tilemap tileMap;
-    [SerializeField] Tilemap Test;
-    [SerializeField] Tile RoomTile;
-    [SerializeField] Tile WallTile;
-    [SerializeField] Tile outTile;
-    [SerializeField] Tile stairTile;
     Node StartRoom;
     Vector3Int startPos;
-    Vector3Int stairPos;
-    List<Node> rooms;
+    public int[,] MapInfoArray {get; private set;}
+    public Vector3Int stairPos {get; private set;}
+    public List<Node> rooms {get; private set;}
 
     public Vector2Int MapSize{
         get{ return mapSize; }
@@ -42,6 +37,12 @@ public class MapGenerator : MonoBehaviour
         get {
             return m_instance;
         }
+    }
+    enum RoomInfo{ // 타일 배열에 관한 열거
+        Out,
+        Room,
+        Wall,
+        Stair,
     }
 
     Node StairRoom;
@@ -59,26 +60,35 @@ public class MapGenerator : MonoBehaviour
         
     }
 
+    void InitMapInfoArray(){
+        for(int i = 0; i < mapSize.y; i++)
+            for(int j = 0; j < mapSize.x; j++)
+                MapInfoArray[i, j] = (int)RoomInfo.Out;
+    }
+
     public void InitMap(){
         Node root = null;
         root = initMember(root);
-        FillBackGround();
+
         Divide(root,0);
         InitRoom(root, 0);
         GenerateRoom(root, 0);
-        GenerateLoad(root, 0);
-        FillWall();
+        GenerateRoad(root, 0);
+        GenerateWall();
+
         GameManager.instance.MapList = rooms;
         EnemySpawner.instance.ActiveFromPool();
     }
 
     Node initMember(Node root){
-        root = new Node(new RectInt(0,0,mapSize.x,mapSize.y));
+        root = new Node(new RectInt(1, 1, mapSize.x - 2, mapSize.y - 2));
         rooms = new List<Node>();
+
+        MapInfoArray = new int[mapSize.y, mapSize.x];
+        InitMapInfoArray();
+
         StairDepth = 0;
         StartDepth = 0;
-        if(Test.GetTile(stairPos) == stairTile)
-            Test.SetTile(stairPos, null);
 
         return root;
     }
@@ -119,12 +129,6 @@ public class MapGenerator : MonoBehaviour
         }
         InitStairRoom(Tree.leftNode, n + 1, maxStairDepth);
         InitStairRoom(Tree.rightNode, n + 1, maxStairDepth);
-    }
-
-    private void FillBackGround(){
-        for(int i = -10; i<mapSize.x + 10; i++)
-            for(int j = -10; j < mapSize.y +10; j++)
-                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), outTile);
     }
 
     void Divide(Node Tree,int n){
@@ -172,42 +176,37 @@ public class MapGenerator : MonoBehaviour
         return rect;
     }
 
-    private void GenerateLoad(Node Tree, int n){
+    private void GenerateRoad(Node Tree, int n){
         if(n == maxDepth) return;
 
         Vector2Int leftNodeCenter = Tree.leftNode.center;
         Vector2Int rightNodeCenter = Tree.rightNode.center;
 
         for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x); i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x); i++){
-            tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, leftNodeCenter.y - mapSize.y /2, 0), RoomTile);
+            addMapInfoArray(i, leftNodeCenter.y, RoomInfo.Room); 
         }
 
         for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y); i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y); i++){
-            tileMap.SetTile(new Vector3Int(rightNodeCenter.x - mapSize.x / 2, i - mapSize.y / 2, 0), RoomTile);
+            addMapInfoArray(rightNodeCenter.x, i, RoomInfo.Room);
         }
 
-        GenerateLoad(Tree.leftNode, n + 1);
-        GenerateLoad(Tree.rightNode, n + 1);
+        GenerateRoad(Tree.leftNode, n + 1);
+        GenerateRoad(Tree.rightNode, n + 1);
     }
     
-    void FillWall() {
-        for (int i = 0; i < mapSize.x; i++) {
-            for (int j = 0; j < mapSize.y; j++) { // i, j 맵 전체 순회
-                if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0)) == outTile) { // 순회한 위치가 바깥 타일이면
-                    if (ShouldPlaceWall(i, j)) { // 조건 확인 메서드 사용
-                        tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), WallTile); // 벽 생성
-                    }
-                }
-            }
-        }
+    void GenerateWall() {
+        for (int i = 1; i < mapSize.x - 1; i++) 
+            for (int j = 1; j < mapSize.y - 1; j++)  // i, j 맵 전체 순회 // 배열에 담으면서 이게 참조범위 때문에 줄였더니 벽이 안만들어지네 ...
+                if(MapInfoArray[j, i] == (int)RoomInfo.Out)// 순회한 위치가 바깥 타일이면
+                    if (ShouldPlaceWall(i, j))  // 조건 확인 메서드 사용
+                        addMapInfoArray(i, j, RoomInfo.Wall);// 벽 생성
     }
 
     bool ShouldPlaceWall(int i, int j) {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) { // 현재 자리를 중심으로 3*3 순회
                 if (x == 0 && y == 0) continue; // 현재 자리 검사는 안해도 됨
-
-                if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2 + x, j - mapSize.y / 2 + y, 0)) == RoomTile) { // 순회한 위치가 룸타일이면
+                if (MapInfoArray[j + y, i + x] == (int)RoomInfo.Room) { // 순회한 위치가 룸타일이면
                     return true; // 벽을 생성해야 함
                 }
             }
@@ -218,33 +217,21 @@ public class MapGenerator : MonoBehaviour
     private void FillRoom(RectInt rect, int n) { 
         for(int i = rect.x; i< rect.x + rect.width; i++)
                 for(int j = rect.y; j < rect.y + rect.height; j++){
-                    tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), RoomTile);
+                    addMapInfoArray(i, j, RoomInfo.Room);
                 }
     }
 
-    void FillRoom(Node Tree, RectInt rect){
+    void FillRoom(Node Tree, RectInt rect){ // 얘는 왜 이름이 FillRoom ??
         Vector3Int Pos = new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0);
         if(Tree == StartRoom){
             startPos = Pos;
         }
         else if(Tree == StairRoom) {
             stairPos = Pos;
-            Test.SetTile(Pos, stairTile);
         }
-            /* 디버깅 용
-            for(int i = rect.x; i < rect.x + rect.width; i++){  
-                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, rect.y - mapSize.y/2, 0), startTile);
-                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, rect.y + rect.height - mapSize.y/2, 0), startTile);
-            }
-
-            for(int i = rect.y; i < rect.y + rect.height; i++){
-                tileMap.SetTile(new Vector3Int(rect.x - mapSize.x / 2, i - mapSize.y/2, 0), startTile);
-                tileMap.SetTile(new Vector3Int(rect.x + rect.width - mapSize.x / 2, i - mapSize.y/2, 0), startTile);
-            }
-            */
-            
-            // tileMap.SetTile(new Vector3Int((int)rect.center.x - mapSize.x / 2, (int)rect.center.y - mapSize.y / 2, 0), startTile); //settile 할 필요 없이 플레이어블 오브젝트 포지션만 옮기면 될듯
     }
 
-    
+    void addMapInfoArray(int x, int y, RoomInfo TypeEnum){
+        MapInfoArray[y, x] = (int)TypeEnum;
+    }
 }

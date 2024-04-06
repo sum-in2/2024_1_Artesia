@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject Player;
+    public GameObject MapObject;
 
-    public List<Node> MapList{get;set;}
 
     void Awake()
     {
@@ -23,12 +23,15 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+
     }
 
     public void NextStage(){
         // Stage Index 추가 예정
         EnemySpawner.instance.EnemyListClear();
-        MapGenerator.instance.InitMap();
+        MapObject.GetComponent<MapGenerator>().InitMap();
+        MapObject.GetComponent<DrawTile>().InitTile();
         Player.GetComponent<PlayerController>().MovePos();
     }
 }
