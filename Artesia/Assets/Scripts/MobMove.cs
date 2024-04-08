@@ -27,7 +27,7 @@ public class MobMove :  IState<MobController>
         }
     }
     public void OperateExit(MobController sender){
-
+        TurnManager.instance.setTurn(sender.gameObject, true);
     }
 
 }

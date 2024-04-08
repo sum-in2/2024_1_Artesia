@@ -15,7 +15,7 @@ public class MobController : MonoBehaviour, ITurn
 
     public Vector2 Dir{get; private set;}
     public Vector2 TargetPos {get; private set;}
-    [SerializeField][Range(0.0001f, 2f)][Tooltip("커질수록 느려짐")] float Speed = 1.5f;
+    [SerializeField][Range(0.0001f, 1f)][Tooltip("커질수록 느려짐")] float Speed = 1f;
     public float speed {
         get { return Speed;}
     }
@@ -53,7 +53,6 @@ public class MobController : MonoBehaviour, ITurn
 
     void Move(){
         if(SM.CurState == dicState[MobState.Idle]){
-            PlayedTurn = true;
             RaycastHit2D hit;
             do{
                 Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));

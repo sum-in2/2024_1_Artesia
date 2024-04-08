@@ -2,35 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayableController : MonoBehaviour
+public class PlayerStat : MonoBehaviour, IAblity
 {
-    public static PlayableController Instance {get; private set;}
-    [SerializeField] int c_HP;
-    [SerializeField] int c_ATK;
-    [SerializeField] int c_DEF;
-    [SerializeField] int c_EXP;
-    [SerializeField] int c_LV;
+    public int HP { get; private set; }
+    public int EXP { get; private set; }    
+    public int DEF { get; private set;}
+    public int ATK { get; private set;}
+    public int LV { get; private set;}
 
     int[] MAXEXP = {100,};
 
     void Awake(){
-        if(Instance == null)
-            Instance = this; 
-        else if(Instance != this)
-            Destroy(this.gameObject);
-
-        DontDestroyOnLoad(gameObject);
-        /*c_HP = 20;
-        c_ATK = 5;
-        c_DEF = 2;
-        c_EXP = 0;
-        c_LV = 1;*/
+        HP = 20;
+        ATK = 5;
+        DEF = 2;
+        EXP = 0;
+        LV = 1;
     }
 
     void AddEXP(int EXP){
-        c_EXP += EXP;
-        if(c_EXP > MAXEXP[0]){
-            c_LV++;
+        EXP += EXP;
+        if(EXP > MAXEXP[LV - 1]){
+            LV++;
             PlusStat();
         }
     }

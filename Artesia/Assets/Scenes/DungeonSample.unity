@@ -1702,11 +1702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329979ae7013bfc4cbd5dca142560ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c_HP: 0
-  c_ATK: 0
-  c_DEF: 0
-  c_EXP: 0
-  c_LV: 0
 --- !u!1 &1685033536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,11 +1766,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMap: {fileID: 1368377030433730897}
   stairMap: {fileID: 1864313876420232685}
-  RoomTile: {fileID: 11400000, guid: 293eb18a533f16e438a0d47e38fa603d, type: 2}
-  WallTile: {fileID: 11400000, guid: d53e1b276fd2482448c2895d7b96b338, type: 2}
-  outTile: {fileID: 11400000, guid: c12ec41f0ac6e0a45bebc0e395b2e2de, type: 2}
-  stairTile: {fileID: 11400000, guid: ce14fe482f3ff574a9b602a71ebe3c7e, type: 2}
-  roadTile: {fileID: 11400000, guid: b3254638fe27c59408130d947c2d98c2, type: 2}
+  RoomTile: {fileID: 11400000, guid: c76f869adfdb1ca4990748cb6b33ab86, type: 2}
+  WallTile: {fileID: 11400000, guid: 10c011828a9f9b549be826eab6f1112b, type: 2}
+  outTile: {fileID: 11400000, guid: 9a65174c0f5e5834ea056077b58b54b6, type: 2}
+  stairTile: {fileID: 11400000, guid: 7f184b4504bf3de4f876c97dc1a12e90, type: 2}
 --- !u!1 &1966987026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2282,7 +2276,7 @@ SceneRoots:
   - {fileID: 2106569588}
   - {fileID: 1685033538}
   - {fileID: 285370072}
-  - {fileID: 1668835126}
   - {fileID: 21137314}
   - {fileID: 403503368}
   - {fileID: 1221996554}
+  - {fileID: 1668835126}

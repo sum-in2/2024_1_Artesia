@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -38,31 +39,51 @@ public class PlayerController : MonoBehaviour, ITurn
 
     void Start() {
         MovePos();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update() {
-        if(PlayedTurn && SM.CurState != dicState[PlayerState.Idle])
+        if((Vector2)transform.position == TargetPos && SM.CurState != dicState[PlayerState.Idle])
             SM.SetState(dicState[PlayerState.Idle]);
 
         SM.DoOperateUpdate();
     }
 
     void OnMove(InputValue value){
-        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle]){
-            Vector3 OriPos = new Vector3((int)transform.position.x, (int)transform.position.y, 0);
+        if(!PlayedTurn){
             Vector2 input = value.Get<Vector2>();
-            RaycastHit2D hit = Physics2D.Raycast(OriPos, input, 1, LayerMask.GetMask("Tile"));
+            if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle]){ // 
+                input = DirControl(input); 
+                Vector3Int OriPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
+                RaycastHit2D hit = Physics2D.Raycast((Vector2Int)OriPos, input, 1, LayerMask.GetMask("Tile"));
 
-            if(input != Vector2.zero && !hit){
-                Dir = input;
-                TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
-                SM.SetState(dicState[PlayerState.Move]);
+                if(!hit){
+                    Dir = input;
+                    TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
+                    SM.SetState(dicState[PlayerState.Move]);
+                }
             }
         }
+    }
+
+    Vector2 DirControl(Vector2 dir){ // 대각일때 뱉어서 흠 이렇게 해야되나? // 음수일땐 내려야할듯
+        Vector2 Result = dir;
+        float x, y;
+        x = Mathf.Abs(Result.x);
+        y = Mathf.Abs(Result.y);
+
+        if((x+y) > 1){
+            Result.x = Result.x > 0 ? Mathf.CeilToInt(Result.x) : Mathf.FloorToInt(Result.x);
+            Result.y = Result.y > 0 ? Mathf.CeilToInt(Result.y) : Mathf.FloorToInt(Result.y);
+        }
+        
+        Debug.Log(Result);
+        return Result;
     }
     
     public void MovePos(){
         SM.SetState(dicState[PlayerState.Idle]);
-        transform.localPosition = MapGenerator.instance.StartPos;
+        transform.position = MapGenerator.instance.StartPos;
     }
 }

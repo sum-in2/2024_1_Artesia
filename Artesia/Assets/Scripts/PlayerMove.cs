@@ -17,19 +17,19 @@ public class PlayerMove : IState<PlayerController>
 
         speed = m_playerController.speed;
         m_targetPos = m_playerController.TargetPos;
+        TurnManager.instance.setTurn(sender.gameObject, true);
     }
     public void OperateUpdate(PlayerController sender){
         Vector2 nowPos = m_playerController.transform.position;
         m_playerController.transform.position = Vector2.Lerp(nowPos, m_targetPos, elapsedTime / speed);
-        elapsedTime += Time.deltaTime;
 
+        elapsedTime += Time.deltaTime;
         if(elapsedTime >= speed){
             m_playerController.transform.position = m_targetPos;
-            TurnManager.instance.setTurn(m_playerController.gameObject, true);
         }
     }
     public void OperateExit(PlayerController sender){
-
+        m_playerController.transform.position = m_targetPos;
     }
 }
 

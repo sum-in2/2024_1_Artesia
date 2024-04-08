@@ -31,6 +31,13 @@ public class DrawTile : MonoBehaviour
         InitTile();
     }
 
+    void mySetTile(Tilemap tilemap, int x, int y, TileInfo roomInfo){
+        tilemap.SetTile(new Vector3Int(x  - m_mapSize.x / 2, y  - m_mapSize.y / 2, 0), dicTile[roomInfo]);
+    }
+    void mySetTile(Tilemap tilemap, Vector3Int pos, TileInfo roomInfo){
+        tilemap.SetTile(pos, dicTile[roomInfo]);
+    }
+
     public void InitTile(){
         initMember();
         FillMap();
@@ -75,13 +82,7 @@ public class DrawTile : MonoBehaviour
     {
         for(int i = -10; i<m_mapSize.x + 10; i++)
             for(int j = -10; j < m_mapSize.y +10; j++)
-                tileMap.SetTile(new Vector3Int(i - m_mapSize.x / 2, j - m_mapSize.y / 2, 0), outTile);
-    }
-
-    void mySetTile(Tilemap tilemap, int x, int y, TileInfo roomInfo){
-        tilemap.SetTile(new Vector3Int(x  - m_mapSize.x / 2, y  - m_mapSize.y / 2, 0), dicTile[roomInfo]);
-    }
-    void mySetTile(Tilemap tilemap, Vector3Int pos, TileInfo roomInfo){
-        tilemap.SetTile(pos, dicTile[roomInfo]);
+                //tileMap.SetTile(new Vector3Int(i - m_mapSize.x / 2, j - m_mapSize.y / 2, 0), outTile);
+                mySetTile(tileMap, i, j, TileInfo.Out);
     }
 }
