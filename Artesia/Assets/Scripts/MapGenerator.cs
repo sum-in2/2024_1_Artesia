@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int maxDepth;
     Node StartRoom;
     Vector3Int startPos;
-    public int[,] MapInfoArray {get; private set;}
+    public int[,] TileInfoArray {get; private set;}
     public Vector3Int stairPos {get; private set;}
     public List<Node> rooms {get; private set;}
 
@@ -38,7 +38,7 @@ public class MapGenerator : MonoBehaviour
             return m_instance;
         }
     }
-    enum RoomInfo{ // 타일 배열에 관한 열거
+    enum TileInfo{ // 타일 배열에 관한 열거
         Out,
         Room,
         Wall,
@@ -63,7 +63,7 @@ public class MapGenerator : MonoBehaviour
     void InitMapInfoArray(){
         for(int i = 0; i < mapSize.y; i++)
             for(int j = 0; j < mapSize.x; j++)
-                MapInfoArray[i, j] = (int)RoomInfo.Out;
+                TileInfoArray[i, j] = (int)TileInfo.Out;
     }
 
     public void InitMap(){
@@ -76,7 +76,6 @@ public class MapGenerator : MonoBehaviour
         GenerateRoad(root, 0);
         GenerateWall();
 
-        GameManager.instance.MapList = rooms;
         EnemySpawner.instance.ActiveFromPool();
     }
 
@@ -84,7 +83,7 @@ public class MapGenerator : MonoBehaviour
         root = new Node(new RectInt(1, 1, mapSize.x - 2, mapSize.y - 2));
         rooms = new List<Node>();
 
-        MapInfoArray = new int[mapSize.y, mapSize.x];
+        TileInfoArray = new int[mapSize.y, mapSize.x];
         InitMapInfoArray();
 
         StairDepth = 0;
@@ -183,11 +182,11 @@ public class MapGenerator : MonoBehaviour
         Vector2Int rightNodeCenter = Tree.rightNode.center;
 
         for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x); i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x); i++){
-            addMapInfoArray(i, leftNodeCenter.y, RoomInfo.Room); 
+            addMapInfoArray(i, leftNodeCenter.y, TileInfo.Room); 
         }
 
         for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y); i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y); i++){
-            addMapInfoArray(rightNodeCenter.x, i, RoomInfo.Room);
+            addMapInfoArray(rightNodeCenter.x, i, TileInfo.Room);
         }
 
         GenerateRoad(Tree.leftNode, n + 1);
@@ -197,16 +196,16 @@ public class MapGenerator : MonoBehaviour
     void GenerateWall() {
         for (int i = 1; i < mapSize.x - 1; i++) 
             for (int j = 1; j < mapSize.y - 1; j++)  // i, j 맵 전체 순회 // 배열에 담으면서 이게 참조범위 때문에 줄였더니 벽이 안만들어지네 ...
-                if(MapInfoArray[j, i] == (int)RoomInfo.Out)// 순회한 위치가 바깥 타일이면
+                if(TileInfoArray[j, i] == (int)TileInfo.Out)// 순회한 위치가 바깥 타일이면
                     if (ShouldPlaceWall(i, j))  // 조건 확인 메서드 사용
-                        addMapInfoArray(i, j, RoomInfo.Wall);// 벽 생성
+                        addMapInfoArray(i, j, TileInfo.Wall);// 벽 생성
     }
 
     bool ShouldPlaceWall(int i, int j) {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) { // 현재 자리를 중심으로 3*3 순회
                 if (x == 0 && y == 0) continue; // 현재 자리 검사는 안해도 됨
-                if (MapInfoArray[j + y, i + x] == (int)RoomInfo.Room) { // 순회한 위치가 룸타일이면
+                if (TileInfoArray[j + y, i + x] == (int)TileInfo.Room) { // 순회한 위치가 룸타일이면
                     return true; // 벽을 생성해야 함
                 }
             }
@@ -217,7 +216,7 @@ public class MapGenerator : MonoBehaviour
     private void FillRoom(RectInt rect, int n) { 
         for(int i = rect.x; i< rect.x + rect.width; i++)
                 for(int j = rect.y; j < rect.y + rect.height; j++){
-                    addMapInfoArray(i, j, RoomInfo.Room);
+                    addMapInfoArray(i, j, TileInfo.Room);
                 }
     }
 
@@ -231,7 +230,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void addMapInfoArray(int x, int y, RoomInfo TypeEnum){
-        MapInfoArray[y, x] = (int)TypeEnum;
+    void addMapInfoArray(int x, int y, TileInfo TypeEnum){
+        TileInfoArray[y, x] = (int)TypeEnum;
     }
 }

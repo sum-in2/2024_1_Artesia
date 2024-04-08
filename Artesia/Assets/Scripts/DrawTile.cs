@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class DrawTile : MonoBehaviour
 {
-    enum RoomInfo{ // 타일 배열에 관한 열거
+    enum TileInfo{ // 타일 배열에 관한 열거
         Out,
         Room,
         Wall,
@@ -16,7 +16,7 @@ public class DrawTile : MonoBehaviour
 
     [SerializeField] Tilemap tileMap; // 배경
     [SerializeField] Tilemap stairMap; // 상호작용 타일 이름 바꿀듯?
-    Dictionary<RoomInfo, Tile> dicTile = new Dictionary<RoomInfo, Tile>();
+    Dictionary<TileInfo, Tile> dicTile = new Dictionary<TileInfo, Tile>();
     [SerializeField] Tile RoomTile;
     [SerializeField] Tile WallTile;
     [SerializeField] Tile outTile;
@@ -37,7 +37,7 @@ public class DrawTile : MonoBehaviour
     }
 
     void initMember(){
-        MapTileInfo = MapGenerator.instance.MapInfoArray;
+        MapTileInfo = MapGenerator.instance.TileInfoArray;
         m_mapSize = MapGenerator.instance.MapSize;
 
         if(m_stairPos != null)
@@ -47,10 +47,10 @@ public class DrawTile : MonoBehaviour
     }
 
     void initDic(){
-        dicTile.Add(RoomInfo.Out, outTile);
-        dicTile.Add(RoomInfo.Room, RoomTile);
-        dicTile.Add(RoomInfo.Wall, WallTile);
-        dicTile.Add(RoomInfo.Stair, stairTile);
+        dicTile.Add(TileInfo.Out, outTile);
+        dicTile.Add(TileInfo.Room, RoomTile);
+        dicTile.Add(TileInfo.Wall, WallTile);
+        dicTile.Add(TileInfo.Stair, stairTile);
     }
 
     void FillMap(){
@@ -60,13 +60,13 @@ public class DrawTile : MonoBehaviour
     }
 
     void DrawStair(){
-        mySetTile(stairMap, m_stairPos, RoomInfo.Stair);
+        mySetTile(stairMap, m_stairPos, TileInfo.Stair);
     }
 
     void DrawMap(){
         for (int i = 0; i < m_mapSize.y; i++){
             for(int j = 0; j < m_mapSize.x; j++){
-                mySetTile(tileMap, j, i, (RoomInfo)MapTileInfo[i,j]);
+                mySetTile(tileMap, j, i, (TileInfo)MapTileInfo[i,j]);
             }
         }
     }
@@ -78,10 +78,10 @@ public class DrawTile : MonoBehaviour
                 tileMap.SetTile(new Vector3Int(i - m_mapSize.x / 2, j - m_mapSize.y / 2, 0), outTile);
     }
 
-    void mySetTile(Tilemap tilemap, int x, int y, RoomInfo roomInfo){
+    void mySetTile(Tilemap tilemap, int x, int y, TileInfo roomInfo){
         tilemap.SetTile(new Vector3Int(x  - m_mapSize.x / 2, y  - m_mapSize.y / 2, 0), dicTile[roomInfo]);
     }
-    void mySetTile(Tilemap tilemap, Vector3Int pos, RoomInfo roomInfo){
+    void mySetTile(Tilemap tilemap, Vector3Int pos, TileInfo roomInfo){
         tilemap.SetTile(pos, dicTile[roomInfo]);
     }
 }

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour, ITurn
     private StateMachine<PlayerController> SM;
     public Vector2 TargetPos {get; private set;}
     public Vector2 Dir { get; private set;}
-    [SerializeField][Range(0.0001f, 2f)][Tooltip("커질수록 느려짐")] float Speed = 0.2f;
+    [SerializeField][Range(0.0001f, 1f)][Tooltip("커질수록 느려짐")] float Speed = 0.2f;
     public float speed {
         get { return Speed;}
     }

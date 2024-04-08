@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void ActiveFromPool()
     {
-        List<Node> rooms = GameManager.instance.MapList;
+        List<Node> rooms = MapGenerator.instance.rooms;
         
         foreach (Node room in rooms)
         {
