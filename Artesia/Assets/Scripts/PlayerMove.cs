@@ -17,7 +17,6 @@ public class PlayerMove : IState<PlayerController>
 
         speed = m_playerController.speed;
         m_targetPos = m_playerController.TargetPos;
-        TurnManager.instance.setTurn(sender.gameObject, true);
     }
     public void OperateUpdate(PlayerController sender){
         Vector2 nowPos = m_playerController.transform.position;
@@ -30,6 +29,7 @@ public class PlayerMove : IState<PlayerController>
     }
     public void OperateExit(PlayerController sender){
         m_playerController.transform.position = m_targetPos;
+        TurnManager.instance.setTurn(sender.gameObject, true);
     }
 }
 

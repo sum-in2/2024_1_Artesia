@@ -1733,8 +1733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: {x: 64, y: 36}
-  minDevideRate: 0.2
-  maxDevideRate: 0.9
+  minDevideRate: 0.3
+  maxDevideRate: 0.6
   maxDepth: 3
 --- !u!4 &1685033538
 Transform:
@@ -1766,10 +1766,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMap: {fileID: 1368377030433730897}
   stairMap: {fileID: 1864313876420232685}
-  RoomTile: {fileID: 11400000, guid: c76f869adfdb1ca4990748cb6b33ab86, type: 2}
-  WallTile: {fileID: 11400000, guid: 10c011828a9f9b549be826eab6f1112b, type: 2}
-  outTile: {fileID: 11400000, guid: 9a65174c0f5e5834ea056077b58b54b6, type: 2}
-  stairTile: {fileID: 11400000, guid: 7f184b4504bf3de4f876c97dc1a12e90, type: 2}
+  RoomTile:
+  - {fileID: 11400000, guid: c76f869adfdb1ca4990748cb6b33ab86, type: 2}
+  - {fileID: 11400000, guid: 6e68d3f7093d6c243aa69915c31b766b, type: 2}
+  - {fileID: 11400000, guid: 8a77ea9bd7b298b47b18100b99b6c53b, type: 2}
+  WallTile:
+  - {fileID: 11400000, guid: 10c011828a9f9b549be826eab6f1112b, type: 2}
+  - {fileID: 11400000, guid: 9ded93f40985b0046acdd4c688f2bc50, type: 2}
+  - {fileID: 11400000, guid: de136a03ace5d3748abcf2a35a474235, type: 2}
+  - {fileID: 11400000, guid: fb36798ca1e484949a977c54f1e7602c, type: 2}
+  outTile:
+  - {fileID: 11400000, guid: 9a65174c0f5e5834ea056077b58b54b6, type: 2}
+  - {fileID: 11400000, guid: 337aa6f77e428a24999ee2006ab84cef, type: 2}
+  - {fileID: 11400000, guid: 3e4372efa89bf1147b6e5ff49e18ceb0, type: 2}
+  - {fileID: 11400000, guid: 9a56104a879beff41aef617205490ff2, type: 2}
+  - {fileID: 11400000, guid: 54b215edcdc08b348b91a2f598591577, type: 2}
+  - {fileID: 11400000, guid: 1d33b179f676da24e9150e5e198af93f, type: 2}
+  stairTile:
+  - {fileID: 11400000, guid: 7f184b4504bf3de4f876c97dc1a12e90, type: 2}
 --- !u!1 &1966987026
 GameObject:
   m_ObjectHideFlags: 0

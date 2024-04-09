@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Atk",
+                    "type": "Value",
+                    "id": "67a15c72-180a-4ec1-a83f-790a61aa9efc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -125,6 +134,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "880ce3b4-029a-4755-bcda-16cbe1173027",
+                    "path": "<Keyboard>/#(X)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Atk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

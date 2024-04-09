@@ -16,8 +16,9 @@ public class PlayerController : MonoBehaviour, ITurn
 
     private Dictionary<PlayerState, IState<PlayerController>> dicState = new Dictionary<PlayerState, IState<PlayerController>>();
     private StateMachine<PlayerController> SM;
+    public Vector2 OriPos { get; private set;}
+    public Vector2 Dir { get; private set;} = Vector2.down;
     public Vector2 TargetPos {get; private set;}
-    public Vector2 Dir { get; private set;}
     [SerializeField][Range(0.0001f, 1f)][Tooltip("커질수록 느려짐")] float Speed = 0.2f;
     public float speed {
         get { return Speed;}
@@ -44,7 +45,10 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     private void Update() {
-        if((Vector2)transform.position == TargetPos && SM.CurState != dicState[PlayerState.Idle])
+        if((Vector2)transform.position == TargetPos && SM.CurState == dicState[PlayerState.Move])
+            SM.SetState(dicState[PlayerState.Idle]);
+        
+        if((Vector2)transform.position == OriPos && SM.CurState == dicState[PlayerState.Atk])
             SM.SetState(dicState[PlayerState.Idle]);
 
         SM.DoOperateUpdate();
@@ -67,7 +71,18 @@ public class PlayerController : MonoBehaviour, ITurn
         }
     }
 
-    Vector2 DirControl(Vector2 dir){ // 대각일때 뱉어서 흠 이렇게 해야되나? // 음수일땐 내려야할듯
+    void OnAtk(InputValue value){
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle]){
+            OriPos = transform.position;
+            if(Dir != Vector2.zero)
+                Dir = DirControl(Dir);
+            
+            TargetPos = OriPos + Dir;
+            SM.SetState(dicState[PlayerState.Atk]);
+        }
+    }
+
+    Vector2 DirControl(Vector2 dir){ //
         Vector2 Result = dir;
         float x, y;
         x = Mathf.Abs(Result.x);
@@ -77,8 +92,7 @@ public class PlayerController : MonoBehaviour, ITurn
             Result.x = Result.x > 0 ? Mathf.CeilToInt(Result.x) : Mathf.FloorToInt(Result.x);
             Result.y = Result.y > 0 ? Mathf.CeilToInt(Result.y) : Mathf.FloorToInt(Result.y);
         }
-        
-        Debug.Log(Result);
+
         return Result;
     }
     
