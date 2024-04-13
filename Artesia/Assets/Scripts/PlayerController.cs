@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour, ITurn
     
     public void MovePos(){
         SM.SetState(dicState[PlayerState.Idle]);
-        transform.position = MapGenerator.instance.StartPos;
+        if(MapGenerator.instance != null)
+            transform.position = MapGenerator.instance.StartPos;
     }
 }

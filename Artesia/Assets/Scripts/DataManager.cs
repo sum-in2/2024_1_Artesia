@@ -58,4 +58,8 @@ public class DataManager : MonoBehaviour
         result = CharacterStats[CharacterName];
         return result;
     }
+
+    // saveData
+    // 현재 위치, 맵 정보, 플레이 캐릭터, 보조 캐릭터, 레벨 ?
 }
+
