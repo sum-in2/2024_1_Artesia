@@ -39,7 +39,17 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
             enemy.SetActive(false); // 비활성화 상태로 시작
             enemy.name = ("Enmey" + i);
+            enemy.transform.SetParent(this.transform);
             enemyPool.Add(enemy);
+        }
+    }
+
+    public void killEnemy(GameObject enemy){
+        foreach (var temp in enemies){ // 임시구현
+            if( temp.name == enemy.name){ // 실제 계산은 플레이어쪽에서 계산 되고 얘는 이렇게 둘거 같은데 모르겠네
+                enemy.GetComponent<MobController>().setStateToIdle();
+                enemy.SetActive(false);
+            }
         }
     }
 

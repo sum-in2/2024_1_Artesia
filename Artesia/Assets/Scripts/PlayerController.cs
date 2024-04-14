@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour, ITurn
     }
     public bool isMoving { get; private set;} = false;
     public bool PlayedTurn { get; set; }
+    public bool EnemyHit { get; set; } = false;
+
 
     void Awake(){
         IState<PlayerController> idle = new PlayerIdle();
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour, ITurn
                     SM.SetState(dicState[PlayerState.Move]);
                 }
             }
+            
         }
     }
 
@@ -77,6 +81,9 @@ public class PlayerController : MonoBehaviour, ITurn
             if(Dir != Vector2.zero)
                 Dir = DirControl(Dir);
             
+            if(Physics2D.Raycast(OriPos, Dir, 1, LayerMask.GetMask("Enemy")))
+                EnemyHit = true;
+                        
             TargetPos = OriPos + Dir;
             SM.SetState(dicState[PlayerState.Atk]);
         }

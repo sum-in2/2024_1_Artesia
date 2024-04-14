@@ -801,7 +801,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 223
+    m_Bits: 479
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1541,6 +1541,7 @@ GameObject:
   - component: {fileID: 1668835126}
   - component: {fileID: 1668835130}
   - component: {fileID: 1668835129}
+  - component: {fileID: 1668835131}
   - component: {fileID: 1668835125}
   - component: {fileID: 1668835124}
   - component: {fileID: 1668835127}
@@ -1608,7 +1609,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1744,6 +1745,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 329979ae7013bfc4cbd5dca142560ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1668835131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668835123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2240d23da3a54fa46a9850da732c8e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1685033536
@@ -2122,7 +2135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fb47303ecb42a4ba61b91f7d0deb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1668835123}
 --- !u!19719996 &3086525175695673339
 TilemapCollider2D:
   m_ObjectHideFlags: 0

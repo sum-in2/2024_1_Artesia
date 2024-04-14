@@ -195,7 +195,7 @@ public class MapGenerator : MonoBehaviour
     
     void GenerateWall() {
         for (int i = 1; i < mapSize.x - 1; i++) 
-            for (int j = 1; j < mapSize.y - 1; j++)  // i, j 맵 전체 순회 // 배열에 담으면서 이게 참조범위 때문에 줄였더니 벽이 안만들어지네 ...
+            for (int j = 1; j < mapSize.y - 1; j++)  // i, j 맵 전체 순회
                 if(TileInfoArray[j, i] == (int)TileInfo.Out)// 순회한 위치가 바깥 타일이면
                     if (ShouldPlaceWall(i, j))  // 조건 확인 메서드 사용
                         addMapInfoArray(i, j, TileInfo.Wall);// 벽 생성

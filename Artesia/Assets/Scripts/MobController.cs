@@ -53,6 +53,10 @@ public class MobController : MonoBehaviour, ITurn
 
     void Move(){
         if(SM.CurState == dicState[MobState.Idle]){
+            if(IsPlayerNearby()) {
+                PlayedTurn = true;
+                return;
+            }
             RaycastHit2D hit;
             do{
                 Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));
@@ -62,5 +66,15 @@ public class MobController : MonoBehaviour, ITurn
             TargetPos = Dir + (Vector2) transform.position;
             SM.SetState(dicState[MobState.Move]);
         }
+    }
+    bool IsPlayerNearby(){
+        Vector2[] dirs = {Vector2.down, Vector2.up, Vector2.right, Vector2.left, new Vector2(1,1), new Vector2(-1,1), new Vector2(1, -1), new Vector2(-1, -1)};
+        foreach (Vector2 dir in dirs){
+            if(Physics2D.Raycast(transform.position, dir, 1, LayerMask.GetMask("Player"))){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class StairCollider : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
     bool bTriggerEnter = false;
     private void OnTriggerStay2D(Collider2D other) {
         if(other.tag == "Player" && !bTriggerEnter){

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tile
   - Map
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,9 +14,9 @@ TagManager:
   - Tile
   - Water
   - UI
-  - Character
+  - Player
   - Stair
-  - 
+  - Enemy
   - 
   - 
   - 

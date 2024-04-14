@@ -65,7 +65,7 @@ public class DrawTile : MonoBehaviour
     }
 
     void FillMap(){
-        //FillBackGround();
+        FillBackGround();
         DrawMap();
         DrawStair();
     }
