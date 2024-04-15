@@ -15,11 +15,15 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    int TurnCnt;
+
     void Awake(){
         if(Instance == null)
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
+            
+        TurnCnt = 0;
     }
     
     private void Start() {
@@ -28,10 +32,16 @@ public class TurnManager : MonoBehaviour
 
     private void Update(){
         if(CheckUnitTurn()){
+            TurnCnt++;
             setTurn(Player, false);
             foreach(GameObject Obj in MobList){
                 setTurn(Obj, false);
             }
+        }
+
+        if(TurnCnt > 8){
+            EnemySpawner.instance.RandomSpawnEnemy();
+            TurnCnt = 0;
         }
     }
 

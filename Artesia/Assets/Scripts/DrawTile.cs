@@ -18,6 +18,7 @@ public class DrawTile : MonoBehaviour
 
     [SerializeField] Tilemap tileMap; // 배경
     [SerializeField] Tilemap stairMap; // 상호작용 타일 이름 바꿀듯?
+    [SerializeField] Tilemap WalkAbleMap;
     Dictionary<TileInfo, Tile[]> dicTile = new Dictionary<TileInfo, Tile[]>();
     [SerializeField] Tile[] RoomTile;
     [SerializeField] Tile[] WallTile;
@@ -77,7 +78,10 @@ public class DrawTile : MonoBehaviour
     void DrawMap(){
         for (int i = 0; i < m_mapSize.y; i++){
             for(int j = 0; j < m_mapSize.x; j++){
-                mySetTile(tileMap, j, i, (TileInfo)MapTileInfo[i,j]);
+                if((TileInfo)MapTileInfo[i,j] == TileInfo.Room)
+                    mySetTile(WalkAbleMap, j, i, (TileInfo)MapTileInfo[i,j]);
+                else 
+                    mySetTile(tileMap, j, i, (TileInfo)MapTileInfo[i,j]);
             }
         }
     }
