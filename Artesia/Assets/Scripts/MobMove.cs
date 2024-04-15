@@ -27,6 +27,7 @@ public class MobMove :  IState<MobController>
         }
     }
     public void OperateExit(MobController sender){
+        m_mobController.transform.position = m_targetPos;
         TurnManager.instance.setTurn(sender.gameObject, true);
     }
 

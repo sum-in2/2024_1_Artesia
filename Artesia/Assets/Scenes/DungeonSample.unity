@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059d66f995802304ba4547a00be13df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1668835123}
 --- !u!4 &55807682
 Transform:
   m_ObjectHideFlags: 0
@@ -1987,7 +1988,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMap: {fileID: 1368377030433730897}
   stairMap: {fileID: 1864313876420232685}
-  WalkAbleMap: {fileID: 62400354}
   RoomTile:
   - {fileID: 11400000, guid: c76f869adfdb1ca4990748cb6b33ab86, type: 2}
   - {fileID: 11400000, guid: 6e68d3f7093d6c243aa69915c31b766b, type: 2}

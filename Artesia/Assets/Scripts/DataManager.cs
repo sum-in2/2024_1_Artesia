@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,9 @@ public class DataManager : MonoBehaviour
     }
     // 캐릭터 명칭으로 접근
     public Dictionary<string, Dictionary<Stat,List<int>>> CharacterStats {get; private set;} = new Dictionary<string, Dictionary<Stat, List<int>>>();
+    public GameObject Player;
+    
+    string NametoLoadPlayerStat;
 
     private void Awake() {
         if(Instance == null)
@@ -30,13 +34,39 @@ public class DataManager : MonoBehaviour
             Destroy(this.gameObject);
 
         DontDestroyOnLoad(gameObject);
+        initDicStats();
+    }
 
-        CharacterStats.Add("Reina", roadCSVData("ReinaStat"));
+    public void SaveGameData(int FileNum){
+        string SaveJsonData = JsonUtility.ToJson(GameManager.instance.GameData, true);
+        string filePath = Application.persistentDataPath + "/" + $"SaveData{FileNum}.json";
+
+        File.WriteAllText(filePath, SaveJsonData);
+    }
+
+    public void LoadData(int fileNum){
+        string filePath = Application.persistentDataPath + "/" + $"SaveData{fileNum}.json";
+        if(File.Exists(filePath)){
+            string SaveDataJson = File.ReadAllText(filePath);
+            GameManager.instance.GameData = JsonUtility.FromJson<Data>(SaveDataJson);
+            GameManager.instance.LoadData();
+        }
+    }
+
+    void initDicStats(){ 
+        NametoLoadPlayerStat = Player.gameObject.name;
+        Dictionary<Stat,List<int>> temp = roadCSVData($"{NametoLoadPlayerStat}Stat");
+        
+        if(temp != null)
+            CharacterStats.Add(NametoLoadPlayerStat, temp);
     }
 
     Dictionary<Stat,List<int>> roadCSVData (string _CSVFileName){
         Dictionary<Stat,List<int>> res = new Dictionary<Stat,List<int>>();
         TextAsset csvData = Resources.Load<TextAsset>($"Player/{_CSVFileName}");
+        if(csvData == null) 
+            return null;
+
         string[] data = csvData.text.Split(new char[] { '\n' });
 
         for(int i = 0; i < Enum.GetValues(typeof(Stat)).Length; i++){
@@ -60,6 +90,5 @@ public class DataManager : MonoBehaviour
     }
 
     // saveData
-    // 현재 위치, 맵 정보, 플레이 캐릭터, 보조 캐릭터, 레벨 ?
+    // 시작 포지션, 맵 정보, 층 정보 - 미구현, 플레이 캐릭터, 보조 캐릭터 - 미구현, 진행 중인 게임 스탯(nowHP, nowExp) ?
 }
-

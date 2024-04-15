@@ -102,7 +102,6 @@ public class EnemySpawner : MonoBehaviour
         // Camera Rect ~
         foreach (Node room in rooms){
             if(room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){
-                Debug.Log("IntersectsOtherObject");
                 continue;
             }
 

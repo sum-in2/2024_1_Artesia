@@ -25,7 +25,6 @@ public class Node
         if(MapGenerator.instance != null){
             Vector2Int m_mapsize = MapGenerator.instance.MapSize;
             otherRect = new RectInt(otherRect.x + m_mapsize.x / 2, otherRect.y + m_mapsize.y / 2, otherRect.width, otherRect.height);
-            Debug.Log(otherRect);
         }
         return roomRect.Overlaps(otherRect);
     }

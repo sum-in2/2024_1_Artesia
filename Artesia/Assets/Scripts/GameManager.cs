@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
     public GameObject MapObject;
-
+    public Data GameData {get; set;}
 
     void Awake()
     {
@@ -24,7 +24,25 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        // if(savefile 유무) LoadData
+    }
 
+    void Start(){
+        
+    }
+
+    void SaveData(){ // 얘랑 load는 데이터매니저로 옮겨야되지 않을까 . . .
+        GameData.nowExp = Player.GetComponent<PlayerStat>().NowExp;
+        GameData.nowHp = Player.GetComponent<PlayerStat>().NowHp;
+        GameData.nowLv = Player.GetComponent<PlayerStat>().NowLv;
+        GameData.MainPlayCharacterName = Player.gameObject.name;
+    }
+
+    public void LoadData(){
+        Player.GetComponent<PlayerStat>().NowExp = GameData.nowExp ;
+        Player.GetComponent<PlayerStat>().NowHp = GameData.nowHp ;
+        Player.GetComponent<PlayerStat>().NowLv = GameData.nowLv ;
+        Player.gameObject.name = GameData.MainPlayCharacterName ;
     }
 
     public void NextStage(){
@@ -33,5 +51,6 @@ public class GameManager : MonoBehaviour
         MapObject.GetComponent<MapGenerator>().InitMap();
         MapObject.GetComponent<DrawTile>().InitTile();
         Player.GetComponent<PlayerController>().MovePos();
+        SaveData();
     }
 }
