@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     void OnMove(InputValue value){
-        if(!PlayedTurn){
+        if(!PlayedTurn && !GameManager.instance.isFade){
             Vector2 input = value.Get<Vector2>();
             if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle]){ // 
                 input = DirControl(input); 
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     void OnAtk(InputValue value){
-        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle]){
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !GameManager.instance.isFade){
             OriPos = transform.position;
             if(Dir != Vector2.zero)
                 Dir = DirControl(Dir);
