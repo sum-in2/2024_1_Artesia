@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     static EnemySpawner m_instance;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] int poolSize = 20;
+    [SerializeField] int FirstSpawn = 10;
+    [SerializeField] int RandomSpawnNumber = 3;
     List<GameObject> Enemies;
     List<GameObject> enemyPool;
 
@@ -69,15 +71,16 @@ public class EnemySpawner : MonoBehaviour
 
     public void ActiveFromPool(){
         List<Node> rooms = MapGenerator.instance.rooms;
-        
-        foreach (Node room in rooms){
+        List<Node> SpawnedRooms = new List<Node>();
 
-            if (room != MapGenerator.instance.startRoom){
-                Vector2 temp1 = room.roomRect.center;
-                Vector2Int temp2 = MapGenerator.instance.MapSize;
-                Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
-
-                SpawnEnemy(roomCenter);
+        if(FirstSpawn > rooms.Count) FirstSpawn = rooms.Count;
+    
+        for(int i = 0; i < FirstSpawn;){
+            Node room = rooms[Random.Range(0, rooms.Count)];
+            if (!SpawnedRooms.Contains(room) && room != MapGenerator.instance.startRoom){
+                SpawnEnemy(room);
+                SpawnedRooms.Add(room);
+                i++;
             }
         }
     }
@@ -89,35 +92,56 @@ public class EnemySpawner : MonoBehaviour
                 return enemyPool[i];
             }
         }
-
-        // 비활성화된 적 캐릭터가 없을 경우 null 반환합니다.
         return null;
     }
 
     public void RandomSpawnEnemy(){
         List<Node> rooms = MapGenerator.instance.rooms;
-        int NumberOfEnemyToSpawn = Random.Range(0, rooms.Count);
-        int Cnt = 0;
+        
+        int SpawnCnt = Random.Range(1, RandomSpawnNumber+1);
+    
+        for(int i = 0; i < SpawnCnt;){
+            Node room = rooms[Random.Range(0, rooms.Count)];
+            if (!room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){
+                SpawnEnemy(room);
+                i++;
+            }
+        }
         
         // Camera Rect ~
-        foreach (Node room in rooms){
-            if(room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){
-                continue;
-            }
+        // foreach (Node room in rooms){
+        //     if(room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){
+        //         continue;
+        //     }
+        
+        //     Vector2 temp1 = room.roomRect.center;
+        //     Vector2Int temp2 = MapGenerator.instance.MapSize;
+        //     Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
 
+        //     SpawnEnemy(roomCenter);
+        //     if(++Cnt > NumberOfEnemyToSpawn) break;
+        // }
+    }
+
+    void SpawnEnemy(Node room){
+        GameObject enemy = GetPooledEnemy();
+
+        if (enemy != null){
             Vector2 temp1 = room.roomRect.center;
             Vector2Int temp2 = MapGenerator.instance.MapSize;
             Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
 
-            SpawnEnemy(roomCenter);
-            if(++Cnt > NumberOfEnemyToSpawn) break;
+            enemy.transform.position = roomCenter;
+            enemy.SetActive(true);
+            enemies.Add(enemy);
         }
     }
 
-    void SpawnEnemy(Vector3 SpawnPosition){
+    void SpawnEnemy(Vector3 pos){
         GameObject enemy = GetPooledEnemy();
+
         if (enemy != null){
-            enemy.transform.position = SpawnPosition;
+            enemy.transform.position = pos;
             enemy.SetActive(true);
             enemies.Add(enemy);
         }

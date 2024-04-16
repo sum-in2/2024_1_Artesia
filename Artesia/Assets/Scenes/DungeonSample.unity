@@ -716,7 +716,6 @@ MonoBehaviour:
   dummyNextScene: {fileID: 1966656482}
   Player: {fileID: 1668835123}
   MapObject: {fileID: 1685033536}
-  isFade: 0
 --- !u!1 &403503367
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +761,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7476744625408343296, guid: 73237f18ddc11154e892cb593a39ed83, type: 3}
-  poolSize: 100
+  poolSize: 30
+  FirstSpawn: 3
+  RandomSpawnNumber: 3
 --- !u!1 &482830626
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] SpriteRenderer dummyNextScene;
     public GameObject Player;
     public GameObject MapObject;
-    public bool isFade = false; // 페이드중이면 이동 못하게 어차피 턴 안바뀌면 안움직이니가
+    public bool isFade {get; private set;} = false; // 페이드중이면 이동 못하게 어차피 턴 안바뀌면 안움직이니가
     public Data GameData {get; set;}
 
     void Awake()
@@ -52,24 +52,30 @@ public class GameManager : MonoBehaviour
 
     public void NextStage(){
         // Stage Index 추가 예정
-        SetFadeImage(dummyNextScene, true);
+        StartCoroutine(Fade(dummyNextScene, 1f));
         EnemySpawner.instance.EnemyListClear();
         MapObject.GetComponent<MapGenerator>().InitMap();
         MapObject.GetComponent<DrawTile>().InitTile();
         Player.GetComponent<PlayerController>().MovePos();
-        StartCoroutine(Fadein(dummyNextScene, 2f));
-    }
-    
-    void SetFadeImage(SpriteRenderer image, bool Alpha){
-        isFade = true;
-        Color color = image.color;
-        if(Alpha) color.a = 1f;
-        else color.a = 0f;
-        image.color = color;
     }
 
-    IEnumerator Fadein(SpriteRenderer image,float time){
+    //Fade 관련 함수 아마 분리 시킬듯
+    
+    // void SetFadeImage(SpriteRenderer image, bool Alpha){
+    //     Color color = image.color;
+    //     if(Alpha) color.a = 1f;
+    //     else color.a = 0f;
+    //     image.color = color;
+    // }
+
+    IEnumerator Fade(SpriteRenderer image,float time){
+        isFade = true;
         Color color = image.color;
+
+        color.a = 1f;
+        image.color = color;
+        yield return new WaitForSeconds(0.8f);
+
         while (color.a > 0f){
             color.a -= Time.deltaTime / time;
             image.color = color;
