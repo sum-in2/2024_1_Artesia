@@ -5,10 +5,8 @@ using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-//using Vector2 = UnityEngine.Vector2;
 using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
