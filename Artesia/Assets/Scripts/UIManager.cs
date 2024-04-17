@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] CanvasGroup LoadingCanvas;
+    public bool isFade {get; private set;} = false; // 페이드중이면 이동 못하게 어차피 턴 안바뀌면 안움직이니가
     static UIManager Instance;
     public static UIManager instance{
         get{
@@ -26,4 +30,30 @@ public class UIManager : MonoBehaviour
     public void SetActiveNextStageUI(bool bActive){
         NextStageUI.SetActive(bActive);
     }
+
+    public IEnumerator FakeLoading(float time){
+        isFade = true;
+        float timer = 0f;
+        LoadingCanvas.alpha = 1f;
+        yield return new WaitForSeconds(time);
+
+        while(timer < time){
+            yield return null;
+            timer += Time.deltaTime;
+            LoadingCanvas.alpha = Mathf.Lerp(1f, 0f, timer);
+        }
+
+        isFade = false;
+    }
+    
+        // float timer = 0f;
+
+        // while(timer < 1f){
+        //     yield return null;
+        //     timer += Time.unscaledDeltaTime * 2f;
+        //     m_canvasGroup.alpha = Mathf.Lerp(IsFade ? 0 : 1, IsFade ? 1:0, timer);
+        // }
+
+        // if(!IsFade)
+        //     gameObject.SetActive(false);
 }

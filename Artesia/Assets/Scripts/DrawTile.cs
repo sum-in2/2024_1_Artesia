@@ -27,10 +27,9 @@ public class DrawTile : MonoBehaviour
     Vector2Int m_mapSize;
     Vector3Int m_stairPos;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         initDic();
-        InitTile();
     }
 
     void mySetTile(Tilemap tilemap, int x, int y, TileInfo roomInfo){

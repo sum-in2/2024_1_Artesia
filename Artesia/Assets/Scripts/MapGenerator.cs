@@ -53,9 +53,6 @@ public class MapGenerator : MonoBehaviour
             m_instance = this; 
         else if(m_instance != this)
             Destroy(this.gameObject);
-        
-        InitMap();
-        
     }
 
     void InitMapInfoArray(){

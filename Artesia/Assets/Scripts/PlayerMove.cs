@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMove : IState<PlayerController>
@@ -16,6 +17,10 @@ public class PlayerMove : IState<PlayerController>
 
         speed = m_playerController.speed;
         m_targetPos = m_playerController.TargetPos;
+
+        if(Mathf.Abs(sender.Dir.x) == 1){                                                 // 기본이 왼쪽방향
+            sender.gameObject.GetComponent<SpriteRenderer>().flipX = (sender.Dir.x == 1); // 1이면 오른쪽 방향이니 플립켜야함
+        }
     }
     public void OperateUpdate(PlayerController sender){
         Vector2 nowPos = m_playerController.transform.position;
