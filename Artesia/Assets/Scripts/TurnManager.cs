@@ -32,17 +32,22 @@ public class TurnManager : MonoBehaviour
 
     private void Update(){
         if(CheckUnitTurn()){
-            TurnCnt++;
-            setTurn(Player, false);
-            foreach(GameObject Obj in MobList){
-                setTurn(Obj, false);
-            }
+            NextTurn();
         }
 
         if(TurnCnt > 8){
             EnemySpawner.instance.RandomSpawnEnemy();
             TurnCnt = 0;
         }
+    }
+
+    void NextTurn(){
+        TurnCnt++;
+        setTurn(Player, false);
+        foreach(GameObject Obj in MobList){
+            setTurn(Obj, false);
+        }
+        EnemySpawner.instance.updatePath(Player.transform.position);
     }
 
     public void setTurn(GameObject obj, bool input){

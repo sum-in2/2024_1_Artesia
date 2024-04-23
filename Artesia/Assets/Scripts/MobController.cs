@@ -24,6 +24,8 @@ public class MobController : MonoBehaviour, ITurn
     private Dictionary<MobState, IState<MobController>> dicState = new Dictionary<MobState, IState<MobController>>();
     private StateMachine<MobController> SM;
 
+    List<Vector2Int> toPlayerPath;
+
     void Awake(){
         IState<MobController> idle = new MobIdle();
         IState<MobController> move = new MobMove();
@@ -38,6 +40,12 @@ public class MobController : MonoBehaviour, ITurn
 
     public void setStateToIdle(){
         SM.SetState(dicState[MobState.Idle]);
+    }
+
+    public void setListPath(Vector3 PlayerPos){
+        if((toPlayerPath = gameObject.GetComponent<AStarPathfinder>().StartPathfinding(transform.position, PlayerPos)) != null)
+            foreach(var path in toPlayerPath)
+                Debug.Log(gameObject.name + " " + path);
     }
 
     private void Update() {
@@ -57,13 +65,23 @@ public class MobController : MonoBehaviour, ITurn
                 PlayedTurn = true;
                 return;
             }
+            
             RaycastHit2D hit;
-            do{
-                Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));
-                hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
-            } while(hit);
 
-            TargetPos = Dir + (Vector2) transform.position;
+            if(toPlayerPath == null)
+            {
+                do{
+                    Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));
+                    hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
+                } while(hit);
+
+                TargetPos = Dir + (Vector2) transform.position;
+            }
+            else
+            {
+                TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[1]);
+                Debug.Log(TargetPos);
+            }
             SM.SetState(dicState[MobState.Move]);
         }
     }

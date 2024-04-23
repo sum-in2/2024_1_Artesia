@@ -24,10 +24,11 @@ public class SceneLoader : MonoBehaviour
     }
     [SerializeField] CanvasGroup m_canvasGroup;
     [SerializeField] Image m_progressBar;
+    [SerializeField]GameObject UICamera;
     Canvas RenderCamera;
     private string LoadSceneName;
     public static SceneLoader Create(){
-        var SceneLoaderPrefab = Resources.Load<SceneLoader>("Prefabs/SceneLoader");
+        var SceneLoaderPrefab = Resources.Load<SceneLoader>("Prefabs/Singleton/SceneLoader");
         return Instantiate(SceneLoaderPrefab);
     }
 
@@ -51,8 +52,8 @@ public class SceneLoader : MonoBehaviour
         SceneManager.sceneLoaded += LoadSceneEnd;
         LoadSceneName = SceneName;
         
-        RenderCamera = gameObject.GetComponent<Canvas>();
-        RenderCamera.worldCamera = Camera.main;
+        // RenderCamera = gameObject.GetComponent<Canvas>();
+        // RenderCamera.worldCamera = UICamera.GetComponent<Camera>();
 
         StartCoroutine(Load(LoadSceneName));
     }

@@ -12,6 +12,8 @@ public class EnemySpawner : MonoBehaviour
     List<GameObject> Enemies;
     List<GameObject> enemyPool;
 
+    Vector3 savedPlayerPos;
+
     public List<GameObject> enemies
     {
         get { return Enemies; }
@@ -37,10 +39,23 @@ public class EnemySpawner : MonoBehaviour
         AddEnemyToPool(enemyPrefab, poolSize);
     }
 
+    void Start(){
+        savedPlayerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+    }
+
+    public void updatePath(Vector3 PlayerPos){
+        if(savedPlayerPos != PlayerPos){
+            savedPlayerPos = PlayerPos;
+            foreach(GameObject enemy in enemies){
+                enemy.GetComponent<MobController>().setListPath(PlayerPos);
+            }
+        }
+    }
+
     void AddEnemyToPool(GameObject Prefab, int EnemyCnt){
         for (int i = 0; i < EnemyCnt; i++){
             GameObject enemy = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
-            enemy.SetActive(false); // 비활성화 상태로 시작
+            enemy.SetActive(false);
             enemy.name = ("Enmey" + i);
             enemy.transform.SetParent(this.transform);
             enemyPool.Add(enemy);
@@ -65,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
         foreach (GameObject Enemy in Enemies)
         {
             Enemy.GetComponent<MobController>().setStateToIdle();
-            Enemy.SetActive(false); // 활성화된 상태를 false로 변경하여 비활성화합니다.
+            Enemy.SetActive(false);
         }
     }
 
@@ -86,7 +101,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     GameObject GetPooledEnemy(){
-        // 오브젝트 풀에서 비활성화된 적 캐릭터를 찾아 반환합니다.
         for (int i = 0; i < enemyPool.Count; i++){
             if (!enemyPool[i].activeInHierarchy){
                 return enemyPool[i];
@@ -107,20 +121,6 @@ public class EnemySpawner : MonoBehaviour
                 i++;
             }
         }
-        
-        // Camera Rect ~
-        // foreach (Node room in rooms){
-        //     if(room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){
-        //         continue;
-        //     }
-        
-        //     Vector2 temp1 = room.roomRect.center;
-        //     Vector2Int temp2 = MapGenerator.instance.MapSize;
-        //     Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
-
-        //     SpawnEnemy(roomCenter);
-        //     if(++Cnt > NumberOfEnemyToSpawn) break;
-        // }
     }
 
     void SpawnEnemy(Node room){
@@ -130,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
             Vector2 temp1 = room.roomRect.center;
             Vector2Int temp2 = MapGenerator.instance.MapSize;
             Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
-
+            
             enemy.transform.position = roomCenter;
             enemy.SetActive(true);
             enemies.Add(enemy);

@@ -45,15 +45,4 @@ public class UIManager : MonoBehaviour
 
         isFade = false;
     }
-    
-        // float timer = 0f;
-
-        // while(timer < 1f){
-        //     yield return null;
-        //     timer += Time.unscaledDeltaTime * 2f;
-        //     m_canvasGroup.alpha = Mathf.Lerp(IsFade ? 0 : 1, IsFade ? 1:0, timer);
-        // }
-
-        // if(!IsFade)
-        //     gameObject.SetActive(false);
 }

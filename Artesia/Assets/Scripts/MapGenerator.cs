@@ -36,7 +36,7 @@ public class MapGenerator : MonoBehaviour
             return m_instance;
         }
     }
-    enum TileInfo{ // 타일 배열에 관한 열거
+    public enum TileInfo{ // 타일 배열에 관한 열거
         Out,
         Room,
         Wall,
