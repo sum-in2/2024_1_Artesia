@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject MapObject;
     public Data GameData {get; set;}
 
+    public int stageIndex{get; private set;} = 1;
+
     void Awake()
     {
         if(Instance == null)
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void NextStage(){
         // Stage Index 추가 예정
-        StartCoroutine(UIManager.instance.FakeLoading(1f));
+        StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex++, "DungeonName")); // 던전네임 변수 추가 예정 ( 배열로 쓸 듯 ? )
         EnemySpawner.instance.EnemyListClear();
         MapObject.GetComponent<MapGenerator>().InitMap();
         MapObject.GetComponent<DrawTile>().InitTile();

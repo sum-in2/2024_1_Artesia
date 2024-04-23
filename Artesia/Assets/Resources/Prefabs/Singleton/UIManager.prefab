@@ -1225,6 +1225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadingCanvas: {fileID: 8109594579046935085}
+  tmp: {fileID: 5897306361540044223}
   NextStageUI: {fileID: 903390930117645438}
 --- !u!1 &7544092843097635601
 GameObject:

@@ -130,7 +130,10 @@ public class EnemySpawner : MonoBehaviour
             Vector2 temp1 = room.roomRect.center;
             Vector2Int temp2 = MapGenerator.instance.MapSize;
             Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
-            
+
+            enemy.GetComponent<AStarPathfinder>().Init();
+            enemy.GetComponent<MobController>().setListPath();
+
             enemy.transform.position = roomCenter;
             enemy.SetActive(true);
             enemies.Add(enemy);

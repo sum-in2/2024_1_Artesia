@@ -11,34 +11,20 @@ public class AStarPathfinder : MonoBehaviour
 
     [SerializeField] int MaxPathSize = 7;
 
-    Vector2Int[] neighbors = new Vector2Int[]
-    {
-        new Vector2Int(0, 1),
-        new Vector2Int(0, -1),
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 0),
-        new Vector2Int(1, 1),
-        new Vector2Int(1, -1),
-        new Vector2Int(-1, 1),
-        new Vector2Int(-1, -1)
-    };
-
     private void Awake()
     {
         openList = new List<Vector2Int>();
         closedList = new List<Vector2Int>();
     }
 
+    public void Init(){
+        MapGenerator mapGenerator = MapGenerator.instance;
+        tileInfoArray = mapGenerator.TileInfoArray;
+        mapSize = mapGenerator.MapSize;
+    }
+
     public List<Vector2Int> StartPathfinding(Vector3 startTransform, Vector3 endTransform)
     {
-        if(tileInfoArray == null)
-        {
-            MapGenerator mapGenerator = MapGenerator.instance;
-            tileInfoArray = mapGenerator.TileInfoArray;
-            mapSize = mapGenerator.MapSize;
-            Debug.Log("copy" + mapSize);
-        }
-
         Vector2Int startPos = ConvertWorldToMapPosition(startTransform);
         Vector2Int endPos = ConvertWorldToMapPosition(endTransform);
 
@@ -79,8 +65,7 @@ public class AStarPathfinder : MonoBehaviour
 
             ExploreNeighbors(currentPos, endPos);
         }
-
-        Debug.Log("No path found!");
+        
         return null;
     }
 
@@ -104,16 +89,10 @@ public class AStarPathfinder : MonoBehaviour
 
     void ExploreNeighbors(Vector2Int currentPos, Vector2Int endPos)
     {
-        foreach (Vector2Int neighbor in neighbors)
+        Vector2Int[] neighbors = GetNeighbors(currentPos);
+
+        foreach (Vector2Int neighborPos in neighbors)
         {
-            Vector2Int neighborPos = currentPos + neighbor;
-
-            if (neighborPos.x < 0 || neighborPos.x >= mapSize.x || neighborPos.y < 0 || neighborPos.y >= mapSize.y)
-                continue;
-
-            if (tileInfoArray[neighborPos.y, neighborPos.x] == (int)MapGenerator.TileInfo.Wall)
-                continue;
-
             if (closedList.Contains(neighborPos))
                 continue;
 
@@ -136,14 +115,56 @@ public class AStarPathfinder : MonoBehaviour
         }
     }
 
+    Vector2Int[] GetNeighbors(Vector2Int currentPos)
+    {
+        Vector2Int[] neighbors = new Vector2Int[]
+        {
+            new Vector2Int(0, 1),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, 0),
+            new Vector2Int(-1, 0),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, -1),
+            new Vector2Int(-1, 1),
+            new Vector2Int(-1, -1)
+        };
+
+        List<Vector2Int> validNeighbors = new List<Vector2Int>();
+
+        foreach (Vector2Int neighbor in neighbors)
+        {
+            Vector2Int neighborPos = currentPos + neighbor;
+
+            if (neighborPos.x < 0 || neighborPos.x >= mapSize.x || neighborPos.y < 0 || neighborPos.y >= mapSize.y)
+                continue;
+
+            if (tileInfoArray[neighborPos.y, neighborPos.x] == (int)MapGenerator.TileInfo.Wall)
+                continue;
+
+            if (neighbor.x != 0 && neighbor.y != 0)
+            {
+                if (tileInfoArray[currentPos.y + neighbor.y, currentPos.x] == (int)MapGenerator.TileInfo.Wall ||
+                    tileInfoArray[currentPos.y, currentPos.x + neighbor.x] == (int)MapGenerator.TileInfo.Wall)
+                    continue;
+            }
+
+            validNeighbors.Add(neighborPos);
+        }
+
+        return validNeighbors.ToArray();
+    }
+
     int GetGCost(Vector2Int startPos, Vector2Int endPos)
     {
+        int diagonalMoveCost = 14;
+        int straightMoveCost = 10;
+
         int distX = Mathf.Abs(endPos.x - startPos.x);
         int distY = Mathf.Abs(endPos.y - startPos.y);
 
         if (distX > distY)
-            return 14 * distY + 10 * (distX - distY);
-        return 14 * distX + 10 * (distY - distX);
+            return diagonalMoveCost * distY + straightMoveCost * (distX - distY);
+        return diagonalMoveCost * distX + straightMoveCost * (distY - distX);
     }
 
     int GetHCost(Vector2Int pos, Vector2Int endPos)
@@ -169,16 +190,10 @@ public class AStarPathfinder : MonoBehaviour
             Vector2Int minPos = Vector2Int.zero;
             int minCost = int.MaxValue;
 
-            foreach (Vector2Int neighbor in neighbors)
+            Vector2Int[] neighbors = GetNeighbors(currentPos);
+
+            foreach (Vector2Int neighborPos in neighbors)
             {
-                Vector2Int neighborPos = currentPos + neighbor;
-
-                if (neighborPos.x < 0 || neighborPos.x >= mapSize.x || neighborPos.y < 0 || neighborPos.y >= mapSize.y)
-                    continue;
-
-                if (tileInfoArray[neighborPos.y, neighborPos.x] == (int)MapGenerator.TileInfo.Wall)
-                    continue;
-
                 if (!closedList.Contains(neighborPos))
                     continue;
 
@@ -195,8 +210,6 @@ public class AStarPathfinder : MonoBehaviour
 
             currentPos = minPos;
         }
-
-        path.Add(ConvertWorldToMapPosition(transform.position));
         path.Reverse();
 
         return path;

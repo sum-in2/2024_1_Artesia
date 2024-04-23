@@ -38,6 +38,6 @@ public class PlayerAtk : IState<PlayerController>
         m_playerController.transform.position = m_OriPos;
         elapsedTime = 0;
         sender.EnemyHit = false;
-        TurnManager.instance.setTurn(sender.gameObject, true);
+        TurnManager.instance.EndPlayerTurn();
     }
 }

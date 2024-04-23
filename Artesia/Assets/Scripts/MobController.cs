@@ -43,9 +43,11 @@ public class MobController : MonoBehaviour, ITurn
     }
 
     public void setListPath(Vector3 PlayerPos){
-        if((toPlayerPath = gameObject.GetComponent<AStarPathfinder>().StartPathfinding(transform.position, PlayerPos)) != null)
-            foreach(var path in toPlayerPath)
-                Debug.Log(gameObject.name + " " + path);
+        toPlayerPath = gameObject.GetComponent<AStarPathfinder>().StartPathfinding(transform.position, PlayerPos); 
+    }
+
+    public void setListPath(){
+        toPlayerPath = null;
     }
 
     private void Update() {
@@ -61,10 +63,6 @@ public class MobController : MonoBehaviour, ITurn
 
     void Move(){
         if(SM.CurState == dicState[MobState.Idle]){
-            if(IsPlayerNearby()) {
-                PlayedTurn = true;
-                return;
-            }
             
             RaycastHit2D hit;
 
@@ -79,20 +77,24 @@ public class MobController : MonoBehaviour, ITurn
             }
             else
             {
-                TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[1]);
-                Debug.Log(TargetPos);
+                if(toPlayerPath.Count == 1)
+                {
+                    PlayedTurn = true;
+                    return;
+                }
+                TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[0]);
             }
             SM.SetState(dicState[MobState.Move]);
         }
     }
-    bool IsPlayerNearby(){
-        Vector2[] dirs = {Vector2.down, Vector2.up, Vector2.right, Vector2.left, new Vector2(1,1), new Vector2(-1,1), new Vector2(1, -1), new Vector2(-1, -1)};
-        foreach (Vector2 dir in dirs){
-            if(Physics2D.Raycast(transform.position, dir, 1, LayerMask.GetMask("Player"))){
-                return true;
-            }
-        }
 
-        return false;
+    public void hit(int Dmg){
+        GameObject DmgText = Resources.Load<GameObject>("Prefabs/DmgText");
+        if(DmgText == null){
+            Debug.Log("dmgtext 로드 실패");
+            return;
+        }
+        GameObject obj = Instantiate(DmgText);
+        obj.GetComponent<DmgText>().Init(Dmg, transform.position);
     }
 }

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] GameObject Player;
+    public int spawnTurn = 8;
     List<GameObject> MobList;
     
     static TurnManager Instance;
@@ -31,23 +33,27 @@ public class TurnManager : MonoBehaviour
     }
 
     private void Update(){
-        if(CheckUnitTurn()){
-            NextTurn();
-        }
+        if(CheckUnitTurn())
+            setTurn(Player, false);
 
-        if(TurnCnt > 8){
+        if(TurnCnt > spawnTurn){
             EnemySpawner.instance.RandomSpawnEnemy();
             TurnCnt = 0;
         }
     }
 
-    void NextTurn(){
-        TurnCnt++;
-        setTurn(Player, false);
-        foreach(GameObject Obj in MobList){
+    public void EndPlayerTurn(){
+        Player.GetComponent<ITurn>().PlayedTurn = true;
+        EnemyNextTurn();
+    }
+
+    void EnemyNextTurn(){
+        foreach(GameObject Obj in MobList)
+        {
             setTurn(Obj, false);
         }
         EnemySpawner.instance.updatePath(Player.transform.position);
+        TurnCnt++;
     }
 
     public void setTurn(GameObject obj, bool input){
@@ -59,10 +65,7 @@ public class TurnManager : MonoBehaviour
     }
 
     bool CheckUnitTurn(){
-        // 모든 유닛의 턴이 실행 됐으면 true > 턴 switch 함수
-        // 유닛의 턴 상태는 완료 > ture, 대기 > false
-        if(!Player.GetComponent<ITurn>().PlayedTurn)
-            return false;
+        
         foreach(GameObject Obj in MobList){
             if(!Obj.activeSelf)
                 continue;

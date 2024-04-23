@@ -61,14 +61,17 @@ public class PlayerController : MonoBehaviour, ITurn
         if(!PlayedTurn && !UIManager.instance.isFade){
             Vector2 input = value.Get<Vector2>();
             if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle]){ // 
-                input = DirControl(input); 
+                Dir = DirControl(input); 
                 Vector3Int OriPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
-                RaycastHit2D hit = Physics2D.Raycast((Vector2Int)OriPos, input, 1, LayerMask.GetMask("Tile"));
+                RaycastHit2D hit = Physics2D.Raycast((Vector2Int)OriPos, input, 1, LayerMask.GetMask("Tile") | LayerMask.GetMask("Enemy"));
 
                 if(!hit){
-                    Dir = input;
                     TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
                     SM.SetState(dicState[PlayerState.Move]);
+                }
+
+                if(Mathf.Abs(Dir.x) == 1){                                                 // 기본이 왼쪽방향
+                    gameObject.GetComponent<SpriteRenderer>().flipX = (Dir.x == 1); // 1이면 오른쪽 방향이니 플립켜야함
                 }
             }
             

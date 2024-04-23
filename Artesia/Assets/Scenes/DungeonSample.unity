@@ -702,6 +702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reina
       objectReference: {fileID: 0}
+    - target: {fileID: 6666812968633396699, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
+      propertyPath: Speed
+      value: 0.249
+      objectReference: {fileID: 0}
     - target: {fileID: 9104769436885262326, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -769,15 +773,15 @@ PrefabInstance:
       objectReference: {fileID: 1668835123}
     - target: {fileID: 4539105263949559581, guid: 3ed8842fa1e0f874ea9bc5119089c28b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.8336854
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4539105263949559581, guid: 3ed8842fa1e0f874ea9bc5119089c28b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.353315
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4539105263949559581, guid: 3ed8842fa1e0f874ea9bc5119089c28b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.10095267
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4539105263949559581, guid: 3ed8842fa1e0f874ea9bc5119089c28b, type: 3}
       propertyPath: m_LocalRotation.w
