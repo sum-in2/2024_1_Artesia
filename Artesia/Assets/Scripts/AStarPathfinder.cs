@@ -211,7 +211,7 @@ public class AStarPathfinder : MonoBehaviour
             currentPos = minPos;
         }
         path.Reverse();
-
+        
         return path;
     }
 }

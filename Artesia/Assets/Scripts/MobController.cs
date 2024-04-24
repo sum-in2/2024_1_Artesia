@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using Random = UnityEngine.Random;    
 
 public class MobController : MonoBehaviour, ITurn
@@ -52,12 +53,14 @@ public class MobController : MonoBehaviour, ITurn
 
     private void Update() {
         // if(캐릭터 감지 함수){Move();}
-        if(!PlayedTurn)
+        
+
+        if(!PlayedTurn){
             Move();
-        if(TargetPos == (Vector2)transform.position){
+        }
+        if(TargetPos == (Vector2)transform.position && SM.CurState == dicState[MobState.Move]){
             SM.SetState(dicState[MobState.Idle]);
         }
-
         SM.DoOperateUpdate();
     }
 
@@ -80,9 +83,11 @@ public class MobController : MonoBehaviour, ITurn
                 if(toPlayerPath.Count == 1)
                 {
                     PlayedTurn = true;
+                    Debug.Log(gameObject.name +"call Mob Atk()");
                     return;
                 }
                 TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[0]);
+                toPlayerPath.RemoveAt(0);
             }
             SM.SetState(dicState[MobState.Move]);
         }

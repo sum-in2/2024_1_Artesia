@@ -58,19 +58,22 @@ public class TurnManager : MonoBehaviour
 
     public void setTurn(GameObject obj, bool input){
         ITurn TurnTemp = obj.GetComponent<ITurn>();
-        if(TurnTemp != null)
+        if(TurnTemp != null){
             TurnTemp.PlayedTurn = input;
+        }
         else
-            Debug.Log("ITurn 상속받지 않은 오브젝트 : " + obj.name);
+            Debug.Log("ITurn 상속받지 않은 오브젝트 : " + obj.name);                        
     }
 
     bool CheckUnitTurn(){
-        
         foreach(GameObject Obj in MobList){
-            if(!Obj.activeSelf)
+            if(!Obj.activeSelf){
                 continue;
-            if(!Obj.GetComponent<ITurn>().PlayedTurn)
+            }
+
+            if(!Obj.GetComponent<ITurn>().PlayedTurn){
                 return false;
+            }
         }
         return true;
     }

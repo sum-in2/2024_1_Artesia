@@ -82,6 +82,7 @@ public class EnemySpawner : MonoBehaviour
             Enemy.GetComponent<MobController>().setStateToIdle();
             Enemy.SetActive(false);
         }
+        enemies.Clear();
     }
 
     public void ActiveFromPool(){
