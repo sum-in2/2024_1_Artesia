@@ -1,24 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
     public float cameraSpeed = 5.0f;
-    public RectInt screenRect;
-
+    [HideInInspector] public RectInt screenRect;
     public GameObject player;
+    public Tilemap tilemap;
 
-    private void Update(){
-        Vector3 dir = player.transform.position - this.transform.position;
-        Vector3 moveVector = new Vector3(dir.x * cameraSpeed * Time.deltaTime, dir.y * cameraSpeed * Time.deltaTime, 0.0f);
-        this.transform.Translate(moveVector);
+    private Vector3 minBounds;
+    private Vector3 maxBounds;
+    private Vector3 offset;
+
+    private void Start()
+    {
+        CalculateTilemapBounds();
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        targetPosition.x = Mathf.Clamp(targetPosition.x, minBounds.x, maxBounds.x);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, minBounds.y, maxBounds.y);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, cameraSpeed * Time.deltaTime);
         CalculateScreenBorderRect();
     }
 
-    void CalculateScreenBorderRect(){
+    void CalculateScreenBorderRect()
+    {
         Camera cam = Camera.main;
-        if (cam == null){
+        if (cam == null)
+        {
             Debug.LogError("Camera reference not set!");
             return;
         }
@@ -33,8 +48,9 @@ public class CameraController : MonoBehaviour
 
         screenRect = new RectInt(xMin, yMin, width, height);
     }
-    
-    void OnDrawGizmos(){
+
+    void OnDrawGizmos()
+    {
         Gizmos.color = Color.red;
         Vector3 bottomLeft = new Vector3(screenRect.xMin, screenRect.yMin, 0);
         Vector3 bottomRight = new Vector3(screenRect.xMax, screenRect.yMin, 0);
@@ -45,5 +61,28 @@ public class CameraController : MonoBehaviour
         Gizmos.DrawLine(bottomRight, topRight);
         Gizmos.DrawLine(topRight, topLeft);
         Gizmos.DrawLine(topLeft, bottomLeft);
+    }
+
+    private void CalculateTilemapBounds()
+    {
+        Vector3 tileSize = tilemap.layoutGrid.cellSize;
+        Vector3Int tilemapSize = tilemap.size;
+
+        Vector3 tileSizeHalf = tileSize / 2f;
+        Vector3 tilemapSizeHalf = new Vector3(tilemapSize.x / 2f, tilemapSize.y / 2f, 0f);
+
+        minBounds = tilemap.CellToWorld(-Vector3Int.FloorToInt(tilemapSizeHalf)) + tileSizeHalf;
+        maxBounds = tilemap.CellToWorld(Vector3Int.FloorToInt(tilemapSizeHalf)) - tileSizeHalf;
+
+        Vector3 cameraSize = GetCameraSize();
+        minBounds += cameraSize / 2f;
+        maxBounds -= cameraSize / 2f;
+    }
+
+    private Vector3 GetCameraSize()
+    {
+        float height = Camera.main.orthographicSize * 2f;
+        float width = height * Camera.main.aspect;
+        return new Vector3(width, height, 0f);
     }
 }

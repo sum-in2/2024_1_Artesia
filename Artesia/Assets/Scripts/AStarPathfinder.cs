@@ -148,6 +148,10 @@ public class AStarPathfinder : MonoBehaviour
                     continue;
             }
 
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(neighborPos.x, neighborPos.y), Vector2.zero);
+            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+                continue;            
+
             validNeighbors.Add(neighborPos);
         }
 

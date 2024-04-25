@@ -67,13 +67,14 @@ public class MobController : MonoBehaviour, ITurn
     void Move(){
         if(SM.CurState == dicState[MobState.Idle]){
             
-            RaycastHit2D hit;
+            Collider2D hit;
 
             if(toPlayerPath == null)
             {
                 do{
                     Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));
-                    hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
+                    //hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
+                    hit = Physics2D.OverlapPoint(new Vector2(transform.position.x + Dir.x, transform.position.y + Dir.y));
                 } while(hit);
 
                 TargetPos = Dir + (Vector2) transform.position;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
@@ -51,11 +52,13 @@ public class GameManager : MonoBehaviour
 
     public void NextStage(){
         // Stage Index 추가 예정
-        StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex++, "DungeonName")); // 던전네임 변수 추가 예정 ( 배열로 쓸 듯 ? )
-        EnemySpawner.instance.EnemyListClear();
-        MapObject.GetComponent<MapGenerator>().InitMap();
-        MapObject.GetComponent<DrawTile>().InitTile();
-        Player.GetComponent<PlayerController>().MovePos();
+        if(SceneManager.GetActiveScene().name != "BaseCamp"){
+            StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex++, "DungeonName")); // 던전네임 변수 추가 예정 ( 배열로 쓸 듯 ? )
+            EnemySpawner.instance.EnemyListClear();
+            MapObject.GetComponent<MapGenerator>().InitMap();
+            MapObject.GetComponent<DrawTile>().InitTile();
+            Player.GetComponent<PlayerController>().MovePos();
+        }
     }
 
     //Fade 관련 함수 아마 분리 시킬듯 

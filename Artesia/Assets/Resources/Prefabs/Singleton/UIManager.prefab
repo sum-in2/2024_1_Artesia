@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 3044190465670359228}
   - component: {fileID: 5897306361540044223}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LoadingStageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -537,7 +537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6399416596916248140
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1225,7 +1225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadingCanvas: {fileID: 8109594579046935085}
-  tmp: {fileID: 5897306361540044223}
+  LoadingStageText: {fileID: 0}
   NextStageUI: {fileID: 903390930117645438}
 --- !u!1 &7544092843097635601
 GameObject:

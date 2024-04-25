@@ -17,8 +17,9 @@ public class UIManager : MonoBehaviour
     }
     
 
-    public TextMeshProUGUI tmp;
-
+    public TextMeshProUGUI LoadingStageText;
+    
+    Dictionary<string, GameObject> DicUi;
     [SerializeField] GameObject NextStageUI;
 
     void Awake()
@@ -29,10 +30,22 @@ public class UIManager : MonoBehaviour
             Destroy(this.gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        DicUi = new Dictionary<string, GameObject>();
+        DicUi.Add("NextStage", NextStageUI);
     }
 
-    public void SetActiveNextStageUI(bool bActive){
-        NextStageUI.SetActive(bActive);
+    public void SetActiveUI(string UIName, bool bActive){
+        if(DicUi[UIName] == null)
+        {
+            Debug.Log("UI가 사전에 업음");
+            return;
+        }
+        DicUi[UIName].SetActive(bActive);
+    }
+
+    public void SetActiveUI(GameObject UIobj, bool bActive){
+        UIobj.SetActive(bActive);
     }
 
     public IEnumerator FakeLoading(float time, int stageIndex, string dungeonName){
@@ -40,8 +53,8 @@ public class UIManager : MonoBehaviour
         float timer = 0f;
         LoadingCanvas.alpha = 1f;
 
-        if(tmp != null)
-            tmp.text = dungeonName + "\n" + stageIndex + "F";
+        if(LoadingStageText != null)
+            LoadingStageText.text = dungeonName + "\n" + stageIndex + "F";
 
         yield return new WaitForSeconds(time);
 

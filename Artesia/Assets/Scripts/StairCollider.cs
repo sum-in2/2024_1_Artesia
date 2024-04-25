@@ -10,7 +10,7 @@ public class StairCollider : MonoBehaviour
         if(other.tag == "Player" && !bTriggerEnter){
             if(gameObject.GetComponent<Collider2D>().bounds.center == other.bounds.center){
                 Time.timeScale = 0f;
-                UIManager.instance.SetActiveNextStageUI(true);
+                UIManager.instance.SetActiveUI("NextStage", true);
                 bTriggerEnter = true;
             }
         }

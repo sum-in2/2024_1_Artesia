@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: e53daaf3d07c3e547b05300cf016c92c
   - enabled: 1
+    path: Assets/Scenes/BaseCamp.unity
+    guid: 8564077851461574d8d628f5194ae6bc
+  - enabled: 1
     path: Assets/Scenes/DungeonSample.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   m_configObjects:
-    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 90685a1e6425a844e8645934ca2d184c, type: 2}
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 939f6ba13bfadf046a2c569b99f6afeb, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c5dfca00f1b59cf4a9ac486a1b20dcac, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: f56b5894aef4e9049a43cbf477824481, type: 2}

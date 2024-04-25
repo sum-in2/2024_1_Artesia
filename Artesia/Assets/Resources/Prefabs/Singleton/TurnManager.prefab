@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7981d921ce9ebf74cba81e7be1354be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 5598720203380686836, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
+  Player: {fileID: 0}
+  spawnTurn: 8

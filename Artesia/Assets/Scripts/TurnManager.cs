@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
 public class TurnManager : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class TurnManager : MonoBehaviour
             return Instance;
         }
     }
+    String sceneName; //함수 안에 선언하여 사용한다.
 
     int TurnCnt;
 
@@ -26,17 +29,19 @@ public class TurnManager : MonoBehaviour
             Destroy(this.gameObject);
             
         TurnCnt = 0;
+        sceneName = SceneManager.GetActiveScene().name;
     }
     
     private void Start() {
-        MobList = EnemySpawner.instance.enemies;
+        if(sceneName != "BaseCamp")
+            MobList = EnemySpawner.instance.enemies;
     }
 
     private void Update(){
         if(CheckUnitTurn())
             setTurn(Player, false);
 
-        if(TurnCnt > spawnTurn){
+        if(TurnCnt > spawnTurn && sceneName != "BaseCamp"){
             EnemySpawner.instance.RandomSpawnEnemy();
             TurnCnt = 0;
         }
@@ -44,7 +49,7 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn(){
         Player.GetComponent<ITurn>().PlayedTurn = true;
-        EnemyNextTurn();
+        if(sceneName != "BaseCamp") EnemyNextTurn();
     }
 
     void EnemyNextTurn(){
@@ -66,13 +71,15 @@ public class TurnManager : MonoBehaviour
     }
 
     bool CheckUnitTurn(){
-        foreach(GameObject Obj in MobList){
-            if(!Obj.activeSelf){
-                continue;
-            }
+        if(MobList != null){
+            foreach(GameObject Obj in MobList){
+                if(!Obj.activeSelf){
+                    continue;
+                }
 
-            if(!Obj.GetComponent<ITurn>().PlayedTurn){
-                return false;
+                if(!Obj.GetComponent<ITurn>().PlayedTurn){
+                    return false;
+                }
             }
         }
         return true;

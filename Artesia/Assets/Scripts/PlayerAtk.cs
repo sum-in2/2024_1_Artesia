@@ -18,7 +18,7 @@ public class PlayerAtk : IState<PlayerController>
         m_targetPos = sender.TargetPos;
         m_Dir = sender.Dir;
         m_OriPos = sender.transform.position;
-        AtkSpeed = sender.speed / 1.5f;
+        AtkSpeed = sender.speed / 2f;
         
         elapsedTime += Time.deltaTime;
         m_playerController.transform.position = Vector2.Lerp(sender.transform.position, m_targetPos, elapsedTime / AtkSpeed);

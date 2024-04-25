@@ -6,9 +6,16 @@ using UnityEngine.UI;
 
 public class MainMenuButton : MonoBehaviour
 {
+    public Canvas StartCanvas;
+    public Canvas OptionCanvas;
+
+    public void OnSavedGameButton(){
+        SceneLoader.Instance.LoadScene("BaseCamp");
+    }
+
     public void OnStartButton(){
-        //tmpro는 접근이 다른가범
-        //string buttontext = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
-        SceneLoader.Instance.LoadScene("DungeonSample");
+        if(StartCanvas != null){
+            StartCanvas.gameObject.SetActive(true);
+        }
     }
 }
