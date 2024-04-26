@@ -8,7 +8,7 @@ using System;
 
 public class TurnManager : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
+    GameObject Player;
     public int spawnTurn = 8;
     List<GameObject> MobList;
     
@@ -35,6 +35,8 @@ public class TurnManager : MonoBehaviour
     private void Start() {
         if(sceneName != "BaseCamp")
             MobList = EnemySpawner.instance.enemies;
+        
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update(){

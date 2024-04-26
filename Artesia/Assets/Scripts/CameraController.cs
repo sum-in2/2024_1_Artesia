@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 {
     public float cameraSpeed = 5.0f;
     [HideInInspector] public RectInt screenRect;
-    public GameObject player;
+    GameObject player;
     public Tilemap tilemap;
 
     private Vector3 minBounds;
@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         CalculateTilemapBounds();
     }
 

@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
             return Instance;
         }
     }
-    public GameObject Player;
-    public GameObject MapObject;
+    GameObject Player;
+    GameObject MapObject;
     public Data GameData {get; set;}
 
     public int stageIndex{get; private set;} = 1;
@@ -29,7 +29,13 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        Init();
+    }
+
+    void Init(){
         // if(savefile 유무) LoadData
+        MapObject = GameObject.FindGameObjectWithTag("Map");
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start(){
@@ -51,8 +57,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void NextStage(){
-        // Stage Index 추가 예정
-
         if(SceneManager.GetActiveScene().name != "BaseCamp"){
             StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex++, "DungeonName")); // 던전네임 변수 추가 예정 ( 배열로 쓸 듯 ? )
             EnemySpawner.instance.EnemyListClear();
@@ -61,7 +65,4 @@ public class GameManager : MonoBehaviour
             Player.GetComponent<PlayerController>().MovePos();
         }
     }
-
-    //Fade 관련 함수 아마 분리 시킬듯 
-    // UI카메라로 옮겨서 화면 다 덮고 하는게
 }

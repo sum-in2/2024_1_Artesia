@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8df5838ba015dbb4d9895bc1abd30613
+guid: 3b031fcb7da20534eb8ee291371efc06
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,70 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: MainSceneButtonImage_0
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 256
-        width: 356
-        height: 99
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b85ce60e5504e6409d6b27fee3a39aa
-      internalID: -325099608
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainSceneButtonImage_1
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 133
-        width: 445
-        height: 93
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f5719dec5966f44d918907fda56d855
-      internalID: 1423947128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainSceneButtonImage_2
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 10
-        width: 270
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 95966bff19739334ea5c77dd97962cdc
-      internalID: 1697865819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -182,10 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      MainSceneButtonImage_0: -325099608
-      MainSceneButtonImage_1: 1423947128
-      MainSceneButtonImage_2: 1697865819
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

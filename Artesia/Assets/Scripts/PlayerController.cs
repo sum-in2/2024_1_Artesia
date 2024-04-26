@@ -28,8 +28,7 @@ public class PlayerController : MonoBehaviour, ITurn
     public bool PlayedTurn { get; set; }
     public bool EnemyHit { get; set; } = false;
 
-
-    void Awake(){
+    private void Awake() {
         IState<PlayerController> idle = new PlayerIdle();
         IState<PlayerController> move = new PlayerMove();
         IState<PlayerController> atk = new PlayerAtk();
@@ -42,8 +41,6 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     void Start() {
-        MovePos();
-
         DontDestroyOnLoad(gameObject);
     }
 

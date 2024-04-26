@@ -23,18 +23,18 @@ public class DataManager : MonoBehaviour
     }
     // 캐릭터 명칭으로 접근
     public Dictionary<string, Dictionary<Stat,List<int>>> CharacterStats {get; private set;} = new Dictionary<string, Dictionary<Stat, List<int>>>();
-    public GameObject Player;
+    GameObject Player;
     
     string NametoLoadPlayerStat;
 
-    private void Awake() {
+    private void OnEnable() {
         if(Instance == null)
             Instance = this; 
         else if(Instance != this)
             Destroy(this.gameObject);
 
         DontDestroyOnLoad(gameObject);
-        initDicStats();
+        init();
     }
 
     public void SaveGameData(int FileNum){
@@ -53,7 +53,8 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    void initDicStats(){ 
+    void init(){ 
+        Player = GameObject.FindGameObjectWithTag("Player");
         NametoLoadPlayerStat = Player.gameObject.name;
         Dictionary<Stat,List<int>> temp = roadCSVData($"{NametoLoadPlayerStat}Stat");
         
