@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         while(timer < time){
             yield return null;
             timer += Time.deltaTime;
-            LoadingCanvas.alpha = Mathf.Lerp(1f, 0f, timer);
+            LoadingCanvas.alpha = Mathf.Lerp(1f, 0f, timer / time);
         }
 
         isFade = false;

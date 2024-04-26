@@ -56,8 +56,8 @@ public class TurnManager : MonoBehaviour
         foreach(GameObject Obj in MobList)
         {
             setTurn(Obj, false);
+            EnemySpawner.instance.updatePath(Obj, Player.transform.position);
         }
-        EnemySpawner.instance.updatePath(Player.transform.position);
         TurnCnt++;
     }
 

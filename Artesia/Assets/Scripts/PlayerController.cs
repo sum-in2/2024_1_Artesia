@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour, ITurn
         Atk,
     }
 
-    private Dictionary<PlayerState, IState<PlayerController>> dicState = new Dictionary<PlayerState, IState<PlayerController>>();
+    [SerializeField] private Dictionary<PlayerState, IState<PlayerController>> dicState = new Dictionary<PlayerState, IState<PlayerController>>();
     private StateMachine<PlayerController> SM;
     public Vector2 OriPos { get; private set;}
     public Vector2 Dir { get; private set;} = Vector2.down;

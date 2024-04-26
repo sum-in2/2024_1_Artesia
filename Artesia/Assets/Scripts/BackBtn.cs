@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BackBtn : MonoBehaviour
 {
-        public void OnBackButton(){
+    public void OnBackButton(){
         gameObject.transform.parent.gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

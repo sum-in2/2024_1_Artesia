@@ -25,6 +25,8 @@ public class MobController : MonoBehaviour, ITurn
     private Dictionary<MobState, IState<MobController>> dicState = new Dictionary<MobState, IState<MobController>>();
     private StateMachine<MobController> SM;
 
+    Vector2 OriPos;
+
     List<Vector2Int> toPlayerPath;
 
     void Awake(){
@@ -58,6 +60,10 @@ public class MobController : MonoBehaviour, ITurn
         if(!PlayedTurn){
             Move();
         }
+
+        if((Vector2)transform.position == OriPos && SM.CurState == dicState[MobState.Atk])
+            SM.SetState(dicState[MobState.Idle]);
+
         if(TargetPos == (Vector2)transform.position && SM.CurState == dicState[MobState.Move]){
             SM.SetState(dicState[MobState.Idle]);
         }
@@ -81,13 +87,13 @@ public class MobController : MonoBehaviour, ITurn
             }
             else
             {
+                TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[0]);
                 if(toPlayerPath.Count == 1)
                 {
-                    PlayedTurn = true;
-                    Debug.Log(gameObject.name +"call Mob Atk()");
+                    OriPos = transform.position;
+                    SM.SetState(dicState[MobState.Atk]);
                     return;
                 }
-                TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[0]);
                 toPlayerPath.RemoveAt(0);
             }
             SM.SetState(dicState[MobState.Move]);
