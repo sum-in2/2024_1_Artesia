@@ -1,11 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using Unity.Collections;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 

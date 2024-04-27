@@ -15,7 +15,7 @@ public class TurnManager : MonoBehaviour
             return Instance;
         }
     }
-    String sceneName; //함수 안에 선언하여 사용한다.
+    String sceneName;
 
     int TurnCnt;
 

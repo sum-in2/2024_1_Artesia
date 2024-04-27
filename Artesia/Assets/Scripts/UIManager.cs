@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI LoadingStageText;
     
+    public TextMeshProUGUI DungeonInfo;
+    
     Dictionary<string, GameObject> DicUi;
     [SerializeField] GameObject NextStageUI;
 
@@ -65,6 +67,14 @@ public class UIManager : MonoBehaviour
         }
 
         isFade = false;
+    }
+    
+    public void SetDungeonInfoText(string DungeonName, int stageIndex){
+        DungeonInfo.text = DungeonName + " " + stageIndex + "F";
+    }
+
+    public void SetDungeonInfoText(string DungeonName){
+        DungeonInfo.text = DungeonName;
     }
 
     public void hit(GameObject obj, int Dmg){

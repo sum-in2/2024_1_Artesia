@@ -27,9 +27,7 @@ public class GameManager : MonoBehaviour
         else if(Instance != this)
             Destroy(this.gameObject);
 
-        DontDestroyOnLoad(gameObject);
-
-        Init();
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Init(){
@@ -39,6 +37,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        Init();
         NextStage();
     }
 
@@ -63,6 +62,9 @@ public class GameManager : MonoBehaviour
             MapObject.GetComponent<MapGenerator>().InitMap();
             MapObject.GetComponent<DrawTile>().InitTile();
             Player.GetComponent<PlayerController>().MovePos();
+            UIManager.instance.SetDungeonInfoText("DungeonName", stageIndex);
         }
+        else
+            UIManager.instance.SetDungeonInfoText("BaseCamp");
     }
 }
