@@ -131,9 +131,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1994687925177099558, guid: 5529709153888ea40bf985580c468c80, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 2160438124992058350, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onBackBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160438124992058350, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OptionBtn, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160438124992058350, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3001935466609355750, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,13 +183,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4220788102592175191, guid: 5529709153888ea40bf985580c468c80, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 6217345254724894018, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onMainBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217345254724894018, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OptionBtn, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217345254724894018, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7386440586666678342, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_Name
       value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777343475055619669, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: optionCanvas
+      value: 
+      objectReference: {fileID: 1468704368}
+    - target: {fileID: 7845237499227519392, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -730,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9104769436885262326, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9104769436885262326, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -738,7 +762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9104769436885262326, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9104769436885262326, guid: 8a3c244e7541d3d4d957b1b77b7a99fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18439,6 +18463,11 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 1419940146}
+--- !u!1 &1468704368 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5598224742530746127, guid: 5529709153888ea40bf985580c468c80, type: 3}
+  m_PrefabInstance: {fileID: 320978704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1619919523
 PrefabInstance:
   m_ObjectHideFlags: 0

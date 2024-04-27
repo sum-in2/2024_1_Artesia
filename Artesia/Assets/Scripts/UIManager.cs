@@ -18,11 +18,11 @@ public class UIManager : MonoBehaviour
     
 
     public TextMeshProUGUI LoadingStageText;
-    
     public TextMeshProUGUI DungeonInfo;
     
     Dictionary<string, GameObject> DicUi;
     [SerializeField] GameObject NextStageUI;
+    [SerializeField] GameObject statusUI;
 
     void Awake()
     {
@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
 
         DicUi = new Dictionary<string, GameObject>();
         DicUi.Add("NextStage", NextStageUI);
+        DicUi.Add("Status", statusUI);
     }
 
     public void SetActiveUI(string UIName, bool bActive){

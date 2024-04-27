@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, ITurn
 {
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour, ITurn
     public bool PlayedTurn { get; set; }
     public bool EnemyHit { get; set; } = false;
 
+    public string destroySceneName;
+
     private void Awake() {
         IState<PlayerController> idle = new PlayerIdle();
         IState<PlayerController> move = new PlayerMove();
@@ -38,13 +42,20 @@ public class PlayerController : MonoBehaviour, ITurn
         dicState.Add(PlayerState.Atk, atk);
 
         SM = new StateMachine<PlayerController>(this, dicState[PlayerState.Idle]);
+        UIManager.instance.SetActiveUI("Status", true);
     }
 
     void Start() {
+        MovePos();
         DontDestroyOnLoad(gameObject);
+        if(GameObject.FindGameObjectsWithTag("Player").Length > 1)
+            Destroy(gameObject);
     }
 
     private void Update() {
+        if(SceneManager.GetActiveScene().name == destroySceneName)// || GameObject.FindGameObjectsWithTag("Player").Length > 1)
+            Destroy(gameObject);
+
         if((Vector2)transform.position == TargetPos && SM.CurState == dicState[PlayerState.Move])
             SM.SetState(dicState[PlayerState.Idle]);
         
@@ -108,5 +119,10 @@ public class PlayerController : MonoBehaviour, ITurn
         SM.SetState(dicState[PlayerState.Idle]);
         if(MapGenerator.instance != null)
             transform.position = MapGenerator.instance.StartPos;
+    }
+
+    public void MovePos(Vector3 pos){
+        SM.SetState(dicState[PlayerState.Idle]);
+        transform.position = pos;
     }
 }

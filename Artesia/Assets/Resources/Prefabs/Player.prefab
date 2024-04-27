@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0.5
+  destroySceneName: MainScene
 --- !u!114 &4808884944791161271
 MonoBehaviour:
   m_ObjectHideFlags: 0
