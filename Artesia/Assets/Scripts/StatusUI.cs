@@ -31,6 +31,6 @@ public class StatusUI : MonoBehaviour
 
     private void SetHPText()
     {
-        HPText.text = $"HP {playerStat.NowHp}/{playerStat.Hp}";
+        HPText.text = $"LV : {playerStat.NowLv} HP {playerStat.NowHp}/{playerStat.Hp}";
     }
 }

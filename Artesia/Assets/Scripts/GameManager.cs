@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
             Player.GetComponent<PlayerController>().MovePos();
             UIManager.instance.SetDungeonInfoText("DungeonName", stageIndex);
 
+            Camera.main.GetComponent<CameraController>().CalculateTilemapBounds();
+
             stageIndex++;
         }
         else

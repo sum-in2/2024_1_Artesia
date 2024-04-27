@@ -28,6 +28,7 @@ public class PlayerCollider : MonoBehaviour
                     isAttacking = true;
                     UIManager.instance.hit(gameObject, 1);
                     gameObject.GetComponent<PlayerStat>().addHP(-1);
+                    gameObject.GetComponent<PlayerController>().Dir =  other.GetComponent<MobController>().OriPos - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
                     StartCoroutine(ResetAttackAfterDelay());
                 }
             }

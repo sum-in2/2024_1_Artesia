@@ -25,7 +25,7 @@ public class MobController : MonoBehaviour, ITurn
     private Dictionary<MobState, IState<MobController>> dicState = new Dictionary<MobState, IState<MobController>>();
     private StateMachine<MobController> SM;
 
-    Vector2 OriPos;
+    public Vector2 OriPos;
 
     List<Vector2Int> toPlayerPath;
 

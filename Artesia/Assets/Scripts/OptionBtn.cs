@@ -27,9 +27,10 @@ public class OptionBtn : MonoBehaviour
     }
 
     public void onEscapeBtn(){
+        gameObject.SetActive(false);
         optionCanvas.SetActive(false);
-        Time.timeScale = 1f;
         SceneLoader.Instance.LoadScene("BaseCamp");
+        Time.timeScale = 1f;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().MovePos(Vector3.zero);
     }
 }

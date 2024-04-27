@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour
 
     private Vector3 minBounds;
     private Vector3 maxBounds;
-    private Vector3 offset;
 
     private void Start()
     {
@@ -23,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -5);
         targetPosition.x = Mathf.Clamp(targetPosition.x, minBounds.x, maxBounds.x);
         targetPosition.y = Mathf.Clamp(targetPosition.y, minBounds.y, maxBounds.y);
         transform.position = Vector3.Lerp(transform.position, targetPosition, cameraSpeed * Time.deltaTime);
@@ -64,7 +63,7 @@ public class CameraController : MonoBehaviour
         Gizmos.DrawLine(topLeft, bottomLeft);
     }
 
-    private void CalculateTilemapBounds()
+    public void CalculateTilemapBounds()
     {
         Vector3 tileSize = tilemap.layoutGrid.cellSize;
         Vector3Int tilemapSize = tilemap.size;

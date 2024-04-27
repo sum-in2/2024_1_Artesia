@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour, ITurn
     [SerializeField] private Dictionary<PlayerState, IState<PlayerController>> dicState = new Dictionary<PlayerState, IState<PlayerController>>();
     private StateMachine<PlayerController> SM;
     public Vector2 OriPos { get; private set;}
-    public Vector2 Dir { get; private set;} = Vector2.down;
+    public Vector2 Dir { get; set;} = Vector2.down;
     public Vector2 TargetPos {get; private set;}
     [SerializeField][Range(0.0001f, 1f)][Tooltip("커질수록 느려짐")] float Speed = 0.2f;
     public float speed {
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     private void Update() {
-        if(SceneManager.GetActiveScene().name == destroySceneName)// || GameObject.FindGameObjectsWithTag("Player").Length > 1)
+        if(SceneManager.GetActiveScene().name == destroySceneName)
             Destroy(gameObject);
 
         if((Vector2)transform.position == TargetPos && SM.CurState == dicState[PlayerState.Move])
@@ -61,6 +61,10 @@ public class PlayerController : MonoBehaviour, ITurn
         
         if((Vector2)transform.position == OriPos && SM.CurState == dicState[PlayerState.Atk])
             SM.SetState(dicState[PlayerState.Idle]);
+
+        if(Mathf.Abs(Dir.x) == 1){                                          
+            gameObject.GetComponent<SpriteRenderer>().flipX = (Dir.x == 1);
+        }
 
         SM.DoOperateUpdate();
     }
@@ -77,10 +81,6 @@ public class PlayerController : MonoBehaviour, ITurn
                 if(!hit){
                     TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
                     SM.SetState(dicState[PlayerState.Move]);
-                }
-
-                if(Mathf.Abs(Dir.x) == 1){                                                 // 기본이 왼쪽방향
-                    gameObject.GetComponent<SpriteRenderer>().flipX = (Dir.x == 1); // 1이면 오른쪽 방향이니 플립켜야함
                 }
             }
             
