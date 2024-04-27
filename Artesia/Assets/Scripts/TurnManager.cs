@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using System;
@@ -51,7 +48,8 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn(){
         Player.GetComponent<ITurn>().PlayedTurn = true;
-        if(sceneName != "BaseCamp") EnemyNextTurn();
+        if(sceneName != "BaseCamp") 
+            EnemyNextTurn();
     }
 
     void EnemyNextTurn(){

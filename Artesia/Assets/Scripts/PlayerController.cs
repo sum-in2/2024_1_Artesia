@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     void OnMove(InputValue value){
+        // new input perform
         if(!PlayedTurn && !UIManager.instance.isFade){
             Vector2 input = value.Get<Vector2>();
             if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle]){ // 

@@ -100,13 +100,13 @@ public class MobController : MonoBehaviour, ITurn
         }
     }
 
-    public void hit(int Dmg){
+    public void hit(GameObject obj, int Dmg){
         GameObject DmgText = Resources.Load<GameObject>("Prefabs/DmgText");
         if(DmgText == null){
             Debug.Log("dmgtext 로드 실패");
             return;
         }
-        GameObject obj = Instantiate(DmgText);
-        obj.GetComponent<DmgText>().Init(Dmg, transform.position);
+        GameObject textObj = Instantiate(DmgText);
+        textObj.GetComponent<DmgText>().Init(Dmg, transform.position);
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerStat : MonoBehaviour
 {    
     [SerializeField] Dictionary<Stat, List<int>> m_Stat;
-    public int NowExp {get; set;}
+    public int NowExp {get; set;} 
     public int NowLv  {get; set;}
-    public int NowHp  {get; set;}
-    int Hp;
-    int Def;
-    int Atk;
-    int Exp;
+    public int NowHp  {get; set;} = 1;
+    public int Hp {get; private set;} = 1;
+    public int Def{get; private set;}
+    public int Atk{get; private set;}
+    public int Exp{get; private set;}
 
     private void Start() {
         if(DataManager.instance != null)
@@ -20,8 +20,12 @@ public class PlayerStat : MonoBehaviour
 
     private void Update() {
         if(NowExp >= Exp) LevelUp();
+        if(NowHp >= Hp) NowHp = Hp;
     }
 
+    public void addHP(int addNum){
+        NowHp += addNum;
+    }
 
     void InitData(){
         // if(isSaved) { NowExp = savedExp } 이런느낌

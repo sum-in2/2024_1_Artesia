@@ -53,10 +53,7 @@ public class EnemySpawner : MonoBehaviour
     }   
 
     public void updatePath(GameObject enemy, Vector3 PlayerPos){
-        if(savedPlayerPos != PlayerPos){
-            savedPlayerPos = PlayerPos;
-            enemy.GetComponent<MobController>().setListPath(PlayerPos);
-        }
+        enemy.GetComponent<MobController>().setListPath(PlayerPos);
     }   
 
     void AddEnemyToPool(GameObject Prefab, int EnemyCnt){

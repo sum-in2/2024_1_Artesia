@@ -66,4 +66,14 @@ public class UIManager : MonoBehaviour
 
         isFade = false;
     }
+
+    public void hit(GameObject obj, int Dmg){
+        GameObject DmgText = Resources.Load<GameObject>("Prefabs/DmgText");
+        if(DmgText == null){
+            Debug.Log("dmgtext 로드 실패");
+            return;
+        }
+        GameObject textObj = Instantiate(DmgText);
+        textObj.GetComponent<DmgText>().Init(Dmg, obj.transform.position);
+    }
 }
