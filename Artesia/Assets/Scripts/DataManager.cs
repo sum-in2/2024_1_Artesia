@@ -38,7 +38,10 @@ public class DataManager : MonoBehaviour
     }
 
     public void SaveGameData(int FileNum){
+        GameManager.instance.SaveData();
+
         string SaveJsonData = JsonUtility.ToJson(GameManager.instance.GameData, true);
+        Debug.Log(SaveJsonData);
         string filePath = Application.persistentDataPath + "/" + $"SaveData{FileNum}.json";
 
         File.WriteAllText(filePath, SaveJsonData);

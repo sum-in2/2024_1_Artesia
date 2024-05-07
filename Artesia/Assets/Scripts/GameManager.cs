@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     void Init(){
         // if(savefile 유무) LoadData
+        GameData = new Data();
         MapObject = GameObject.FindGameObjectWithTag("Map");
         Player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -41,16 +42,14 @@ public class GameManager : MonoBehaviour
         NextStage();
     }
 
-    void SaveData(){ // 얘랑 load는 데이터매니저로 옮겨야되지 않을까 . . .
+    public void SaveData(){ // 얘랑 load는 데이터매니저로 옮겨야되지 않을까 . . .
         GameData.nowExp = Player.GetComponent<PlayerStat>().NowExp;
-        GameData.nowHp = Player.GetComponent<PlayerStat>().NowHp;
         GameData.nowLv = Player.GetComponent<PlayerStat>().NowLv;
         GameData.MainPlayCharacterName = Player.gameObject.name;
     }
 
     public void LoadData(){
         Player.GetComponent<PlayerStat>().NowExp = GameData.nowExp ;
-        Player.GetComponent<PlayerStat>().NowHp = GameData.nowHp ;
         Player.GetComponent<PlayerStat>().NowLv = GameData.nowLv ;
         Player.gameObject.name = GameData.MainPlayCharacterName ;
     }

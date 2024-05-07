@@ -27,6 +27,10 @@ public class PlayerStat : MonoBehaviour
         NowHp += addNum;
     }
 
+    public void addExp(int addExp){
+        NowExp += addExp;
+    }
+
     void InitData(){
         // if(isSaved) { NowExp = savedExp } 이런느낌
         NowExp = 0;

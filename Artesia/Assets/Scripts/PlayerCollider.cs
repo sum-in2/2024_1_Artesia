@@ -18,6 +18,7 @@ public class PlayerCollider : MonoBehaviour
                     isAttacking = true;
                     UIManager.instance.hit(other.gameObject, 1);
                     EnemySpawner.instance.killEnemy(other.gameObject);
+                    gameObject.GetComponent<PlayerStat>().addExp(1);
                     StartCoroutine(ResetAttackAfterDelay());
                 }
             }
