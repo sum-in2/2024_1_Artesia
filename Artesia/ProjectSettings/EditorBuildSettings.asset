@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/00.Scenes/MainScene.unity
     guid: e53daaf3d07c3e547b05300cf016c92c
   - enabled: 1
-    path: Assets/Scenes/BaseCamp.unity
+    path: Assets/00.Scenes/BaseCamp.unity
     guid: 8564077851461574d8d628f5194ae6bc
   - enabled: 1
-    path: Assets/Scenes/DungeonSample.unity
+    path: Assets/00.Scenes/DungeonSample.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c5dfca00f1b59cf4a9ac486a1b20dcac, type: 2}
