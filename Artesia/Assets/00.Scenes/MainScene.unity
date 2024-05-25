@@ -1216,6 +1216,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3165236636483000819, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7386440586666678342, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_Name
       value: UIManager
