@@ -248,6 +248,7 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateMinimap() {
         int[,] wallTileArray = GetWallTileArray();
+        
         for (int i = 0; i < mapSize.y; i++){
             for(int j = 0; j < mapSize.x; j++){
                 if (wallTileArray[i, j] == 1) {
