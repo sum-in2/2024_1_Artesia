@@ -7,7 +7,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] CanvasGroup LoadingCanvas;
-    public bool isFade {get; private set;} = false; // 페이드중이면 이동 못하게 어차피 턴 안바뀌면 안움직이니가\
+    public bool isFade {get; private set;} = false; 
     static UIManager Instance;
     public static UIManager instance{
         get{

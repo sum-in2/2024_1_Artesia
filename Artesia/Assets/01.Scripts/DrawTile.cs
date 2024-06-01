@@ -25,7 +25,11 @@ public class DrawTile : MonoBehaviour
     int [,] MapTileInfo;
     Vector2Int m_mapSize;
     Vector3Int m_stairPos;
-    // Start is called before the first frame update
+       
+    //미니맵
+    [SerializeField] Tilemap minimapGrid;
+    [SerializeField] RuleTile minimapTile;
+    
     void Awake()
     {
         initDic();
@@ -34,8 +38,13 @@ public class DrawTile : MonoBehaviour
     void mySetTile(Tilemap tilemap, int x, int y, TileInfo roomInfo){
         tilemap.SetTile(new Vector3Int(x  - m_mapSize.x / 2, y  - m_mapSize.y / 2, 0), dicTile[roomInfo]);
     }
+
     void mySetTile(Tilemap tilemap, Vector3Int pos, TileInfo roomInfo){
         tilemap.SetTile(pos, dicTile[roomInfo]);
+    }
+
+    void mySetTile(Tilemap tilemap, Vector3Int pos, RuleTile roomInfo){
+        tilemap.SetTile(pos, roomInfo);
     }
 
     public void InitTile(){
@@ -61,6 +70,7 @@ public class DrawTile : MonoBehaviour
 
     void FillMap(){
         FillBackGround();
+        ClearMiniMap();
         DrawMap();
         DrawStair();
     }
@@ -72,16 +82,25 @@ public class DrawTile : MonoBehaviour
     void DrawMap(){
         for (int i = 0; i < m_mapSize.y; i++){
             for(int j = 0; j < m_mapSize.x; j++){
-                if((TileInfo)MapTileInfo[i,j] != TileInfo.Out)
+                if((TileInfo)MapTileInfo[i,j] != TileInfo.Out){
+                    if((TileInfo)MapTileInfo[i,j] == TileInfo.Wall)
+                        mySetTile(minimapGrid, new Vector3Int(j, i), minimapTile);
                     mySetTile(tileMap, j, i, (TileInfo)MapTileInfo[i,j]);
+                }
             }
         }
     }
 
     private void FillBackGround()
     {
-        for(int i = -10; i<m_mapSize.x + 10; i++)
-            for(int j = -10; j < m_mapSize.y +10; j++)
+        for(int i = -10; i < m_mapSize.x + 10; i++)
+            for(int j = -10; j < m_mapSize.y + 10; j++)
                 mySetTile(tileMap, i, j, TileInfo.Wall);
+    }
+
+    void ClearMiniMap(){
+        for(int i = 0; i < m_mapSize.x; i++)
+            for(int j = 0; j < m_mapSize.y; j++)
+                minimapGrid.SetTile(new Vector3Int(i, j), null);
     }
 }

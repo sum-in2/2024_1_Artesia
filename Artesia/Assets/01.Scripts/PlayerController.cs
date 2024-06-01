@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour, ITurn
         dicState.Add(PlayerState.Atk, atk);
 
         SM = new StateMachine<PlayerController>(this, dicState[PlayerState.Idle]);
-        UIManager.instance.SetActiveUI("Status", true);
     }
 
     void Start() {
@@ -50,6 +49,7 @@ public class PlayerController : MonoBehaviour, ITurn
         DontDestroyOnLoad(gameObject);
         if(GameObject.FindGameObjectsWithTag("Player").Length > 1)
             Destroy(gameObject);
+        UIManager.instance.SetActiveUI("Status", true);
     }
 
     private void Update() {

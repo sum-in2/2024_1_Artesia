@@ -17,11 +17,6 @@ public class MapGenerator : MonoBehaviour
     public Vector3Int stairPos {get; private set;}
     public List<Node> rooms {get; private set;}
 
-    
-    //미니맵
-    [SerializeField] Tilemap minimapGrid;
-    [SerializeField] RuleTile minimapTile;
-
     public Vector2Int MapSize{
         get{ return mapSize; }
     }
@@ -72,8 +67,6 @@ public class MapGenerator : MonoBehaviour
         GenerateWall();
 
         EnemySpawner.instance.ActiveFromPool();
-
-        GenerateMinimap();
     }
 
     Node initMember(Node root){
@@ -229,33 +222,5 @@ public class MapGenerator : MonoBehaviour
 
     void addMapInfoArray(int x, int y, TileInfo TypeEnum){
         TileInfoArray[y, x] = (int)TypeEnum;
-    }
-
-    public int[,] GetWallTileArray(){        
-        int[,] wallTileArray = new int[mapSize.y, mapSize.x];
-
-        for (int i = 0; i < mapSize.y; i++){
-            for (int j = 0; j < mapSize.x; j++){
-                if (TileInfoArray[i, j] == (int)TileInfo.Wall)
-                    wallTileArray[i, j] = 1; // Wall인 경우 1로 표시
-                else
-                    wallTileArray[i, j] = 0; // Wall이 아닌 경우 0으로 표시
-            }
-        }
-
-        return wallTileArray;
-    }                          
-
-    private void GenerateMinimap() {
-        int[,] wallTileArray = GetWallTileArray();
-        
-        for (int i = 0; i < mapSize.y; i++){
-            for(int j = 0; j < mapSize.x; j++){
-                if (wallTileArray[i, j] == 1) {
-                    Vector3Int tilePosition = new Vector3Int(j, i, 0);
-                    minimapGrid.SetTile(tilePosition, minimapTile);
-                }
-            }
-        }
     }
 }
