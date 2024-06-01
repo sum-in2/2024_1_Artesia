@@ -54,9 +54,6 @@ public class MobController : MonoBehaviour, ITurn
     }
 
     private void Update() {
-        // if(캐릭터 감지 함수){Move();}
-        
-
         if(!PlayedTurn){
             Move();
         }

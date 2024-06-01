@@ -14,9 +14,11 @@ public class PlayerCollider : MonoBehaviour
             if (gameObject.GetComponent<PlayerController>().EnemyHit)
             {
                 if (!isAttacking && gameObject.GetComponent<Collider2D>().bounds.center == other.bounds.center)
-                {   // kill enemy는 수정 예정.
+                {   
+                    // kill enemy는 수정 예정.
+                    // player stat의 atk 가져와야 함
                     isAttacking = true;
-                    UIManager.instance.hit(other.gameObject, 1);
+                    UIManager.instance.hit(other.gameObject, 7);
                     EnemySpawner.instance.killEnemy(other.gameObject);
                     gameObject.GetComponent<PlayerStat>().addExp(1);
                     StartCoroutine(ResetAttackAfterDelay());

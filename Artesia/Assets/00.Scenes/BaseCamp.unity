@@ -140,10 +140,6 @@ PrefabInstance:
       value: -191.34
       objectReference: {fileID: 0}
     - target: {fileID: 1884890567324974027, guid: 5529709153888ea40bf985580c468c80, type: 3}
-      propertyPath: m_Depth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1884890567324974027, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_ClearFlags
       value: 3
       objectReference: {fileID: 0}
@@ -174,10 +170,6 @@ PrefabInstance:
     - target: {fileID: 2223274774796886416, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_SizeDelta.y
       value: 780
-      objectReference: {fileID: 0}
-    - target: {fileID: 2794345083341129143, guid: 5529709153888ea40bf985580c468c80, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 3001935466609355750, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_LocalPosition.x
@@ -217,6 +209,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3001935466609355750, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451954098332315001, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_RenderMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3484966414322496907, guid: 5529709153888ea40bf985580c468c80, type: 3}
@@ -22568,7 +22564,7 @@ Camera:
   m_GameObject: {fileID: 1819813010}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2

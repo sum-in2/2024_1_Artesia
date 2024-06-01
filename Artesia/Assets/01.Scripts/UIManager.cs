@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
         DungeonInfo.text = DungeonName;
     }
 
-    public void hit(GameObject obj, int Dmg){
+    public void hit(GameObject obj, int Dmg){ /// obj의 포지션
         GameObject DmgText = Resources.Load<GameObject>("Prefabs/DmgText");
         if(DmgText == null){
             Debug.Log("dmgtext 로드 실패");

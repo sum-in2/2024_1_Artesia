@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour, ITurn
         Idle,
         Move, 
         Atk,
+        Skill,
     }
 
     [SerializeField] private Dictionary<PlayerState, IState<PlayerController>> dicState = new Dictionary<PlayerState, IState<PlayerController>>();
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour, ITurn
         get { return Speed;}
     }
     public bool isMoving { get; private set;} = false;
+    public bool isSkillActive { get; set;} = false;
     public bool PlayedTurn { get; set; }
     public bool EnemyHit { get; set; } = false;
 
@@ -36,10 +38,13 @@ public class PlayerController : MonoBehaviour, ITurn
         IState<PlayerController> idle = new PlayerIdle();
         IState<PlayerController> move = new PlayerMove();
         IState<PlayerController> atk = new PlayerAtk();
+        IState<PlayerController> skill = new PlayerSkill();
 
         dicState.Add(PlayerState.Idle, idle);
         dicState.Add(PlayerState.Move, move);
         dicState.Add(PlayerState.Atk, atk);
+        dicState.Add(PlayerState.Skill, skill);
+
 
         SM = new StateMachine<PlayerController>(this, dicState[PlayerState.Idle]);
     }
@@ -62,6 +67,11 @@ public class PlayerController : MonoBehaviour, ITurn
         if((Vector2)transform.position == OriPos && SM.CurState == dicState[PlayerState.Atk])
             SM.SetState(dicState[PlayerState.Idle]);
 
+        if(SM.CurState == dicState[PlayerState.Skill] && !isSkillActive){
+            Debug.Log("playercontroller 71");
+            SM.SetState(dicState[PlayerState.Idle]);
+        }
+
         if(Mathf.Abs(Dir.x) == 1){                                          
             gameObject.GetComponent<SpriteRenderer>().flipX = (Dir.x == 1);
         }
@@ -70,7 +80,6 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     void OnMove(InputValue value){
-        // new input perform
         if(!PlayedTurn && !UIManager.instance.isFade){
             Vector2 input = value.Get<Vector2>();
             if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle]){ // 
@@ -84,6 +93,13 @@ public class PlayerController : MonoBehaviour, ITurn
                 }
             }
             
+        }
+    }
+
+    void OnSkill(InputValue value){
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade){
+            SM.SetState(dicState[PlayerState.Skill]);
+            isSkillActive = true;
         }
     }
 

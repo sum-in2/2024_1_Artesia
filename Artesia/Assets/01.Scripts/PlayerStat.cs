@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStat : MonoBehaviour
+public class PlayerStat : MonoBehaviour, IDamageable
 {    
     [SerializeField] Dictionary<Stat, List<int>> m_Stat;
     public int NowExp {get; set;} 
@@ -55,6 +55,10 @@ public class PlayerStat : MonoBehaviour
         NowExp = savedExp;
         NowLv = savedLV;
         gameObject.name = name; 
+    }
+
+    public void TakeDamage(int damage){
+        addHP(-1 * damage);
     }
 }
  
