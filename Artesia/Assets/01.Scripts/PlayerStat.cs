@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour, IDamageable
@@ -21,6 +22,7 @@ public class PlayerStat : MonoBehaviour, IDamageable
     private void Update() {
         if(NowExp >= Exp) LevelUp();
         if(NowHp >= Hp) NowHp = Hp;
+        if(NowHp < 0) die();
     }
 
     public void addHP(int addNum){
@@ -58,7 +60,12 @@ public class PlayerStat : MonoBehaviour, IDamageable
     }
 
     public void TakeDamage(int damage){
+        UIManager.instance.hit(gameObject, damage);
         addHP(-1 * damage);
+    }
+
+    void die(){
+        // 캐릭터 사망 -> Game Over 출력 -> 베이스캠프 이동
     }
 }
  

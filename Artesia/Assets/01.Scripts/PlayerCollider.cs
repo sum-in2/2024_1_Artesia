@@ -14,8 +14,7 @@ public class PlayerCollider : MonoBehaviour
             if (!isAttacking && gameObject.GetComponent<Collider2D>().bounds.center == other.transform.position)
             {
                 isAttacking = true;
-                UIManager.instance.hit(gameObject, 1);
-                gameObject.GetComponent<PlayerStat>().addHP(-1);
+                gameObject.GetComponent<PlayerStat>().TakeDamage(other.GetComponent<MobStat>().ATK);
                 gameObject.GetComponent<PlayerController>().Dir =  other.GetComponent<MobController>().OriPos - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
                 StartCoroutine(ResetAttackAfterDelay());
             }

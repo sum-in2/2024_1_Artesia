@@ -171,11 +171,11 @@ public class MapGenerator : MonoBehaviour
         Vector2Int leftNodeCenter = Tree.leftNode.center;
         Vector2Int rightNodeCenter = Tree.rightNode.center;
 
-        for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x); i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x); i++){
+        for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x) - 1; i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x) + 1; i++){
             addMapInfoArray(i, leftNodeCenter.y, TileInfo.Room); 
         }
 
-        for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y); i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y); i++){
+        for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y) - 1; i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y) + 1; i++){
             addMapInfoArray(rightNodeCenter.x, i, TileInfo.Room);
         }
 

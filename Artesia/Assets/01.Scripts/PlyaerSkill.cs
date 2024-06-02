@@ -23,10 +23,10 @@ public class PlayerSkill : IState<PlayerController>
         delayTimer = 0f;
     }
     public void OperateUpdate(PlayerController sender){
+        delayTimer += Time.deltaTime;
         if(delayTimer >= skillDelay){
             sender.isSkillActive = false;
         }
-        delayTimer += Time.deltaTime;
     }
     public void OperateExit(PlayerController sender){
         Debug.Log("skill exit");
