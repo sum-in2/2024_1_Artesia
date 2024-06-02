@@ -6,38 +6,48 @@ public class PlayerAtk : IState<PlayerController>
 {
     Vector2 m_Dir;
     float AtkSpeed;
-    Vector3 m_OriPos;
     private PlayerController m_playerController;
     float elapsedTime;
-    Vector2 m_targetPos;
+
+    Vector2 atkCenter;
+    Vector2 atkSize;
+    int atkDamage;
 
     public void OperateEnter(PlayerController sender){
         if(!m_playerController)
             m_playerController = sender;
+        initStat();
 
-        m_targetPos = sender.TargetPos;
-        m_Dir = sender.Dir;
-        m_OriPos = sender.transform.position;
-        AtkSpeed = sender.speed / 2f;
+        atkCenter = (Vector2) sender.transform.position+ m_Dir * 0.5f;
+        normalAtk();
         
         elapsedTime += Time.deltaTime;
-        m_playerController.transform.position = Vector2.Lerp(sender.transform.position, m_targetPos, elapsedTime / AtkSpeed);
     }
     public void OperateUpdate(PlayerController sender){
-        Vector2 nowPos = m_playerController.transform.position;
-        m_playerController.transform.position = Vector2.Lerp(nowPos, m_targetPos, elapsedTime / AtkSpeed);
-
         elapsedTime += Time.deltaTime;
-        if(elapsedTime >= AtkSpeed){ // 한번 도달하면 되돌아오게
-            m_playerController.transform.position = m_targetPos;
-            m_targetPos = m_OriPos;
-            elapsedTime = 0;
+        if(elapsedTime >= AtkSpeed){
+            sender.EnemyHit = false;
         }
     }
     public void OperateExit(PlayerController sender){
-        m_playerController.transform.position = m_OriPos;
         elapsedTime = 0;
-        sender.EnemyHit = false;
         TurnManager.instance.EndPlayerTurn();
+    }
+
+    void normalAtk(){
+        atkSize = new Vector2(0.8f, 0.8f);
+        Collider2D[] others = Physics2D.OverlapBoxAll(atkCenter, atkSize, 0);
+
+        foreach(Collider2D collider in others){
+            if(collider.CompareTag("Enemy")){
+                collider.gameObject.GetComponent<MobStat>().TakeDamage(atkDamage);
+            }
+        }
+    }
+
+    void initStat(){
+        m_Dir = m_playerController.Dir;
+        AtkSpeed = m_playerController.speed / 2f; // 수치는 애니메이션 뽑히는거 보고 바뀌지 않을지. / 아니면 애니메이터에서 관리?
+        atkDamage = m_playerController.GetComponent<PlayerStat>().Atk;
     }
 }

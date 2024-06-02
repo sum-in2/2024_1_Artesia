@@ -64,11 +64,10 @@ public class PlayerController : MonoBehaviour, ITurn
         if((Vector2)transform.position == TargetPos && SM.CurState == dicState[PlayerState.Move])
             SM.SetState(dicState[PlayerState.Idle]);
         
-        if((Vector2)transform.position == OriPos && SM.CurState == dicState[PlayerState.Atk])
+        if(!EnemyHit && SM.CurState == dicState[PlayerState.Atk])
             SM.SetState(dicState[PlayerState.Idle]);
 
         if(SM.CurState == dicState[PlayerState.Skill] && !isSkillActive){
-            Debug.Log("playercontroller 71");
             SM.SetState(dicState[PlayerState.Idle]);
         }
 
@@ -104,15 +103,8 @@ public class PlayerController : MonoBehaviour, ITurn
     }
 
     void OnAtk(InputValue value){
-        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade){
-            OriPos = transform.position;
-            if(Dir != Vector2.zero)
-                Dir = DirControl(Dir);
-            
-            if(Physics2D.Raycast(OriPos, Dir, 1, LayerMask.GetMask("Enemy")))
-                EnemyHit = true;
-                        
-            TargetPos = OriPos + Dir;
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade){            
+            EnemyHit = true;
             SM.SetState(dicState[PlayerState.Atk]);
         }
     }
@@ -140,5 +132,10 @@ public class PlayerController : MonoBehaviour, ITurn
     public void MovePos(Vector3 pos){
         SM.SetState(dicState[PlayerState.Idle]);
         transform.position = pos;
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube((Vector2) transform.position + Dir, new Vector2(0.8f, 0.8f));
     }
 }
