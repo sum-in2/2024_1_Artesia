@@ -40,7 +40,8 @@ public class TurnManager : MonoBehaviour
         if(CheckUnitTurn())
             setTurn(Player, false);
 
-        if(TurnCnt > spawnTurn && sceneName != "BaseCamp"){
+        if(TurnCnt > spawnTurn && MobList != null){
+            Debug.Log(TurnCnt);
             EnemySpawner.instance.RandomSpawnEnemy();
             TurnCnt = 0;
         }

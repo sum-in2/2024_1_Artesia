@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAtk : IState<PlayerController>
@@ -20,6 +21,9 @@ public class PlayerAtk : IState<PlayerController>
 
         atkCenter = (Vector2) sender.transform.position+ m_Dir * 0.5f;
         normalAtk();
+
+        if(BattleManager.Instance != null)
+            BattleManager.Instance.AddLogMessage($"{sender.name} 공격 사용");
         
         elapsedTime += Time.deltaTime;
     }

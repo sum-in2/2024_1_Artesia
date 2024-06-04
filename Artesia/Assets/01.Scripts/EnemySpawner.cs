@@ -68,8 +68,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void killEnemy(GameObject enemy){
         GameObject killedObject = null;
-        foreach (var temp in enemies){ // 임시구현
-            if(temp.name == enemy.name){ // 실제 계산은 플레이어쪽에서 계산 되고 얘는 이렇게 둘거 같은데 모르겠네
+        foreach (var temp in enemies){
+            if(temp.name == enemy.name){
                 enemy.GetComponent<MobController>().setStateToIdle();
                 enemy.SetActive(false);
                 killedObject = enemy;
