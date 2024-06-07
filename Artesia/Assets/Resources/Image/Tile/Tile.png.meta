@@ -390,6 +390,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tile_0
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7adb803a3c84131499e2900ef722e875
+      internalID: -37647950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -402,6 +423,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Room: -692499751
+      Tile_0: -37647950
       Wall_DL: -2072353887
       Wall_DL2: -450546269
       Wall_DM: 79820822
