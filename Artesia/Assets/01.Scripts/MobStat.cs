@@ -9,15 +9,18 @@ public class MobStat : MonoBehaviour, IDamageable
     int DEF;
     public int ATK;
     int EXP;
+    private SpriteRenderer spriteRenderer;
+    bool isFade = false;
 
     private void OnEnable() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         HP = 25;
         ATK = 5;
         EXP = 8;
     }
 
     private void Update() {
-        if (HP < 0) 
+        if (HP < 0 && !isFade) 
             die();
     }
 
@@ -35,6 +38,22 @@ public class MobStat : MonoBehaviour, IDamageable
         
         obj.GetComponent<PlayerStat>().addExp(EXP);
 
+        StartCoroutine(DieFade());
+    }
+
+    private IEnumerator DieFade(){
+        Color color = spriteRenderer.color;
+        float fadeDuration = 0.5f; // 페이드 아웃 지속 시간 (초)
+        isFade = true;
+
+        while (color.a > 0)
+        {
+            color.a -= Time.deltaTime / fadeDuration;
+            spriteRenderer.color = color;
+            yield return null;
+        }
+
+        isFade = false;
         EnemySpawner.instance.killEnemy(gameObject);
     }
 }

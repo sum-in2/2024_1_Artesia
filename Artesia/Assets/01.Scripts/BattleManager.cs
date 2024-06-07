@@ -62,6 +62,8 @@ public class BattleManager : MonoBehaviour
         {
             dialogCanvas.gameObject.SetActive(true);
         }
+
+        // 큐로 딜레이 ?
         battleLogText.text = string.Join("\n", logLines);
 
         if(logLines.Count >= maxLines)

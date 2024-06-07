@@ -17,6 +17,8 @@ public class PlayerStat : MonoBehaviour, IDamageable
     private void Start() {
         if(DataManager.instance != null)
             m_Stat = DataManager.instance.GetCharacterData(this.gameObject.name);
+
+            InitData();
     }
 
     private void Update() {
@@ -31,12 +33,13 @@ public class PlayerStat : MonoBehaviour, IDamageable
 
     public void addExp(int addExp){
         NowExp += addExp;
+        BattleManager.Instance.AddLogMessage($"{gameObject.name}의 경험치가 {addExp}만큼 올랐습니다.");
     }
 
     void InitData(){
         // if(isSaved) { NowExp = savedExp } 이런느낌
         NowExp = 0;
-        NowLv = 1;
+        NowLv = 5;
         NowStatSetting();
     }
 

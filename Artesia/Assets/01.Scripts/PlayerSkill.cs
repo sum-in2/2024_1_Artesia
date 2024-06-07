@@ -31,7 +31,6 @@ public class PlayerSkill : IState<PlayerController>
         //}
     }
     public void OperateExit(PlayerController sender){
-        Debug.Log("skill exit");
         TurnManager.instance.EndPlayerTurn();
     }
 
