@@ -10,7 +10,7 @@ public class MobStat : MonoBehaviour, IDamageable
     public int ATK;
     int EXP;
 
-    private void Start() {
+    private void OnEnable() {
         HP = 25;
         ATK = 5;
         EXP = 8;
@@ -32,7 +32,7 @@ public class MobStat : MonoBehaviour, IDamageable
         // 경험치 올리는 함수
 
         GameObject obj = GameObject.FindGameObjectWithTag("Player");
-
+        
         obj.GetComponent<PlayerStat>().addExp(EXP);
 
         EnemySpawner.instance.killEnemy(gameObject);

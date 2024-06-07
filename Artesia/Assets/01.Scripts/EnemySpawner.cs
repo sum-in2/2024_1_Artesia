@@ -16,7 +16,10 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> enemies
     {
-        get { return Enemies; }
+        get
+        {
+            return Enemies; 
+        }
     }
 
     public static EnemySpawner instance
@@ -118,7 +121,7 @@ public class EnemySpawner : MonoBehaviour
         List<Node> rooms = MapGenerator.instance.rooms;
         
         int SpawnCnt = Random.Range(1, RandomSpawnNumber+1);
-    
+        
         for(int i = 0; i < SpawnCnt;){
             Node room = rooms[Random.Range(0, rooms.Count)];
             if (!room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){

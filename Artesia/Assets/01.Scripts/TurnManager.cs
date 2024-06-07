@@ -41,8 +41,8 @@ public class TurnManager : MonoBehaviour
             setTurn(Player, false);
 
         if(TurnCnt > spawnTurn && MobList != null){
-            Debug.Log(TurnCnt);
             EnemySpawner.instance.RandomSpawnEnemy();
+            Player.GetComponent<PlayerStat>().addHP(5);
             TurnCnt = 0;
         }
     }

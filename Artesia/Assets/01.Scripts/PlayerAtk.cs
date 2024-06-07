@@ -20,10 +20,11 @@ public class PlayerAtk : IState<PlayerController>
         initStat();
 
         atkCenter = (Vector2) sender.transform.position+ m_Dir * 0.5f;
-        normalAtk();
 
         if(BattleManager.Instance != null)
             BattleManager.Instance.AddLogMessage($"{sender.name} 공격 사용");
+            
+        normalAtk();
         
         elapsedTime += Time.deltaTime;
     }

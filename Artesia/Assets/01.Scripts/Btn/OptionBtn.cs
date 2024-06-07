@@ -9,7 +9,7 @@ public class OptionBtn : MonoBehaviour
     public GameObject escapeBtn;
 
     public void onMainBtn(){
-        optionCanvas.SetActive(false);
+        UIManager.instance.SetActiveUI(optionCanvas, false);
         Time.timeScale = 1f;
         SceneLoader.Instance.LoadScene("MainScene");
     }
@@ -20,15 +20,15 @@ public class OptionBtn : MonoBehaviour
     }
 
     public void onOptionBtn(){
-        optionCanvas.SetActive(true);
+        UIManager.instance.SetActiveUI(optionCanvas, true);
         if(SceneManager.GetActiveScene().name != "BaseCamp")
-            escapeBtn.SetActive(true);
+            UIManager.instance.SetActiveUI(escapeBtn, true);
         Time.timeScale = 0f;
     }
 
     public void onEscapeBtn(){
-        gameObject.SetActive(false);
-        optionCanvas.SetActive(false);
+        UIManager.instance.SetActiveUI(gameObject, false);
+        UIManager.instance.SetActiveUI(optionCanvas, false);
         SceneLoader.Instance.LoadScene("BaseCamp");
         Time.timeScale = 1f;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().MovePos(Vector3.zero);

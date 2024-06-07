@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI LoadingStageText;
     public TextMeshProUGUI DungeonInfo;
+
+    bool isBattleLogOn = false;
     
     Dictionary<string, GameObject> DicUi;
     [SerializeField] GameObject NextStageUI;
@@ -43,11 +45,22 @@ public class UIManager : MonoBehaviour
             Debug.Log("UI가 사전에 업음");
             return;
         }
+        DialogOff();
         DicUi[UIName].SetActive(bActive);
     }
 
     public void SetActiveUI(GameObject UIobj, bool bActive){
+        DialogOff();
         UIobj.SetActive(bActive);
+    }
+
+    private void DialogOff(){
+        Canvas dialogCanvas = BattleManager.Instance.dialogCanvas;
+
+        if(dialogCanvas.gameObject.activeSelf)
+        {
+            dialogCanvas.gameObject.SetActive(false);
+        }
     }
 
     public IEnumerator FakeLoading(float time, int stageIndex, string dungeonName){

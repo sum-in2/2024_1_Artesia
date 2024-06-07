@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -168,19 +169,26 @@ public class MapGenerator : MonoBehaviour
     private void GenerateRoad(Node Tree, int n){
         if(n == maxDepth) return;
 
-        Vector2Int leftNodeCenter = Tree.leftNode.center;
-        Vector2Int rightNodeCenter = Tree.rightNode.center;
-
-        for(int i = Mathf.Min(leftNodeCenter.x , rightNodeCenter.x) - 1; i < Mathf.Max(leftNodeCenter.x,rightNodeCenter.x) + 1; i++){
-            addMapInfoArray(i, leftNodeCenter.y, TileInfo.Room); 
-        }
-
-        for(int i = Mathf.Min(leftNodeCenter.y , rightNodeCenter.y) - 1; i < Mathf.Max(leftNodeCenter.y,rightNodeCenter.y) + 1; i++){
-            addMapInfoArray(rightNodeCenter.x, i, TileInfo.Room);
-        }
+        Vector2Int currentCenter = new Vector2Int((Tree.leftNode.center.x + Tree.rightNode.center.x) / 2, (Tree.leftNode.center.y + Tree.rightNode.center.y) / 2);
+        
+        ConnectNodes(currentCenter, Tree.leftNode.center);
+        ConnectNodes(currentCenter, Tree.rightNode.center);
 
         GenerateRoad(Tree.leftNode, n + 1);
         GenerateRoad(Tree.rightNode, n + 1);
+    }
+
+    private void ConnectNodes(Vector2Int start, Vector2Int end){
+        int dx = Math.Sign(end.x - start.x);
+        int dy = Math.Sign(end.y - start.y);
+
+        Vector2Int current = start;
+        while(current.x != end.x || current.y != end.y){
+            addMapInfoArray(current.x, current.y, TileInfo.Room);
+            if(current.x != end.x) current.x += dx;
+            else current.y += dy;
+        }
+        addMapInfoArray(end.x, end.y, TileInfo.Room);
     }
     
     void GenerateWall() {
@@ -193,10 +201,10 @@ public class MapGenerator : MonoBehaviour
 
     bool ShouldPlaceWall(int i, int j) {
         for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) { // 현재 자리를 중심으로 3*3 순회
-                if (x == 0 && y == 0) continue; // 현재 자리 검사는 안해도 됨
-                if (TileInfoArray[j + y, i + x] == (int)TileInfo.Room) { // 순회한 위치가 룸타일이면
-                    return true; // 벽을 생성해야 함
+            for (int y = -1; y <= 1; y++) { 
+                if (x == 0 && y == 0) continue; 
+                if (TileInfoArray[j + y, i + x] == (int)TileInfo.Room) {
+                    return true;
                 }
             }
         }

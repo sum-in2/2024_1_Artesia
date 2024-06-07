@@ -12,28 +12,36 @@ public class BattleManager : MonoBehaviour
     private bool isBattleActive = false;
     private const int maxLines = 4;
     private Queue<string> logLines = new Queue<string>();
+    public Canvas dialogCanvas;
     public ScrollRect scrollRect;
+
+    public CanvasStateListener canvasListener;
     
-    private void Awake() {
+    private void Awake() 
+    {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
     }
 
-    private void Start() {
+    private void Start() 
+    {
         battleLogText.text = "";
+        canvasListener.onCanvas.AddListener(ClearBattleLog);
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy() 
+    {
+        canvasListener.onCanvas.RemoveAllListeners();
     }
 
     public void startBattle()
     {
         isBattleActive = true;
-    }
-
-    public void EndBattle(){
-        isBattleActive = false;
+        dialogCanvas.gameObject.SetActive(true);
     }
 
     public void AddLogMessage(string message)
@@ -50,12 +58,22 @@ public class BattleManager : MonoBehaviour
 
     private void UpdateBattleLog()
     {
+        if(dialogCanvas.gameObject.activeSelf == false)
+        {
+            dialogCanvas.gameObject.SetActive(true);
+        }
         battleLogText.text = string.Join("\n", logLines);
 
         if(logLines.Count >= maxLines)
         {
             StartCoroutine(ScrollAndRemoveFirstLine());
         }
+    }
+
+    private void ClearBattleLog()
+    {
+        battleLogText.text = "";
+        logLines.Clear();
     }
 
     IEnumerator ScrollAndRemoveFirstLine()
@@ -74,7 +92,6 @@ public class BattleManager : MonoBehaviour
         }
 
         scrollRect.content.localPosition = targetPos;
-
 
         RemoveFirstLine();
 
