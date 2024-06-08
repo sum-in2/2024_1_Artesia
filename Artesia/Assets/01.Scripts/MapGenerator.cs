@@ -44,6 +44,8 @@ public class MapGenerator : MonoBehaviour
     int StartDepth;
     int StairDepth;
 
+    [SerializeField] Vector2Int maxRoomSize;
+
     void Awake() {
         if(m_instance == null)
             m_instance = this; 
@@ -148,8 +150,8 @@ public class MapGenerator : MonoBehaviour
         RectInt rect;
         if(n == maxDepth){
             rect = Tree.nodeRect;
-            int width = Random.Range(rect.width / 2, rect.width - 1);
-            int height = Random.Range(rect.height / 2, rect.height - 1);
+            int width = Random.Range(rect.width / 2, Mathf.Min(rect.width - 1, maxRoomSize.x));
+            int height = Random.Range(rect.height / 2, Mathf.Min(rect.height - 1, maxRoomSize.y));
 
             int x = rect.x + Random.Range(1, rect.width - width);
             int y = rect.y + Random.Range(1, rect.height - height);

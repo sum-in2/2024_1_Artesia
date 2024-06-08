@@ -1215,8 +1215,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 64, y: 36}
   minDevideRate: 0.3
-  maxDevideRate: 0.3
+  maxDevideRate: 0.7
   maxDepth: 3
+  maxRoomSize: {x: 7, y: 7}
 --- !u!4 &1685033539
 Transform:
   m_ObjectHideFlags: 0
