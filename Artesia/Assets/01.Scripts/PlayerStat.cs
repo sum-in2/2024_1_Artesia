@@ -13,6 +13,7 @@ public class PlayerStat : MonoBehaviour, IDamageable
     public int Def{get; private set;}
     public int Atk{get; private set;}
     public int Exp{get; private set;}
+    public string Element{get; private set;}
 
     private void Start() {
         if(DataManager.instance != null)
@@ -38,6 +39,7 @@ public class PlayerStat : MonoBehaviour, IDamageable
 
     void InitData(){
         // if(isSaved) { NowExp = savedExp } 이런느낌
+        Element = "공허";
         NowExp = 0;
         NowLv = 5;
         NowStatSetting();

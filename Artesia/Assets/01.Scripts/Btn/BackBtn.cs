@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class BackBtn : MonoBehaviour
 {
+    public GameObject parentCanvas;
     public void OnBackButton(){
-        gameObject.transform.parent.gameObject.SetActive(false);
+        if(parentCanvas != null)
+        {
+            parentCanvas.SetActive(false);
+        }
+        else
+        {
+            gameObject.transform.parent.gameObject.SetActive(false);
+        }
         Time.timeScale = 1f;
     }
 }
