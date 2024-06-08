@@ -41,28 +41,38 @@ public class MobController : MonoBehaviour, ITurn
         SM = new StateMachine<MobController>(this, dicState[MobState.Idle]);
     }
 
-    public void setStateToIdle(){
+    public void setStateToIdle()
+    {
         SM.SetState(dicState[MobState.Idle]);
     }
 
-    public void setListPath(Vector3 PlayerPos){
+    public void setListPath(Vector3 PlayerPos)
+    {
         toPlayerPath = gameObject.GetComponent<AStarPathfinder>().StartPathfinding(transform.position, PlayerPos); 
     }
 
-    public void setListPath(){
+    public void setListPath()
+    {
         toPlayerPath = null;
     }
 
-    private void Update() {
-        if(!PlayedTurn){
+    private void Update() 
+    {
+        if(!PlayedTurn)
+        {
             Move();
         }
 
         if((Vector2)transform.position == OriPos && SM.CurState == dicState[MobState.Atk])
             SM.SetState(dicState[MobState.Idle]);
 
-        if(TargetPos == (Vector2)transform.position && SM.CurState == dicState[MobState.Move]){
+        if(TargetPos == (Vector2)transform.position && SM.CurState == dicState[MobState.Move])
             SM.SetState(dicState[MobState.Idle]);
+        
+
+        if(Mathf.Abs(Dir.x) == 1)
+        {                                          
+            gameObject.GetComponent<SpriteRenderer>().flipX = !(Dir.x == 1);
         }
         SM.DoOperateUpdate();
     }
@@ -76,6 +86,7 @@ public class MobController : MonoBehaviour, ITurn
             {
                 do{
                     Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));
+                    AnimationUpdate();
                     //hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
                     hit = Physics2D.OverlapPoint(new Vector2(transform.position.x + Dir.x, transform.position.y + Dir.y));
                 } while(hit);
@@ -85,15 +96,29 @@ public class MobController : MonoBehaviour, ITurn
             else
             {
                 TargetPos = GetComponent<AStarPathfinder>().ConvertMapToWorldPosition(toPlayerPath[0]);
+                Dir = TargetPos - (Vector2)transform.position;
+                AnimationUpdate();
+
                 if(toPlayerPath.Count == 1)
                 {
                     OriPos = transform.position;
                     SM.SetState(dicState[MobState.Atk]);
                     return;
                 }
+                
                 toPlayerPath.RemoveAt(0);
             }
             SM.SetState(dicState[MobState.Move]);
         }
+    }
+
+    void AnimationUpdate()
+    {
+        Animator animator;
+
+        animator = GetComponent<Animator>();
+
+        animator.SetInteger("DirX", (int)Dir.x);
+        animator.SetInteger("DirY", (int)Dir.y);
     }
 }
