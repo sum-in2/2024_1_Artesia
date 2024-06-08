@@ -615,7 +615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00023357749, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0.000008541809, y: 0.000030517578}
   m_SizeDelta: {x: -175.88109, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!20 &497694856 stripped
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 503201927}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999972
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -23048,6 +23048,78 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 0
+      e03: 2.4362528e+23
+      e10: 0
+      e11: 0
+      e12: 0
+      e13: 6.6e-44
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 0
+      e03: 2.4403688e+23
+      e10: 0
+      e11: 0
+      e12: 0
+      e13: 6.6e-44
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 0
+      e03: 2.4403688e+23
+      e10: 0
+      e11: 0
+      e12: 0
+      e13: 6.6e-44
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 0
+      e03: 2.4403688e+23
+      e10: 0
+      e11: 0
+      e12: 0
+      e13: 6.6e-44
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 3.7869e-41, g: 3.7869e-41, b: 3.7869e-41, a: 3.7869e-41}
