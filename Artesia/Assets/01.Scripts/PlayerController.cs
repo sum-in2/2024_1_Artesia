@@ -78,15 +78,29 @@ public class PlayerController : MonoBehaviour, ITurn
         SM.DoOperateUpdate();
     }
 
-    void OnMove(InputValue value){
-        if(!PlayedTurn && !UIManager.instance.isFade){
+    void AnimationUpdate()
+    {
+        Animator animator;
+
+        animator = GetComponent<Animator>();
+
+        animator.SetInteger("DirX", (int)Dir.x);
+        animator.SetInteger("DirY", (int)Dir.y);
+    }
+
+    void OnMove(InputValue value)
+    {
+        if(!PlayedTurn && !UIManager.instance.isFade)
+        {
             Vector2 input = value.Get<Vector2>();
-            if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle]){ // 
-                Dir = DirControl(input); 
+            if(input != Vector2.zero && SM.CurState == dicState[PlayerState.Idle])
+            { // 
+                DirControl(input);
                 Vector3Int OriPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
                 RaycastHit2D hit = Physics2D.Raycast((Vector2Int)OriPos, input, 1, LayerMask.GetMask("Tile") | LayerMask.GetMask("Enemy"));
 
-                if(!hit){
+                if(!hit)
+                {
                     TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
                     SM.SetState(dicState[PlayerState.Move]);
                 }
@@ -95,32 +109,39 @@ public class PlayerController : MonoBehaviour, ITurn
         }
     }
 
-    void OnSkill(InputValue value){
-        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade){
+    void OnSkill(InputValue value)
+    {
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade)
+        {
             SM.SetState(dicState[PlayerState.Skill]);
             isSkillActive = true;
         }
     }
 
-    void OnAtk(InputValue value){
-        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade){            
+    void OnAtk(InputValue value)
+    {
+        if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade)
+        {
             EnemyHit = true;
             SM.SetState(dicState[PlayerState.Atk]);
         }
     }
 
-    Vector2 DirControl(Vector2 dir){ //
+    public void DirControl(Vector2 dir)
+    { //
         Vector2 Result = dir;
         float x, y;
         x = Mathf.Abs(Result.x);
         y = Mathf.Abs(Result.y);
 
-        if((x+y) > 1){
+        if((x+y) > 1)
+        {
             Result.x = Result.x > 0 ? Mathf.CeilToInt(Result.x) : Mathf.FloorToInt(Result.x);
             Result.y = Result.y > 0 ? Mathf.CeilToInt(Result.y) : Mathf.FloorToInt(Result.y);
         }
-
-        return Result;
+        
+        Dir = Result;
+        AnimationUpdate();
     }
     
     public void MovePos(){
@@ -136,6 +157,6 @@ public class PlayerController : MonoBehaviour, ITurn
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector2) transform.position + Dir, new Vector2(0.8f, 0.8f));
+        Gizmos.DrawWireCube((Vector2) transform.position + Dir, new Vector2(0.5f, 0.5f));
     }
 }

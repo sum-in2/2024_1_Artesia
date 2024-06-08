@@ -40,7 +40,7 @@ public class PlayerAtk : IState<PlayerController>
     }
 
     void normalAtk(){
-        atkSize = new Vector2(0.8f, 0.8f);
+        atkSize = new Vector2(0.5f, 0.5f);
         Collider2D[] others = Physics2D.OverlapBoxAll(atkCenter, atkSize, 0);
 
         foreach(Collider2D collider in others){

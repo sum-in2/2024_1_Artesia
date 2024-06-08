@@ -15,7 +15,7 @@ public class PlayerCollider : MonoBehaviour
             {
                 isAttacking = true;
                 gameObject.GetComponent<PlayerStat>().TakeDamage(other.GetComponent<MobStat>().ATK);
-                gameObject.GetComponent<PlayerController>().Dir =  other.GetComponent<MobController>().OriPos - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                gameObject.GetComponent<PlayerController>().DirControl(other.GetComponent<MobController>().OriPos - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y));
                 StartCoroutine(ResetAttackAfterDelay());
             }
         }
