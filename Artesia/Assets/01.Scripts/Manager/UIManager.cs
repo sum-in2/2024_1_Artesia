@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     Dictionary<string, GameObject> DicUi;
     [SerializeField] GameObject NextStageUI;
     [SerializeField] GameObject statusUI;
+    [SerializeField] GameObject gameOverUI;
 
     void Awake()
     {
@@ -66,6 +67,11 @@ public class UIManager : MonoBehaviour
         {
             dialogCanvas.gameObject.SetActive(false);
         }
+    }
+
+    public void ShowGameOverUI()
+    {
+        gameOverUI.SetActive(true);
     }
 
     public IEnumerator FakeLoading(float time, int stageIndex, string dungeonName)

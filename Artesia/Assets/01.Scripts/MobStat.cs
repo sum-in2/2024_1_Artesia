@@ -12,11 +12,14 @@ public class MobStat : MonoBehaviour, IDamageable
     private SpriteRenderer spriteRenderer;
     bool isFade = false;
 
+    public bool isDead = false;
+
     private void OnEnable() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         HP = 25;
         ATK = 5;
         EXP = 8;
+        isDead = false;
     }
 
     private void Update() {
@@ -35,6 +38,8 @@ public class MobStat : MonoBehaviour, IDamageable
         // 경험치 올리는 함수
 
         GameObject obj = GameObject.FindGameObjectWithTag("Player");
+
+        isDead = true;
         
         obj.GetComponent<PlayerStat>().addExp(EXP);
 

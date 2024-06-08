@@ -58,6 +58,12 @@ public class MobController : MonoBehaviour, ITurn
 
     private void Update() 
     {
+        if (GetComponent<MobStat>().isDead)
+        {
+            PlayedTurn = true;
+            return;
+        }
+
         if(!PlayedTurn)
         {
             Move();

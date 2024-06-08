@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour, ITurn
 
     public string destroySceneName;
 
-    private void Awake() {
+    private void Awake() 
+    {
         IState<PlayerController> idle = new PlayerIdle();
         IState<PlayerController> move = new PlayerMove();
         IState<PlayerController> atk = new PlayerAtk();
@@ -49,12 +50,23 @@ public class PlayerController : MonoBehaviour, ITurn
         SM = new StateMachine<PlayerController>(this, dicState[PlayerState.Idle]);
     }
 
-    void Start() {
+    void Start() 
+    {
         MovePos();
         DontDestroyOnLoad(gameObject);
         if(GameObject.FindGameObjectsWithTag("Player").Length > 1)
             Destroy(gameObject);
         UIManager.instance.SetActiveUI("Status", true);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Update() {
@@ -76,6 +88,14 @@ public class PlayerController : MonoBehaviour, ITurn
         }
 
         SM.DoOperateUpdate();
+    }    
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "BaseCamp")
+        {
+            transform.position = Vector3.zero;
+        }
     }
 
     void AnimationUpdate()
@@ -146,8 +166,11 @@ public class PlayerController : MonoBehaviour, ITurn
     
     public void MovePos(){
         SM.SetState(dicState[PlayerState.Idle]);
+        
         if(MapGenerator.instance != null)
             transform.position = MapGenerator.instance.StartPos;
+        else
+            transform.position = Vector2.zero;
     }
 
     public void MovePos(Vector3 pos){

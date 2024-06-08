@@ -14,6 +14,12 @@ public class OptionBtn : MonoBehaviour
         SceneLoader.Instance.LoadScene("MainScene");
     }
 
+    public void onBaseCampBtn(){
+        UIManager.instance.SetActiveUI(optionCanvas, false);
+        Time.timeScale = 1f;
+        SceneLoader.Instance.LoadScene("BaseCamp");
+    }
+
     public void onBackBtn(){
         optionCanvas.SetActive(false); //OptionUI
         Time.timeScale = 1f;
