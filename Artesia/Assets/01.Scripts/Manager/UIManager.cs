@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject NextStageUI;
     [SerializeField] GameObject statusUI;
     [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject escapeUI;
+    [SerializeField] GameObject optionUI;
 
     void Awake()
     {
@@ -40,6 +42,8 @@ public class UIManager : MonoBehaviour
         DicUi = new Dictionary<string, GameObject>();
         DicUi.Add("NextStage", NextStageUI);
         DicUi.Add("Status", statusUI);
+        DicUi.Add("escape", escapeUI);
+        DicUi.Add("option", optionUI);
     }
 
     public void SetActiveUI(string UIName, bool bActive)

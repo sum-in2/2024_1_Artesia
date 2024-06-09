@@ -138,6 +138,14 @@ public class PlayerController : MonoBehaviour, ITurn
         }
     }
 
+    void OnOption(InputValue value)
+    {
+        UIManager.instance.SetActiveUI("option", true);
+        if(SceneManager.GetActiveScene().name != "BaseCamp")
+            UIManager.instance.SetActiveUI("escape", true);
+        Time.timeScale = 0f;
+    }
+
     void OnAtk(InputValue value)
     {
         if(!PlayedTurn && SM.CurState == dicState[PlayerState.Idle] && !UIManager.instance.isFade)
