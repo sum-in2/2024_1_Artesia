@@ -123,10 +123,10 @@ public class AStarPathfinder : MonoBehaviour
             new Vector2Int(0, -1),
             new Vector2Int(1, 0),
             new Vector2Int(-1, 0),
-            new Vector2Int(1, 1),
-            new Vector2Int(1, -1),
-            new Vector2Int(-1, 1),
-            new Vector2Int(-1, -1)
+            //new Vector2Int(1, 1),
+            //new Vector2Int(1, -1),
+            //new Vector2Int(-1, 1),
+            //new Vector2Int(-1, -1)
         };
 
         List<Vector2Int> validNeighbors = new List<Vector2Int>();

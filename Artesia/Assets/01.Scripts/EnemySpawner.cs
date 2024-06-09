@@ -138,8 +138,8 @@ public class EnemySpawner : MonoBehaviour
             Vector2 roomCenter = room.roomRect.center;
             Vector2 roomSize = room.roomRect.size;
 
-            float randomX = Random.Range(roomCenter.x - roomSize.x / 2f, roomCenter.x + roomSize.x / 2f);
-            float randomY = Random.Range(roomCenter.y - roomSize.y / 2f, roomCenter.y + roomSize.y / 2f);
+            int randomX = Mathf.RoundToInt(Random.Range(roomCenter.x - roomSize.x / 2f, roomCenter.x + roomSize.x / 2f));
+            int randomY = Mathf.RoundToInt(Random.Range(roomCenter.y - roomSize.y / 2f, roomCenter.y + roomSize.y / 2f));
 
             Vector2Int mapSize = MapGenerator.instance.MapSize;
             Vector3 spawnPosition = new Vector3(randomX - mapSize.x / 2, randomY - mapSize.y / 2, 0);

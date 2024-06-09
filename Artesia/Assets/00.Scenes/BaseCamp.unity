@@ -293,9 +293,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 55707672525388772, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 55707672525388772, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1522150357149026827, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765224740430405029, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765224740430405029, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1765224740430405029, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3001935466609355750, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_LocalPosition.x
@@ -337,17 +357,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4640531911113928227, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_text
+      value: "\uCE7C\uB0A0 \uD68C\uC624\uB9AC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640531911113928227, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640531911113928227, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640531911113928227, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6334283263541675574, guid: 5529709153888ea40bf985580c468c80, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 7386440586666678342, guid: 5529709153888ea40bf985580c468c80, type: 3}
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8053672270852286680, guid: 5529709153888ea40bf985580c468c80, type: 3}
-      propertyPath: m_Name
-      value: Skill
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4245015637942768567, guid: 5529709153888ea40bf985580c468c80, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5529709153888ea40bf985580c468c80, type: 3}
@@ -906,10 +941,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DungeonSample
+  m_text: Orbit of Shadows
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 244f451b1c4696a42ae44f19990cc516, type: 2}
-  m_sharedMaterial: {fileID: -6515348520489485366, guid: 244f451b1c4696a42ae44f19990cc516, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c4d17422d449ec746b33369c5748697b, type: 2}
+  m_sharedMaterial: {fileID: -1568313416605096059, guid: c4d17422d449ec746b33369c5748697b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -933,7 +968,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.05
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1797,8 +1832,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 244f451b1c4696a42ae44f19990cc516, type: 2}
-  m_sharedMaterial: {fileID: -6515348520489485366, guid: 244f451b1c4696a42ae44f19990cc516, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c4d17422d449ec746b33369c5748697b, type: 2}
+  m_sharedMaterial: {fileID: -1568313416605096059, guid: c4d17422d449ec746b33369c5748697b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

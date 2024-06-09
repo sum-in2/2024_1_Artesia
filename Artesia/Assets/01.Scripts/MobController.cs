@@ -90,8 +90,14 @@ public class MobController : MonoBehaviour, ITurn
 
             if(toPlayerPath == null)
             {
+                Vector2[] dirList = {
+                    new Vector2(0, 1),
+                    new Vector2(0, -1),
+                    new Vector2(1, 0),
+                    new Vector2(-1, 0)
+                };
                 do{
-                    Dir = new Vector2(Random.Range(-1,2), Random.Range(-1,2));
+                    Dir = dirList[Random.Range(0, 4)];
                     AnimationUpdate();
                     //hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
                     hit = Physics2D.OverlapPoint(new Vector2(transform.position.x + Dir.x, transform.position.y + Dir.y));

@@ -80,6 +80,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator FakeLoading(float time, int stageIndex, string dungeonName)
     {
+        Debug.Log(dungeonName);
         isFade = true;
         float timer = 0f;
         LoadingCanvas.alpha = 1f;

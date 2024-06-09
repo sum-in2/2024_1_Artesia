@@ -11,7 +11,9 @@ public class StatusUI : MonoBehaviour
 
     private void Start()
     {
-        playerStat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStat>();
+        GameObject temp = GameObject.FindGameObjectWithTag("Player");
+        if(temp != null)
+            playerStat = temp.GetComponent<PlayerStat>();
     }
 
     private void Update()

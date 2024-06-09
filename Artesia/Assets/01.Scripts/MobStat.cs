@@ -16,9 +16,14 @@ public class MobStat : MonoBehaviour, IDamageable
 
     private void OnEnable() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Color color = spriteRenderer.color;
+        color.a = 1f;
+        spriteRenderer.color = color;
+
         HP = 25;
         ATK = 5;
         EXP = 8;
+        
         isDead = false;
     }
 

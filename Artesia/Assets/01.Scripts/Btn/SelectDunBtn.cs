@@ -9,6 +9,7 @@ public class SelectDunBtn : MonoBehaviour
 
     public void OnSelectDunBtn(){
         Time.timeScale = 1f;
-        SceneLoader.Instance.LoadScene(dunName.text);
+        GameManager.instance.dungeonName = dunName.text;
+        SceneLoader.Instance.LoadScene("DungeonSample");
     }
 }
