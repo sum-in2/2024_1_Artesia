@@ -35,7 +35,7 @@ public class PlayerStat : MonoBehaviour, IDamageable
         }
         else
         {
-            BattleManager.Instance.AddLogMessage($"{gameObject.name}가 {addNum}의 데미지를 입었다");
+            BattleManager.Instance.AddLogMessage($"{gameObject.name}가 {addNum * -1}의 데미지를 입었습니다.");
         }
         NowHp += addNum;
     }

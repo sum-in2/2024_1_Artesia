@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c68042044a142247804218290f1614e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 0.123
   OriPos: {x: 0, y: 0}
 --- !u!114 &7336180522989262452
 MonoBehaviour:
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ATK: 0
+  isDead: 0
 --- !u!95 &7652847555211236837
 Animator:
   serializedVersion: 5
