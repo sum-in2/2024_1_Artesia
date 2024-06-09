@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public int stageIndex{get; private set;} = 1;
 
+    public ItemSpawner itemSpawner; 
+
     void Awake()
     {
         if(Instance == null)
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
             MapObject.GetComponent<MapGenerator>().InitMap();
             MapObject.GetComponent<DrawTile>().InitTile();
             Player.GetComponent<PlayerController>().MovePos();
+            itemSpawner.SpawnItemsInRandomRooms();
             UIManager.instance.SetDungeonInfoText("DungeonName", stageIndex);
 
             Camera.main.GetComponent<CameraController>().CalculateTilemapBounds();
