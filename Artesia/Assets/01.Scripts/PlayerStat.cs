@@ -29,6 +29,14 @@ public class PlayerStat : MonoBehaviour, IDamageable
     }
 
     public void addHP(int addNum){
+        if( addNum > 0 )
+        {
+            BattleManager.Instance.AddLogMessage($"{gameObject.name}의 체력이 {addNum}만큼 회복 되었습니다.");
+        }
+        else
+        {
+            BattleManager.Instance.AddLogMessage($"{gameObject.name}가 {addNum}의 데미지를 입었다");
+        }
         NowHp += addNum;
     }
 
@@ -54,7 +62,7 @@ public class PlayerStat : MonoBehaviour, IDamageable
     }
 
     void LevelUp(){
-        NowLv++;
+        BattleManager.Instance.AddLogMessage($"{gameObject.name}의 레벨이 {++NowLv}로 올랐습니다.");
         NowExp = 0;
         NowStatSetting();
     }
