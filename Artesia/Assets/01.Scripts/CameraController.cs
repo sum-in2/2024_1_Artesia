@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
@@ -22,6 +23,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -5);
         targetPosition.x = Mathf.Clamp(targetPosition.x, minBounds.x, maxBounds.x);
         targetPosition.y = Mathf.Clamp(targetPosition.y, minBounds.y, maxBounds.y);
