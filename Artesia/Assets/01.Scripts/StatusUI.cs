@@ -22,6 +22,12 @@ public class StatusUI : MonoBehaviour
             SetHPBar();
             SetHPText();
         }
+        else
+        {
+            GameObject temp = GameObject.FindGameObjectWithTag("Player");
+            if (temp != null)
+                playerStat = temp.GetComponent<PlayerStat>();
+        }
     }
 
     private void SetHPBar()

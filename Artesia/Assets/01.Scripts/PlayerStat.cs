@@ -31,18 +31,18 @@ public class PlayerStat : MonoBehaviour, IDamageable
     public void addHP(int addNum){
         if( addNum > 0 )
         {
-            BattleManager.Instance.AddLogMessage($"{gameObject.name}의 체력이 {addNum}만큼 회복 되었습니다.");
+            BattleManager.Instance.AddLogMessage($"레이나의 체력이 {addNum}만큼 회복 되었습니다.");
         }
         else
         {
-            BattleManager.Instance.AddLogMessage($"{gameObject.name}가 {addNum * -1}의 데미지를 입었습니다.");
+            BattleManager.Instance.AddLogMessage($"레이나가 {addNum * -1}의 데미지를 입었습니다.");
         }
         NowHp += addNum;
     }
 
     public void addExp(int addExp){
         NowExp += addExp;
-        BattleManager.Instance.AddLogMessage($"{gameObject.name}의 경험치가 {addExp}만큼 올랐습니다.");
+        BattleManager.Instance.AddLogMessage($"레이나의 경험치가 {addExp}만큼 올랐습니다.");
     }
 
     void InitData(){

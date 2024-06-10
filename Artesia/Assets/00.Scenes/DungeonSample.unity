@@ -632,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8428169472215107206, guid: 05147bb4166bc5e43b16f6c951eb6bce, type: 3}
       propertyPath: dungeonName
-      value: Orbit of Shadows
+      value: "\uADF8\uB9BC\uC790 \uADA4\uB3C4"
       objectReference: {fileID: 0}
     - target: {fileID: 8428169472215107206, guid: 05147bb4166bc5e43b16f6c951eb6bce, type: 3}
       propertyPath: itemSpawner
