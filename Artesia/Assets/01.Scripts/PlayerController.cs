@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour, ITurn
     public float speed {
         get { return Speed;}
     }
-    public bool isMoving { get; private set;} = false;
+    public bool isMoving { get; set;} = false;
     public bool isSkillActive { get; set;} = false;
     public bool PlayedTurn { get; set; }
     public bool EnemyHit { get; set; } = false;
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour, ITurn
         if(Mathf.Abs(Dir.x) == 1){                                          
             gameObject.GetComponent<SpriteRenderer>().flipX = (Dir.x == 1);
         }
-
+        
         SM.DoOperateUpdate();
     }    
 
@@ -98,14 +98,15 @@ public class PlayerController : MonoBehaviour, ITurn
         }
     }
 
-    void AnimationUpdate()
+    public void AnimationUpdate()
     {
         Animator animator;
 
         animator = GetComponent<Animator>();
 
-        animator.SetInteger("DirX", (int)Dir.x);
-        animator.SetInteger("DirY", (int)Dir.y);
+        animator.SetFloat("DirX", Dir.x);
+        animator.SetFloat("DirY", Dir.y);
+        animator.SetBool("isMoving", isMoving);
     }
 
     void OnMove(InputValue value)
@@ -122,6 +123,7 @@ public class PlayerController : MonoBehaviour, ITurn
                 if(!hit)
                 {
                     TargetPos = OriPos + new Vector3(Dir.x, Dir.y, 0);
+
                     SM.SetState(dicState[PlayerState.Move]);
                 }
             }

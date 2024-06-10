@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMove : IState<PlayerController>
@@ -14,8 +15,10 @@ public class PlayerMove : IState<PlayerController>
             m_playerController = sender;
         elapsedTime = 0;
 
+        m_playerController.isMoving = true;
         speed = m_playerController.speed;
         m_targetPos = m_playerController.TargetPos;
+        m_playerController.AnimationUpdate();
     }
     
     public void OperateUpdate(PlayerController sender){
@@ -30,6 +33,8 @@ public class PlayerMove : IState<PlayerController>
     
     public void OperateExit(PlayerController sender){
         m_playerController.transform.position = m_targetPos;
+        m_playerController.isMoving = false;
+        m_playerController.AnimationUpdate();
         TurnManager.instance.EndPlayerTurn();
     }
 }
