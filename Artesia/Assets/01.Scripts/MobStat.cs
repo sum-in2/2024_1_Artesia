@@ -34,7 +34,7 @@ public class MobStat : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage){
         UIManager.instance.hit(gameObject, damage);
-        BattleManager.Instance.AddLogMessage($"{gameObject.name}가 {damage}의 데미지를 입었습니다.");
+        BattleManager.Instance.AddLogMessage($"보이드 리퍼가 {damage}의 데미지를 입었습니다.");
         HP -= damage;
     }
 

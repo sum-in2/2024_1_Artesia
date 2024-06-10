@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 240845111}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.66, y: 16.14, z: -15}
+  m_LocalPosition: {x: 33.66, y: 16.14, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -191,7 +191,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 25
-  m_Depth: 0
+  m_Depth: 3
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -632,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8428169472215107206, guid: 05147bb4166bc5e43b16f6c951eb6bce, type: 3}
       propertyPath: dungeonName
-      value: Orbit of Shadows
+      value: "\uADF8\uB9BC\uC790 \uADA4\uB3C4"
       objectReference: {fileID: 0}
     - target: {fileID: 8428169472215107206, guid: 05147bb4166bc5e43b16f6c951eb6bce, type: 3}
       propertyPath: itemSpawner

@@ -22,7 +22,7 @@ public class PlayerAtk : IState<PlayerController>
         atkCenter = (Vector2) sender.transform.position+ m_Dir * 0.5f;
 
         if(BattleManager.Instance != null)
-            BattleManager.Instance.AddLogMessage($"{sender.name} 공격 사용");
+            BattleManager.Instance.AddLogMessage($"레이나 일반공격 사용!");
             
         normalAtk();
         

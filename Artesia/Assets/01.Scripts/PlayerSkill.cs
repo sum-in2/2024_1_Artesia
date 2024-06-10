@@ -20,7 +20,7 @@ public class PlayerSkill : IState<PlayerController>
 
         // 스킬 정보 초기화 ex) 대미지, 범위, 딜레이, 이펙트(이름으로 호출할거니까?)
         
-        BattleManager.Instance.AddLogMessage($"{sender.name} {skillName} 사용"); // 스킬이름 추가해야할듯
+        BattleManager.Instance.AddLogMessage($"레이나 {skillName} 사용!"); // 스킬이름 추가해야할듯
 
         ActivateSkill();
         delayTimer = 0f;

@@ -135,19 +135,15 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = GetPooledEnemy();
 
         if (enemy != null){
-            Vector2 roomCenter = room.roomRect.center;
-            Vector2 roomSize = room.roomRect.size;
-
-            int randomX = Mathf.RoundToInt(Random.Range(roomCenter.x - roomSize.x / 2f, roomCenter.x + roomSize.x / 2f));
-            int randomY = Mathf.RoundToInt(Random.Range(roomCenter.y - roomSize.y / 2f, roomCenter.y + roomSize.y / 2f));
-
-            Vector2Int mapSize = MapGenerator.instance.MapSize;
-            Vector3 spawnPosition = new Vector3(randomX - mapSize.x / 2, randomY - mapSize.y / 2, 0);
+            Vector2 temp1 = room.roomRect.center;
+            Vector2Int temp2 = MapGenerator.instance.MapSize;
+            Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
 
             enemy.GetComponent<AStarPathfinder>().Init();
             enemy.GetComponent<MobController>().setListPath();
 
-            enemy.transform.position = spawnPosition;
+            enemy.transform.position = roomCenter;
+
             enemy.SetActive(true);
             enemies.Add(enemy);
         }

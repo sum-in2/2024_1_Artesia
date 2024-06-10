@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     GameObject Player;
     GameObject MapObject;
 
-    public string dungeonName = "Orbit of Shadows";
+    public string dungeonName;
     public int stageIndex{get; private set;} = 1;
 
     public ItemSpawner itemSpawner; 

@@ -36,7 +36,7 @@ public class OptionBtn : MonoBehaviour
         UIManager.instance.SetActiveUI(gameObject, false);
         UIManager.instance.SetActiveUI(optionCanvas, false);
         SceneLoader.Instance.LoadScene("BaseCamp");
-        Time.timeScale = 1f;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().MovePos(Vector3.zero);
+        Time.timeScale = 1f;
     }
 }

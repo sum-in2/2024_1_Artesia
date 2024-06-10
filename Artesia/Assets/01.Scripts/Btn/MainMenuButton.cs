@@ -21,4 +21,8 @@ public class MainMenuButton : MonoBehaviour
             StartCanvas.gameObject.SetActive(true);
         }
     }
+
+    public void OnExitButton(){
+        Application.Quit();
+    }
 }
