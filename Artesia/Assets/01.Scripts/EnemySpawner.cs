@@ -63,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < EnemyCnt; i++){
             GameObject enemy = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
             enemy.SetActive(false);
-            enemy.name = ("Enmey" + i);
+            enemy.name = (Prefab.name);
             enemy.transform.SetParent(this.transform);
             enemyPool.Add(enemy);
         }

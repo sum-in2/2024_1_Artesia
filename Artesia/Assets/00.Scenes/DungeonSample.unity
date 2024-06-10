@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c2b54675247b943b8eceedcb393645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: {x: 64, y: 36}
+  mapSize: {x: 48, y: 27}
   minDevideRate: 0.3
   maxDevideRate: 0.7
   maxDepth: 3

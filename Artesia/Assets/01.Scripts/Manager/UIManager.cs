@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject gameOverUI;
     [SerializeField] GameObject escapeUI;
     [SerializeField] GameObject optionUI;
+    [SerializeField] GameObject keySettingUI;
 
     void Awake()
     {

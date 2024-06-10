@@ -9,7 +9,8 @@ public class PlayerSkill : IState<PlayerController>
     private PlayerController m_playerController;
     public int damage = 15;
     public float skillRange = 1f;
-    public float skillDelay = 0.5f;
+    public float skillDelay = 0.3f;
+    string skillName = "칼날 회오리";
 
     private float delayTimer;
 
@@ -19,16 +20,16 @@ public class PlayerSkill : IState<PlayerController>
 
         // 스킬 정보 초기화 ex) 대미지, 범위, 딜레이, 이펙트(이름으로 호출할거니까?)
         
-        BattleManager.Instance.AddLogMessage($"{sender.name} \"스킬이름\" 사용"); // 스킬이름 추가해야할듯
+        BattleManager.Instance.AddLogMessage($"{sender.name} {skillName} 사용"); // 스킬이름 추가해야할듯
 
         ActivateSkill();
         delayTimer = 0f;
     }
     public void OperateUpdate(PlayerController sender){
         delayTimer += Time.deltaTime;
-        //if(delayTimer >= skillDelay){ // 이펙트 딜레이 대기해야함 일단은 제외
+        if(delayTimer >= skillDelay){ // 이펙트 딜레이 대기해야함 일단은 제외
             sender.isSkillActive = false;
-        //}
+        }
     }
     public void OperateExit(PlayerController sender){
         TurnManager.instance.EndPlayerTurn();

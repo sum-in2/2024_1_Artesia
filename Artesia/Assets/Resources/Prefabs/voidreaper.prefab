@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -7393142256391929792}
   - component: {fileID: 7652847555211236837}
   m_Layer: 8
-  m_Name: voidreaper
+  m_Name: VoidReaper
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
