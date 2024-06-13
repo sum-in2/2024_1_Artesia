@@ -76,6 +76,8 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOverUI()
     {
+        Time.timeScale = 0f;
+        DialogOff();
         gameOverUI.SetActive(true);
     }
 

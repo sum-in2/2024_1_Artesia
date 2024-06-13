@@ -44,61 +44,6 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
-                    "id": "afec29d3-2dc5-474a-ad08-600221fb55f9",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "49bedd82-a5b7-434b-bfd4-0c6a0da7c52c",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "bf985ef6-89b7-4bda-84e1-702098ed1f15",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "c02b535e-2fa7-43fc-84ec-519124140d1e",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "aad10cf1-668b-4ca5-b4d5-5f3129aecf00",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Arrow",
                     "id": "727185e4-893c-4c8a-9f7a-02d0813ac38e",
                     "path": "2DVector",
@@ -156,7 +101,7 @@
                 {
                     "name": "",
                     "id": "880ce3b4-029a-4755-bcda-16cbe1173027",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -167,7 +112,7 @@
                 {
                     "name": "",
                     "id": "3cd2d412-2df7-4f3f-a325-4a44d4acbde5",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
