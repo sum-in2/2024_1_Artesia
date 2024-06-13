@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public ItemSpawner itemSpawner; 
 
+    Dictionary<string, int> stageMaxFloor;
+
     void Awake()
     {
         if(Instance == null)
@@ -34,8 +36,11 @@ public class GameManager : MonoBehaviour
 
     void Init(){
         // if(savefile 유무) LoadData
+        stageMaxFloor = new Dictionary<string, int>();
         MapObject = GameObject.FindGameObjectWithTag("Map");
         Player = GameObject.FindGameObjectWithTag("Player");
+
+        stageMaxFloor.Add("그림자 궤도", 5);
     }
 
     void Start(){
@@ -43,8 +48,10 @@ public class GameManager : MonoBehaviour
         NextStage();
     }
 
-    public void NextStage(){
-        if(SceneManager.GetActiveScene().name != "BaseCamp"){
+    public void NextStage()
+    {
+        if(SceneManager.GetActiveScene().name != "BaseCamp")
+        {
             StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex, dungeonName));
             EnemySpawner.instance.EnemyListClear();
             MapObject.GetComponent<MapGenerator>().InitMap();
@@ -55,7 +62,11 @@ public class GameManager : MonoBehaviour
 
             Camera.main.GetComponent<CameraController>().CalculateTilemapBounds();
 
-            stageIndex++;
+            if(++stageIndex > stageMaxFloor[dungeonName])
+            {
+                // 결과창 구현 예정
+                SceneLoader.Instance.LoadScene("BaseCamp");
+            }
         }
         else
             UIManager.instance.SetDungeonInfoText("BaseCamp");
