@@ -44,7 +44,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void NextStage(){
-        if(SceneManager.GetActiveScene().name != "BaseCamp"){
+        if(SceneManager.GetActiveScene().name != "BaseCamp")
+        {
             StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex, dungeonName));
             EnemySpawner.instance.EnemyListClear();
             MapObject.GetComponent<MapGenerator>().InitMap();
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
             stageIndex++;
         }
         else
+        {
             UIManager.instance.SetDungeonInfoText("BaseCamp");
+        }
     }
 }

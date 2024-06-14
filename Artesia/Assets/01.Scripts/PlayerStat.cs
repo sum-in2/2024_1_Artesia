@@ -80,6 +80,7 @@ public class PlayerStat : MonoBehaviour, IDamageable
     void die(){
         // 캐릭터 사망 -> Game Over 출력 -> 베이스캠프 이동
         UIManager.instance.ShowGameOverUI();
+        NowStatSetting();
     }
 }
  
