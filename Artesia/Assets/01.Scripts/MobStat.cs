@@ -14,7 +14,8 @@ public class MobStat : MonoBehaviour, IDamageable
 
     public bool isDead = false;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
         Color color = spriteRenderer.color;
         color.a = 1f;
@@ -27,31 +28,35 @@ public class MobStat : MonoBehaviour, IDamageable
         isDead = false;
     }
 
-    private void Update() {
-        if (HP < 0 && !isFade) 
+    private void Update()
+    {
+        if (HP < 0 && !isFade)
             die();
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(int damage)
+    {
         UIManager.instance.hit(gameObject, damage);
         BattleManager.Instance.AddLogMessage($"보이드 리퍼가 {damage}의 데미지를 입었습니다.");
         HP -= damage;
     }
 
-    public void die(){
+    public void die()
+    {
         // 죽는 애니메이션 실행
         // 경험치 올리는 함수
 
         GameObject obj = GameObject.FindGameObjectWithTag("Player");
 
         isDead = true;
-        
+
         obj.GetComponent<PlayerStat>().addExp(EXP);
 
         StartCoroutine(DieFade());
     }
 
-    private IEnumerator DieFade(){
+    private IEnumerator DieFade()
+    {
         Color color = spriteRenderer.color;
         float fadeDuration = 0.5f; // 페이드 아웃 지속 시간 (초)
         isFade = true;

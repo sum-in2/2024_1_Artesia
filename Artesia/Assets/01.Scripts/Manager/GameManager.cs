@@ -9,8 +9,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     static GameManager Instance;
-    public static GameManager instance{
-        get {
+    public static GameManager instance
+    {
+        get
+        {
             return Instance;
         }
     }
@@ -18,33 +20,36 @@ public class GameManager : MonoBehaviour
     GameObject MapObject;
 
     public string dungeonName;
-    public int stageIndex{get; private set;} = 1;
+    public int stageIndex { get; private set; } = 1;
 
-    public ItemSpawner itemSpawner; 
+    public ItemSpawner itemSpawner;
 
     void Awake()
     {
-        if(Instance == null)
-            Instance = this; 
-        else if(Instance != this)
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(this.gameObject);
 
         //DontDestroyOnLoad(gameObject);
     }
 
-    void Init(){
+    void Init()
+    {
         // if(savefile 유무) LoadData
         MapObject = GameObject.FindGameObjectWithTag("Map");
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Start(){
+    void Start()
+    {
         Init();
         NextStage();
     }
 
-    public void NextStage(){
-        if(SceneManager.GetActiveScene().name != "BaseCamp")
+    public void NextStage()
+    {
+        if (SceneManager.GetActiveScene().name != "BaseCamp")
         {
             StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex, dungeonName));
             EnemySpawner.instance.EnemyListClear();

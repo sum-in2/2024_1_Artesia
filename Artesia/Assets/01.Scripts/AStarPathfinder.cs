@@ -17,7 +17,8 @@ public class AStarPathfinder : MonoBehaviour
         closedList = new List<Vector2Int>();
     }
 
-    public void Init(){
+    public void Init()
+    {
         MapGenerator mapGenerator = MapGenerator.instance;
         tileInfoArray = mapGenerator.TileInfoArray;
         mapSize = mapGenerator.MapSize;
@@ -29,7 +30,7 @@ public class AStarPathfinder : MonoBehaviour
         Vector2Int endPos = ConvertWorldToMapPosition(endTransform);
 
         return FindPath(startPos, endPos);
-    }    
+    }
 
     public Vector2Int ConvertWorldToMapPosition(Vector3 worldPosition)
     {
@@ -65,7 +66,7 @@ public class AStarPathfinder : MonoBehaviour
 
             ExploreNeighbors(currentPos, endPos);
         }
-        
+
         return null;
     }
 
@@ -185,7 +186,7 @@ public class AStarPathfinder : MonoBehaviour
         while (currentPos != ConvertWorldToMapPosition(transform.position))
         {
             path.Add(currentPos);
-            if(path.Count > MaxPathSize) return null;
+            if (path.Count > MaxPathSize) return null;
 
             Vector2Int minPos = Vector2Int.zero;
             int minCost = int.MaxValue;
@@ -211,7 +212,7 @@ public class AStarPathfinder : MonoBehaviour
             currentPos = minPos;
         }
         path.Reverse();
-        
+
         return path;
     }
 }

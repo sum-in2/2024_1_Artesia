@@ -17,7 +17,8 @@ public class StateMachine<T>
 
     public void SetState(IState<T> state)
     {
-        if (m_sender == null || CurState == state){
+        if (m_sender == null || CurState == state)
+        {
             return;
         }
 
@@ -31,7 +32,7 @@ public class StateMachine<T>
         if (CurState != null)
             CurState.OperateEnter(m_sender);
     }
-    
+
     //State용 Update 함수.
     public void DoOperateUpdate()
     {

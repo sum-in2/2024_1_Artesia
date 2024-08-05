@@ -15,7 +15,8 @@ public class DmgText : MonoBehaviour
     TextMeshPro text;
     Color alpha;
 
-    public void Init(int dmg, Vector3 parent){
+    public void Init(int dmg, Vector3 parent)
+    {
         text = GetComponent<TextMeshPro>();
         alpha = text.color;
         Invoke("destroyObject", destroyTime);
@@ -28,7 +29,8 @@ public class DmgText : MonoBehaviour
     IEnumerator UpdateObj()
     {
         float elapsedTime = 0f;
-        while(elapsedTime < destroyTime){
+        while (elapsedTime < destroyTime)
+        {
             transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up, moveSpeed * Time.deltaTime);
             alpha.a = Mathf.Lerp(alpha.a, 0, alphaSpeed * Time.deltaTime);
             text.color = alpha;
@@ -38,7 +40,8 @@ public class DmgText : MonoBehaviour
         }
     }
 
-    void destroyObject(){
+    void destroyObject()
+    {
         Destroy(gameObject);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] CanvasGroup LoadingCanvas;
-    public bool isFade {get; private set;} = false; 
+    public bool isFade { get; private set; } = false;
     static UIManager Instance;
     public static UIManager instance
     {
@@ -16,13 +16,13 @@ public class UIManager : MonoBehaviour
             return Instance;
         }
     }
-    
+
 
     public TextMeshProUGUI LoadingStageText;
     public TextMeshProUGUI DungeonInfo;
 
     bool isBattleLogOn = false;
-    
+
     Dictionary<string, GameObject> DicUi;
     [SerializeField] GameObject NextStageUI;
     [SerializeField] GameObject statusUI;
@@ -33,9 +33,9 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null)
-            Instance = this; 
-        else if(Instance != this)
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(this.gameObject);
 
         DontDestroyOnLoad(gameObject);
@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
 
     public void SetActiveUI(string UIName, bool bActive)
     {
-        if(DicUi[UIName] == null)
+        if (DicUi[UIName] == null)
         {
             Debug.Log("UI가 사전에 업음");
             return;
@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
     {
         Canvas dialogCanvas = BattleManager.Instance.dialogCanvas;
 
-        if(dialogCanvas.gameObject.activeSelf)
+        if (dialogCanvas.gameObject.activeSelf)
         {
             dialogCanvas.gameObject.SetActive(false);
         }
@@ -88,12 +88,12 @@ public class UIManager : MonoBehaviour
         float timer = 0f;
         LoadingCanvas.alpha = 1f;
 
-        if(LoadingStageText != null)
+        if (LoadingStageText != null)
             LoadingStageText.text = dungeonName + "\n" + stageIndex + "F";
 
         yield return new WaitForSeconds(time);
 
-        while(timer < time)
+        while (timer < time)
         {
             yield return null;
             timer += Time.deltaTime;
@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
 
         isFade = false;
     }
-    
+
     public void SetDungeonInfoText(string DungeonName, int stageIndex)
     {
         DungeonInfo.text = DungeonName + " " + stageIndex + "F";
@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour
     public void hit(GameObject obj, int Dmg)
     {
         GameObject DmgText = Resources.Load<GameObject>("Prefabs/DmgText");
-        if(DmgText == null)
+        if (DmgText == null)
         {
             Debug.Log("dmgtext 로드 실패");
             return;

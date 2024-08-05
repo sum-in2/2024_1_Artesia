@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class BackBtn : MonoBehaviour
 {
     public GameObject parentCanvas;
-    public void OnBackButton(){
-        if(parentCanvas != null)
+    public void OnBackButton()
+    {
+        if (parentCanvas != null)
         {
             parentCanvas.SetActive(false);
         }

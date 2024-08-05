@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SaveDataBtn : MonoBehaviour
 {
-    public void OnSaveDataBtn(){
+    public void OnSaveDataBtn()
+    {
         DataManager.instance.SaveGameData(PlayerPrefs.GetInt("SaveIndex"));
     }
 }

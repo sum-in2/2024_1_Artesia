@@ -36,8 +36,9 @@ public class CharacterInformation : MonoBehaviour
         nameText.text = player.name;
         SkillTextUpdate();
     }
-    
-    void SkillTextUpdate(){
+
+    void SkillTextUpdate()
+    {
         skill1_Name.text = "칼날 회오리";
         skill1_Text.text = "한 칸 범위에 있는 모든 적들에게 데미지를 준다.";
         skill1_SP.text = "SP : 10 / 속성 : 일반";

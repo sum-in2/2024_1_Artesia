@@ -10,8 +10,9 @@ public class PlayerMove : IState<PlayerController>
     float elapsedTime;
     Vector2 m_targetPos;
 
-    public void OperateEnter(PlayerController sender){
-        if(!m_playerController)
+    public void OperateEnter(PlayerController sender)
+    {
+        if (!m_playerController)
             m_playerController = sender;
         elapsedTime = 0;
 
@@ -20,18 +21,21 @@ public class PlayerMove : IState<PlayerController>
         m_targetPos = m_playerController.TargetPos;
         m_playerController.AnimationUpdate();
     }
-    
-    public void OperateUpdate(PlayerController sender){
+
+    public void OperateUpdate(PlayerController sender)
+    {
         Vector2 nowPos = m_playerController.transform.position;
         m_playerController.transform.position = Vector2.Lerp(nowPos, m_targetPos, elapsedTime / speed);
 
         elapsedTime += Time.deltaTime;
-        if(elapsedTime >= speed){
+        if (elapsedTime >= speed)
+        {
             m_playerController.transform.position = m_targetPos;
         }
     }
-    
-    public void OperateExit(PlayerController sender){
+
+    public void OperateExit(PlayerController sender)
+    {
         m_playerController.transform.position = m_targetPos;
         m_playerController.isMoving = false;
         m_playerController.AnimationUpdate();

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public class BattleManager : MonoBehaviour
-{   
-    public static BattleManager Instance { get; private set;}
+{
+    public static BattleManager Instance { get; private set; }
     public TMP_Text battleLogText;
     private bool isBattleActive = false;
     private const int maxLines = 4;
@@ -15,8 +15,8 @@ public class BattleManager : MonoBehaviour
     public ScrollRect scrollRect;
 
     public CanvasStateListener canvasListener;
-    
-    private void Awake() 
+
+    private void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start() 
+    private void Start()
     {
         battleLogText.text = "";
         canvasListener.onCanvas.AddListener(ClearBattleLog);
@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnDestroy() 
+    private void OnDestroy()
     {
         canvasListener.onCanvas.RemoveAllListeners();
     }
@@ -47,7 +47,7 @@ public class BattleManager : MonoBehaviour
     {
         logLines.Enqueue(message);
 
-        if(logLines.Count > maxLines)
+        if (logLines.Count > maxLines)
         {
             logLines.Dequeue();
         }
@@ -57,7 +57,7 @@ public class BattleManager : MonoBehaviour
 
     private void UpdateBattleLog()
     {
-        if(dialogCanvas.gameObject.activeSelf == false)
+        if (dialogCanvas.gameObject.activeSelf == false)
         {
             dialogCanvas.gameObject.SetActive(true);
         }
@@ -65,7 +65,7 @@ public class BattleManager : MonoBehaviour
         // 큐로 딜레이 ?
         battleLogText.text = string.Join("\n", logLines);
 
-        if(logLines.Count >= maxLines)
+        if (logLines.Count >= maxLines)
         {
             StartCoroutine(ScrollAndRemoveFirstLine());
         }
@@ -85,9 +85,9 @@ public class BattleManager : MonoBehaviour
         float elapsedTime = 0f;
         float duration = 0.2f;
 
-        while(elapsedTime < duration)
+        while (elapsedTime < duration)
         {
-            scrollRect.content.localPosition = Vector3.Lerp(originalPos, targetPos, elapsedTime/duration);
+            scrollRect.content.localPosition = Vector3.Lerp(originalPos, targetPos, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -98,7 +98,7 @@ public class BattleManager : MonoBehaviour
 
         scrollRect.content.localPosition = originalPos;
     }
-    
+
     private void RemoveFirstLine()
     {
         string[] lines = battleLogText.text.Split('\n');

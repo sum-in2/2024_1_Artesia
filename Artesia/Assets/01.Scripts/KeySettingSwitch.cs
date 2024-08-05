@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class KeySettingOnOff : MonoBehaviour
 {
     [SerializeField] GameObject keySettingImage;
-    private void Update() {
-        if(SceneManager.GetActiveScene().name == "DungeonSample")
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "DungeonSample")
         {
-            if(keySettingImage.activeSelf == false)
+            if (keySettingImage.activeSelf == false)
             {
                 keySettingImage.SetActive(true);
             }
@@ -18,5 +19,5 @@ public class KeySettingOnOff : MonoBehaviour
         {
             keySettingImage.SetActive(false);
         }
-    }   
+    }
 }

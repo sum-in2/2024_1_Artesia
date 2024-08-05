@@ -12,13 +12,14 @@ public class StatusUI : MonoBehaviour
     private void Start()
     {
         GameObject temp = GameObject.FindGameObjectWithTag("Player");
-        if(temp != null)
+        if (temp != null)
             playerStat = temp.GetComponent<PlayerStat>();
     }
 
     private void Update()
     {
-        if(playerStat != null){
+        if (playerStat != null)
+        {
             SetHPBar();
             SetHPText();
         }

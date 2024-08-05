@@ -8,10 +8,12 @@ public class TurnManager : MonoBehaviour
     GameObject Player;
     public int spawnTurn = 8;
     List<GameObject> MobList;
-    
+
     static TurnManager Instance;
-    public static TurnManager instance{
-        get{
+    public static TurnManager instance
+    {
+        get
+        {
             return Instance;
         }
     }
@@ -19,41 +21,47 @@ public class TurnManager : MonoBehaviour
 
     int TurnCnt;
 
-    void Awake(){
-        if(Instance == null)
-            Instance = this; 
-        else if(Instance != this)
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(this.gameObject);
-            
+
         TurnCnt = 0;
         sceneName = SceneManager.GetActiveScene().name;
     }
-    
-    private void Start() {
-        if(sceneName != "BaseCamp")
+
+    private void Start()
+    {
+        if (sceneName != "BaseCamp")
             MobList = EnemySpawner.instance.enemies;
-        
+
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Update(){
-        if(CheckUnitTurn())
+    private void Update()
+    {
+        if (CheckUnitTurn())
             setTurn(Player, false);
 
-        if(TurnCnt > spawnTurn && MobList != null){
+        if (TurnCnt > spawnTurn && MobList != null)
+        {
             EnemySpawner.instance.RandomSpawnEnemy();
             TurnCnt = 0;
         }
     }
 
-    public void EndPlayerTurn(){
+    public void EndPlayerTurn()
+    {
         Player.GetComponent<ITurn>().PlayedTurn = true;
-        if(sceneName != "BaseCamp") 
+        if (sceneName != "BaseCamp")
             EnemyNextTurn();
     }
 
-    void EnemyNextTurn(){
-        foreach(GameObject Obj in MobList)
+    void EnemyNextTurn()
+    {
+        foreach (GameObject Obj in MobList)
         {
             setTurn(Obj, false);
             EnemySpawner.instance.updatePath(Obj, Player.transform.position);
@@ -61,23 +69,30 @@ public class TurnManager : MonoBehaviour
         TurnCnt++;
     }
 
-    public void setTurn(GameObject obj, bool input){
+    public void setTurn(GameObject obj, bool input)
+    {
         ITurn TurnTemp = obj.GetComponent<ITurn>();
-        if(TurnTemp != null){
+        if (TurnTemp != null)
+        {
             TurnTemp.PlayedTurn = input;
         }
         else
-            Debug.Log("ITurn 상속받지 않은 오브젝트 : " + obj.name);                        
+            Debug.Log("ITurn 상속받지 않은 오브젝트 : " + obj.name);
     }
 
-    bool CheckUnitTurn(){
-        if(MobList != null){
-            foreach(GameObject Obj in MobList){
-                if(!Obj.activeSelf){
+    bool CheckUnitTurn()
+    {
+        if (MobList != null)
+        {
+            foreach (GameObject Obj in MobList)
+            {
+                if (!Obj.activeSelf)
+                {
                     continue;
                 }
 
-                if(!Obj.GetComponent<ITurn>().PlayedTurn){
+                if (!Obj.GetComponent<ITurn>().PlayedTurn)
+                {
                     return false;
                 }
             }
