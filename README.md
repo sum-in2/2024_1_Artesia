@@ -27,7 +27,7 @@
 - Unity2D
 - C#
    - BSP Algorithm
-   - A* Pathfinging
+   - A* Pathfinding
 
 ## 🎮 게임 플레이
 - 턴 기반 시스템
