@@ -24,7 +24,8 @@ public class PortalCollider : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(){
+    private void OnTriggerExit2D()
+    {
         bTriggerEnter = true;
     }
 }

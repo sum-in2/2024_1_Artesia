@@ -4,23 +4,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
-using Random = UnityEngine.Random;    
+using Random = UnityEngine.Random;
 
 public class MobController : MonoBehaviour, ITurn
 {
-    enum MobState{
+    enum MobState
+    {
         Idle,
         Move,
         Atk,
     }
 
-    public Vector2 Dir{get; private set;}
-    public Vector2 TargetPos {get; private set;}
+    public Vector2 Dir { get; private set; }
+    public Vector2 TargetPos { get; private set; }
     [SerializeField][Range(0.0001f, 1f)][Tooltip("커질수록 느려짐")] float Speed = 1f;
-    public float speed {
-        get { return Speed;}
+    public float speed
+    {
+        get { return Speed; }
     }
-    public bool PlayedTurn {get; set;}
+    public bool PlayedTurn { get; set; }
 
     private Dictionary<MobState, IState<MobController>> dicState = new Dictionary<MobState, IState<MobController>>();
     private StateMachine<MobController> SM;
@@ -29,7 +31,8 @@ public class MobController : MonoBehaviour, ITurn
 
     List<Vector2Int> toPlayerPath;
 
-    void Awake(){
+    void Awake()
+    {
         IState<MobController> idle = new MobIdle();
         IState<MobController> move = new MobMove();
         IState<MobController> atk = new MobAtk();
@@ -48,7 +51,7 @@ public class MobController : MonoBehaviour, ITurn
 
     public void setListPath(Vector3 PlayerPos)
     {
-        toPlayerPath = gameObject.GetComponent<AStarPathfinder>().StartPathfinding(transform.position, PlayerPos); 
+        toPlayerPath = gameObject.GetComponent<AStarPathfinder>().StartPathfinding(transform.position, PlayerPos);
     }
 
     public void setListPath()
@@ -56,7 +59,7 @@ public class MobController : MonoBehaviour, ITurn
         toPlayerPath = null;
     }
 
-    private void Update() 
+    private void Update()
     {
         if (GetComponent<MobStat>().isDead)
         {
@@ -64,31 +67,33 @@ public class MobController : MonoBehaviour, ITurn
             return;
         }
 
-        if(!PlayedTurn)
+        if (!PlayedTurn)
         {
             Move();
         }
 
-        if((Vector2)transform.position == OriPos && SM.CurState == dicState[MobState.Atk])
+        if ((Vector2)transform.position == OriPos && SM.CurState == dicState[MobState.Atk])
             SM.SetState(dicState[MobState.Idle]);
 
-        if(TargetPos == (Vector2)transform.position && SM.CurState == dicState[MobState.Move])
+        if (TargetPos == (Vector2)transform.position && SM.CurState == dicState[MobState.Move])
             SM.SetState(dicState[MobState.Idle]);
-        
 
-        if(Mathf.Abs(Dir.x) == 1)
-        {                                          
+
+        if (Mathf.Abs(Dir.x) == 1)
+        {
             gameObject.GetComponent<SpriteRenderer>().flipX = !(Dir.x == 1);
         }
         SM.DoOperateUpdate();
     }
 
-    void Move(){
-        if(SM.CurState == dicState[MobState.Idle]){
-            
+    void Move()
+    {
+        if (SM.CurState == dicState[MobState.Idle])
+        {
+
             Collider2D hit;
 
-            if(toPlayerPath == null)
+            if (toPlayerPath == null)
             {
                 Vector2[] dirList = {
                     new Vector2(0, 1),
@@ -96,14 +101,15 @@ public class MobController : MonoBehaviour, ITurn
                     new Vector2(1, 0),
                     new Vector2(-1, 0)
                 };
-                do{
+                do
+                {
                     Dir = dirList[Random.Range(0, 4)];
                     AnimationUpdate();
                     //hit = Physics2D.Raycast(transform.position, Dir, 1, LayerMask.GetMask("Tile"));
                     hit = Physics2D.OverlapPoint(new Vector2(transform.position.x + Dir.x, transform.position.y + Dir.y));
-                } while(hit);
+                } while (hit);
 
-                TargetPos = Dir + (Vector2) transform.position;
+                TargetPos = Dir + (Vector2)transform.position;
             }
             else
             {
@@ -111,13 +117,13 @@ public class MobController : MonoBehaviour, ITurn
                 Dir = TargetPos - (Vector2)transform.position;
                 AnimationUpdate();
 
-                if(toPlayerPath.Count == 1)
+                if (toPlayerPath.Count == 1)
                 {
                     OriPos = transform.position;
                     SM.SetState(dicState[MobState.Atk]);
                     return;
                 }
-                
+
                 toPlayerPath.RemoveAt(0);
             }
             SM.SetState(dicState[MobState.Move]);

@@ -8,15 +8,15 @@ public class CanvasStateListener : MonoBehaviour
 {
     public UnityEvent onCanvas;
 
-    private void OnEnable() 
+    private void OnEnable()
     {
-        if(!gameObject.activeInHierarchy)
+        if (!gameObject.activeInHierarchy)
         {
             onCanvas.Invoke();
         }
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         onCanvas.Invoke();
     }

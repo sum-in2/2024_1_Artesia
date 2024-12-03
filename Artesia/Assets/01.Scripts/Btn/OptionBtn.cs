@@ -8,31 +8,36 @@ public class OptionBtn : MonoBehaviour
     public GameObject optionCanvas;
     public GameObject escapeBtn;
 
-    public void onMainBtn(){
+    public void onMainBtn()
+    {
         UIManager.instance.SetActiveUI(optionCanvas, false);
         Time.timeScale = 1f;
         SceneLoader.Instance.LoadScene("MainScene");
     }
 
-    public void onBaseCampBtn(){
+    public void onBaseCampBtn()
+    {
         UIManager.instance.SetActiveUI(optionCanvas, false);
         Time.timeScale = 1f;
         SceneLoader.Instance.LoadScene("BaseCamp");
     }
 
-    public void onBackBtn(){
+    public void onBackBtn()
+    {
         optionCanvas.SetActive(false); //OptionUI
         Time.timeScale = 1f;
     }
 
-    public void onOptionBtn(){
+    public void onOptionBtn()
+    {
         UIManager.instance.SetActiveUI(optionCanvas, true);
-        if(SceneManager.GetActiveScene().name != "BaseCamp")
+        if (SceneManager.GetActiveScene().name != "BaseCamp")
             UIManager.instance.SetActiveUI(escapeBtn, true);
         Time.timeScale = 0f;
     }
 
-    public void onEscapeBtn(){
+    public void onEscapeBtn()
+    {
         UIManager.instance.SetActiveUI(gameObject, false);
         UIManager.instance.SetActiveUI(optionCanvas, false);
         SceneLoader.Instance.LoadScene("BaseCamp");

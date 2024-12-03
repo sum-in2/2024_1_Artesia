@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     {
         get
         {
-            return Enemies; 
+            return Enemies;
         }
     }
 
@@ -42,25 +42,32 @@ public class EnemySpawner : MonoBehaviour
         AddEnemyToPool(enemyPrefab, poolSize);
     }
 
-    void Start(){
+    void Start()
+    {
         savedPlayerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
 
-    public void updatePath(Vector3 PlayerPos){
-        if(savedPlayerPos != PlayerPos){
+    public void updatePath(Vector3 PlayerPos)
+    {
+        if (savedPlayerPos != PlayerPos)
+        {
             savedPlayerPos = PlayerPos;
-            foreach(GameObject enemy in enemies){
+            foreach (GameObject enemy in enemies)
+            {
                 enemy.GetComponent<MobController>().setListPath(PlayerPos);
             }
         }
-    }   
+    }
 
-    public void updatePath(GameObject enemy, Vector3 PlayerPos){
+    public void updatePath(GameObject enemy, Vector3 PlayerPos)
+    {
         enemy.GetComponent<MobController>().setListPath(PlayerPos);
-    }   
+    }
 
-    void AddEnemyToPool(GameObject Prefab, int EnemyCnt){
-        for (int i = 0; i < EnemyCnt; i++){
+    void AddEnemyToPool(GameObject Prefab, int EnemyCnt)
+    {
+        for (int i = 0; i < EnemyCnt; i++)
+        {
             GameObject enemy = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
             enemy.SetActive(false);
             enemy.name = (Prefab.name);
@@ -69,16 +76,19 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void killEnemy(GameObject enemy){
+    public void killEnemy(GameObject enemy)
+    {
         GameObject killedObject = null;
-        foreach (var temp in enemies){
-            if(temp.name == enemy.name){
+        foreach (var temp in enemies)
+        {
+            if (temp.name == enemy.name)
+            {
                 enemy.GetComponent<MobController>().setStateToIdle();
                 enemy.SetActive(false);
                 killedObject = enemy;
             }
         }
-        if(killedObject != null)
+        if (killedObject != null)
             enemies.Remove(killedObject);
     }
 
@@ -92,15 +102,18 @@ public class EnemySpawner : MonoBehaviour
         enemies.Clear();
     }
 
-    public void ActiveFromPool(){
+    public void ActiveFromPool()
+    {
         List<Node> rooms = MapGenerator.instance.rooms;
         List<Node> SpawnedRooms = new List<Node>();
 
-        if(FirstSpawn > rooms.Count) FirstSpawn = rooms.Count;
-    
-        for(int i = 0; i < FirstSpawn;){
+        if (FirstSpawn > rooms.Count) FirstSpawn = rooms.Count;
+
+        for (int i = 0; i < FirstSpawn;)
+        {
             Node room = rooms[Random.Range(0, rooms.Count)];
-            if (!SpawnedRooms.Contains(room) && room != MapGenerator.instance.startRoom){
+            if (!SpawnedRooms.Contains(room) && room != MapGenerator.instance.startRoom)
+            {
                 SpawnEnemy(room);
                 SpawnedRooms.Add(room);
                 i++;
@@ -108,33 +121,41 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    GameObject GetPooledEnemy(){
-        for (int i = 0; i < enemyPool.Count; i++){
-            if (!enemyPool[i].activeInHierarchy){
+    GameObject GetPooledEnemy()
+    {
+        for (int i = 0; i < enemyPool.Count; i++)
+        {
+            if (!enemyPool[i].activeInHierarchy)
+            {
                 return enemyPool[i];
             }
         }
         return null;
     }
 
-    public void RandomSpawnEnemy(){
+    public void RandomSpawnEnemy()
+    {
         List<Node> rooms = MapGenerator.instance.rooms;
-        
-        int SpawnCnt = Random.Range(1, RandomSpawnNumber+1);
-        
-        for(int i = 0; i < SpawnCnt;){
+
+        int SpawnCnt = Random.Range(1, RandomSpawnNumber + 1);
+
+        for (int i = 0; i < SpawnCnt;)
+        {
             Node room = rooms[Random.Range(0, rooms.Count)];
-            if (!room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect)){
+            if (!room.IntersectsOtherObject(Camera.main.GetComponent<CameraController>().screenRect))
+            {
                 SpawnEnemy(room);
                 i++;
             }
         }
     }
 
-    void SpawnEnemy(Node room){
+    void SpawnEnemy(Node room)
+    {
         GameObject enemy = GetPooledEnemy();
 
-        if (enemy != null){
+        if (enemy != null)
+        {
             Vector2 temp1 = room.roomRect.center;
             Vector2Int temp2 = MapGenerator.instance.MapSize;
             Vector3 roomCenter = new Vector3(((int)temp1.x - temp2.x / 2), ((int)temp1.y - temp2.y / 2), 0);
@@ -149,10 +170,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void SpawnEnemy(Vector3 pos){
+    void SpawnEnemy(Vector3 pos)
+    {
         GameObject enemy = GetPooledEnemy();
 
-        if (enemy != null){
+        if (enemy != null)
+        {
             enemy.transform.position = pos;
             enemy.SetActive(true);
             enemies.Add(enemy);

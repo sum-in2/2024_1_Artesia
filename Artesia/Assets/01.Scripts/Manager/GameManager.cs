@@ -9,8 +9,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     static GameManager Instance;
-    public static GameManager instance{
-        get {
+    public static GameManager instance
+    {
+        get
+        {
             return Instance;
         }
     }
@@ -18,39 +20,40 @@ public class GameManager : MonoBehaviour
     GameObject MapObject;
 
     public string dungeonName;
-    public int stageIndex{get; private set;} = 1;
+    public int stageIndex { get; private set; } = 1;
 
-    public ItemSpawner itemSpawner; 
+    public ItemSpawner itemSpawner;
 
     Dictionary<string, int> stageMaxFloor;
 
     void Awake()
     {
-        if(Instance == null)
-            Instance = this; 
-        else if(Instance != this)
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(this.gameObject);
-
-        //DontDestroyOnLoad(gameObject);
     }
 
-    void Init(){
-        // if(savefile 유무) LoadData
+    void Init()
+    {
+        // TODO : if(savefile 유무) LoadData
         stageMaxFloor = new Dictionary<string, int>();
         MapObject = GameObject.FindGameObjectWithTag("Map");
         Player = GameObject.FindGameObjectWithTag("Player");
 
+        // TODO : 변수로 바꿔야 함
         stageMaxFloor.Add("그림자 궤도", 5);
     }
 
-    void Start(){
+    void Start()
+    {
         Init();
         NextStage();
     }
 
     public void NextStage()
     {
-        if(SceneManager.GetActiveScene().name != "BaseCamp")
+        if (SceneManager.GetActiveScene().name != "BaseCamp")
         {
             StartCoroutine(UIManager.instance.FakeLoading(1f, stageIndex, dungeonName));
             EnemySpawner.instance.EnemyListClear();
@@ -62,9 +65,9 @@ public class GameManager : MonoBehaviour
 
             Camera.main.GetComponent<CameraController>().CalculateTilemapBounds();
 
-            if(++stageIndex > stageMaxFloor[dungeonName])
+            if (++stageIndex > stageMaxFloor[dungeonName])
             {
-                // 결과창 구현 예정
+                // TODO : 결과창 구현
                 SceneLoader.Instance.LoadScene("BaseCamp");
             }
         }

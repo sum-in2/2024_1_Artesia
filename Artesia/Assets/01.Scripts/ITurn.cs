@@ -1,3 +1,4 @@
-public interface ITurn{
-    public bool PlayedTurn {get; set;}
+public interface ITurn
+{
+    public bool PlayedTurn { get; set; }
 }

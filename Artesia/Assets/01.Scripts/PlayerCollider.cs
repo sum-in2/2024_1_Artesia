@@ -7,9 +7,9 @@ public class PlayerCollider : MonoBehaviour
 {
     private bool isAttacking = false;
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Potion"))
+        if (other.CompareTag("Potion"))
         {
             gameObject.GetComponent<PlayerStat>().addHP(other.GetComponent<PotionStat>().HP);
             Destroy(other.gameObject);
